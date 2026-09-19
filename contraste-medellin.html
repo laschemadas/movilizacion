@@ -1,0 +1,284 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Contraste medellin.gov.co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@0,400;0,500;0,600;0,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#FBFAF7; --surface:#FFFFFF; --surface-2:#F1EEE6; --border:#E3DDD0;
+    --ink:#18201C; --muted:#45514B;
+    --primary:#0E5E58; --primary-strong:#0A4742; --on-primary:#FFFFFF;
+    --crit:#B3241B; --crit-tint:#F7DAD6; --crit-ink:#7A140D;
+    --warn:#8A5A00; --warn-tint:#F6E7C8; --warn-ink:#5E3D00;
+    --ok:#15602C; --ok-tint:#D8ECDD; --ok-ink:#124D24;
+    --azul:#1F4E9E;
+    --shadow:0 1px 2px rgba(24,32,28,.05),0 10px 26px -14px rgba(24,32,28,.22);
+    --shadow-lift:0 2px 4px rgba(24,32,28,.06),0 24px 46px -22px rgba(24,32,28,.34);
+    --radius:15px; --radius-sm:9px; --maxw:960px;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0E1614; --surface:#16211E; --surface-2:#1E2A27; --border:#2B3A35;
+    --ink:#ECF1EE; --muted:#AEC3B9;
+    --primary:#3CC3AD; --primary-strong:#5AD3BE; --on-primary:#0E1614;
+    --crit:#FF8B7E; --crit-tint:#3A1B18; --crit-ink:#FFB0A6;
+    --warn:#F0C05A; --warn-tint:#33280F; --warn-ink:#F3CE7E;
+    --ok:#63D082; --ok-tint:#123020; --ok-ink:#7BDD97;
+    --azul:#6FA1FF;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0E1614; --surface:#16211E; --surface-2:#1E2A27; --border:#2B3A35;
+    --ink:#ECF1EE; --muted:#AEC3B9;
+    --primary:#3CC3AD; --primary-strong:#5AD3BE; --on-primary:#0E1614;
+    --crit:#FF8B7E; --crit-tint:#3A1B18; --crit-ink:#FFB0A6;
+    --warn:#F0C05A; --warn-tint:#33280F; --warn-ink:#F3CE7E;
+    --ok:#63D082; --ok-tint:#123020; --ok-ink:#7BDD97;
+    --azul:#6FA1FF;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;line-height:1.1;text-wrap:balance;margin:0}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--primary);font-family:"IBM Plex Mono",monospace}
+  .skip{position:absolute;left:8px;top:-60px;z-index:100;background:var(--primary);color:var(--on-primary);padding:.7em 1.1em;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .18s}
+  .skip:focus{top:0}
+  .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+  /* header */
+  .masthead{border-bottom:1px solid var(--border);background:var(--surface)}
+  .mast-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:15px;line-height:1.1}
+  .brand small{display:block;font-family:"Public Sans";font-weight:500;font-size:11px;color:var(--muted)}
+  .mark{width:34px;height:34px;border-radius:9px;flex:none;background:linear-gradient(135deg,#0E5E58,#093F3B);display:grid;place-items:center;color:#fff;font-size:17px}
+  .theme-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--ink);width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:17px;display:grid;place-items:center}
+
+  .hero{padding:52px 0 34px}
+  .hero h1{font-size:clamp(32px,5.2vw,52px);letter-spacing:-.02em;margin:14px 0 0}
+  .hero .sub{font-size:clamp(17px,2vw,20px);color:var(--muted);margin:18px 0 0;max-width:62ch}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .meta .m{font-size:12.5px;font-family:"IBM Plex Mono",monospace;color:var(--ink);background:var(--surface-2);border:1px solid var(--border);padding:.5em .85em;border-radius:999px}
+  .meta .m b{color:var(--muted);font-weight:500}
+
+  section{padding:30px 0;scroll-margin-top:20px}
+  .sec-head{max-width:640px;margin-bottom:22px}
+  .sec-head h2{font-size:clamp(23px,3vw,31px);letter-spacing:-.015em;margin-top:8px}
+  .sec-head p{color:var(--muted);margin:10px 0 0}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 20px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--kc,var(--primary))}
+  .kpi .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:38px;line-height:1;color:var(--kc,var(--ink));font-variant-numeric:tabular-nums}
+  .kpi .l{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.4}
+
+  .verdict{margin-top:16px;background:var(--crit-tint);border:1px solid color-mix(in srgb,var(--crit) 40%,var(--border));border-radius:var(--radius);padding:18px 20px;display:flex;gap:13px;align-items:flex-start}
+  .verdict svg{flex:none;margin-top:2px;color:var(--crit-ink)}
+  .verdict b{color:var(--crit-ink)}
+  .verdict p{margin:0;font-size:15px;color:var(--ink)}
+
+  /* norma */
+  .norma{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--primary);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+  .norma h3{font-size:18px;margin-bottom:8px}
+  .norma p{margin:0;font-size:15px;color:var(--ink)}
+  .norma p+p{margin-top:10px;color:var(--muted);font-size:14px}
+
+  /* hallazgos */
+  .find{display:flex;flex-direction:column;gap:12px}
+  .row{display:grid;grid-template-columns:132px 1fr auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+  @media(max-width:640px){.row{grid-template-columns:1fr;gap:12px}}
+  .demo{height:66px;border-radius:var(--radius-sm);display:grid;place-items:center;font-weight:700;font-size:14px;border:1px solid var(--border);overflow:hidden;text-align:center;padding:4px}
+  .row .info h4{font-size:16.5px;margin:0}
+  .row .info p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+  .row .info code{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--surface-2);padding:.1em .45em;border-radius:5px;color:var(--ink)}
+  .score{text-align:right;min-width:96px}
+  .score .r{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;font-variant-numeric:tabular-nums;line-height:1}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;padding:.3em .6em;border-radius:6px;margin-top:6px}
+  .pill.crit{background:var(--crit-tint);color:var(--crit-ink)}
+  .pill.warn{background:var(--warn-tint);color:var(--warn-ink)}
+  .pill.ok{background:var(--ok-tint);color:var(--ok-ink)}
+  @media(max-width:640px){.score{text-align:left}}
+
+  /* correcciones */
+  .fixes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.fixes{grid-template-columns:1fr}}
+  .fix{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .fix h4{font-size:16px;margin-bottom:4px}
+  .fix .cap{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .ba{display:grid;grid-template-columns:1fr 26px 1fr;gap:8px;align-items:center}
+  .chipdemo{border-radius:var(--radius-sm);padding:12px 8px;text-align:center;font-weight:700;font-size:13.5px;border:1px solid var(--border);min-height:58px;display:grid;place-items:center}
+  .ba .arrow{display:grid;place-items:center;color:var(--muted)}
+  .ba .st{font-size:11px;font-family:"IBM Plex Mono",monospace;margin-top:6px;display:block;text-align:center}
+  .st.bad{color:var(--crit-ink)} .st.good{color:var(--ok-ink)}
+  .hexrow{margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}
+  .hexrow b{color:var(--ink);font-weight:600}
+
+  /* metodo */
+  .metodo{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px}
+  .metodo h3{font-size:17px;margin-bottom:10px}
+  .metodo ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+  .metodo li{font-size:14px;color:var(--ink)}
+  .metodo li::marker{color:var(--primary)}
+  .metodo .lim{margin-top:14px;font-size:13px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--border);margin-top:34px;padding:30px 0 46px;color:var(--muted);font-size:13px}
+  footer .disc{max-width:70ch;line-height:1.55;margin-top:10px}
+
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media (forced-colors: active){.kpi,.row,.fix,.norma,.metodo,.chipdemo,.demo{border:1px solid CanvasText}}
+</style>
+
+<a href="#contenido" class="skip">Saltar al contenido principal</a>
+<header class="masthead">
+  <div class="wrap mast-in">
+    <div class="brand"><span class="mark" aria-hidden="true">◇</span><span>Diagnóstico de accesibilidad<small>Secretaría de Comunicaciones · Distrito CTI de Medellín</small></span></div>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false">◐</button>
+  </div>
+</header>
+
+<main id="contenido">
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Informe de contraste de color · WCAG 2.1</span>
+      <h1>Accesibilidad de contraste en el portal medellin.gov.co</h1>
+      <p class="sub">Diagnóstico medido del contraste de color de la página de inicio del portal institucional. El contraste es el único criterio de accesibilidad que se calcula con exactitud — y el que más barreras crea cuando falla, sobre todo para personas con baja visión o daltonismo.</p>
+      <div class="meta">
+        <span class="m"><b>Sitio:</b> www.medellin.gov.co</span>
+        <span class="m"><b>Alcance:</b> página de inicio</span>
+        <span class="m"><b>Estándar:</b> WCAG 2.1 (AA obligatorio · AAA meta)</span>
+        <span class="m"><b>Método:</b> colores computados en vivo</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="resumen-h">
+      <div class="sec-head"><span class="eyebrow">Resumen ejecutivo</span><h2 id="resumen-h">Qué encontramos</h2></div>
+      <div class="kpis">
+        <div class="kpi" style="--kc:var(--ink)"><div class="n">11</div><div class="l">combinaciones de color/fondo evaluadas en el texto visible</div></div>
+        <div class="kpi" style="--kc:var(--crit-ink)"><div class="n">7</div><div class="l">no alcanzan el nivel AAA (7:1)</div></div>
+        <div class="kpi" style="--kc:var(--crit-ink)"><div class="n">4</div><div class="l">críticas: fallan incluso el mínimo legal AA</div></div>
+        <div class="kpi" style="--kc:var(--ok)"><div class="n">36%</div><div class="l">de las combinaciones cumple AAA hoy</div></div>
+      </div>
+      <div class="verdict">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <p><b>Hallazgo principal:</b> el cuerpo de texto (negro sobre blanco) es impecable, pero los <b>acentos de color</b> —enlaces celestes, botones y etiquetas en azul, teal y naranja— no alcanzan el contraste mínimo. Cuatro combinaciones están por debajo de 2.6:1, cerca del límite de lo ilegible para muchas personas. Son correcciones de color acotadas, no un rediseño.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="norma-h">
+      <div class="sec-head"><span class="eyebrow">Marco normativo</span><h2 id="norma-h">No es solo buena práctica: es obligación</h2></div>
+      <div class="norma">
+        <h3>Resolución 1519 de 2020 (MinTIC)</h3>
+        <p>El Anexo 1 de la Resolución 1519 de 2020 del MinTIC —Directrices de Accesibilidad Web— adopta las pautas <b>WCAG 2.1</b> como estándar obligatorio para los sitios web y aplicaciones de las entidades del Estado colombiano, con nivel de conformidad <b>AA</b> como mínimo exigible.</p>
+        <p>Para servicios esenciales de gobierno, la buena práctica internacional apunta al nivel <b>AAA</b>. Este informe mide contra AAA (7:1) y marca aparte las que ni siquiera llegan al AA obligatorio (4.5:1): esas son incumplimiento normativo, no solo margen de mejora.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="hall-h">
+      <div class="sec-head"><span class="eyebrow">Hallazgos</span><h2 id="hall-h">Combinaciones que no cumplen</h2><p>Ordenadas de más a menos grave. La muestra reproduce el color real medido en el portal.</p></div>
+      <div class="find" id="findList"></div>
+    </section>
+
+    <section aria-labelledby="fix-h">
+      <div class="sec-head"><span class="eyebrow">Correcciones propuestas</span><h2 id="fix-h">Cómo resolverlo sin perder la marca</h2><p>El color de marca no se abandona: se ajusta su tono para el texto y los rellenos con letra, dejando el vibrante para elementos grandes o decorativos. Cada propuesta ya está verificada.</p></div>
+      <div class="fixes" id="fixList"></div>
+    </section>
+
+    <section aria-labelledby="met-h">
+      <div class="sec-head"><span class="eyebrow">Metodología y alcance</span><h2 id="met-h">Cómo se hizo y qué no cubre</h2></div>
+      <div class="metodo">
+        <h3>Cómo se midió</h3>
+        <ul>
+          <li>Se recorrió el texto visible de la página de inicio y se extrajeron los <b>colores computados reales</b> (los que el navegador pinta), resolviendo transparencias y fondos heredados.</li>
+          <li>Se agruparon las combinaciones color/fondo y se calculó la <b>razón de contraste WCAG 2.1</b> de cada una.</li>
+          <li>Umbrales: AAA = 7:1 (texto normal) y 4.5:1 (texto grande); AA = 4.5:1 y 3:1. Las correcciones se recalcularon hasta verificar su cumplimiento.</li>
+        </ul>
+        <p class="lim"><b>Alcance y límites (honestidad metodológica):</b> este es un diagnóstico de <b>contraste de color</b> sobre <b>una página</b>, en un momento dado. No cubre estados hover/foco, menús desplegados, vistas tras inicio de sesión ni otras páginas, y no reemplaza una auditoría WCAG completa —que además evalúa navegación por teclado, lectores de pantalla, texto alternativo, formularios y estructura— idealmente con pruebas con personas usuarias. Es el primer paso, medible y accionable, no el veredicto final.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="display:flex;align-items:center;gap:10px"><span class="mark" aria-hidden="true">◇</span><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px">Diagnóstico de accesibilidad</span></div>
+    <p class="disc">Elaborado por la Secretaría de Comunicaciones del Distrito de Ciencia, Tecnología e Innovación de Medellín como insumo técnico para el equipo web. Los valores de contraste son reproducibles con cualquier verificador WCAG 2.1. Diagnóstico de contraste de color; no constituye una auditoría de accesibilidad integral.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement, tb=document.getElementById("themeBtn");
+  if(!root.getAttribute("lang")) root.setAttribute("lang","es");
+  function stored(){try{return localStorage.getItem("ia-theme")}catch(e){return null}}
+  var s=stored(); if(s) root.setAttribute("data-theme",s);
+  function sync(){var c=root.getAttribute("data-theme");var d=c?c==="dark":matchMedia("(prefers-color-scheme:dark)").matches;tb.setAttribute("aria-pressed",d?"true":"false");tb.setAttribute("aria-label",d?"Activar modo claro":"Activar modo oscuro");return d;}
+  tb.addEventListener("click",function(){var d=sync();root.setAttribute("data-theme",d?"light":"dark");try{localStorage.setItem("ia-theme",d?"light":"dark")}catch(e){}sync();});
+  sync();
+
+  // Hallazgos (color real medido)
+  var find=[
+    {fg:"#FFFFFF",bg:"#4DBCC5",r:"2.25",lvl:"crit",label:"Texto blanco sobre teal claro",use:"Botones y etiquetas en teal claro.",code:"#FFFFFF sobre #4DBCC5"},
+    {fg:"#00AEEF",bg:"#FFFFFF",r:"2.53",lvl:"crit",label:"Enlace celeste sobre blanco",use:"Enlaces e íconos celestes sobre fondo blanco.",code:"#00AEEF sobre #FFFFFF"},
+    {fg:"#FFFFFF",bg:"#00AEEF",r:"2.53",lvl:"crit",label:"Texto blanco sobre celeste",use:"Botones y barras celestes con texto blanco.",code:"#FFFFFF sobre #00AEEF"},
+    {fg:"#FFFFFF",bg:"#FF8803",r:"2.39",lvl:"crit",label:"Texto blanco sobre naranja",use:"Botones y destacados naranja.",code:"#FFFFFF sobre #FF8803"},
+    {fg:"#007BFF",bg:"#FFFFFF",r:"3.98",lvl:"warn",label:"Enlace azul brillante sobre blanco",use:"Enlaces azules en cuerpo de texto.",code:"#007BFF sobre #FFFFFF"},
+    {fg:"#FFFFFF",bg:"#3366CC",r:"5.37",lvl:"warn",label:"Texto blanco sobre azul institucional",use:"Encabezados y botones en azul de marca.",code:"#FFFFFF sobre #3366CC"},
+    {fg:"#3366CC",bg:"#FFFFFF",r:"5.37",lvl:"warn",label:"Enlace azul institucional sobre blanco",use:"Enlaces en azul de marca.",code:"#3366CC sobre #FFFFFF"}
+  ];
+  var pillTxt={crit:"Crítico · falla AA",warn:"Falla AAA"};
+  var fl=document.getElementById("findList");
+  find.forEach(function(x){
+    var d=document.createElement("div"); d.className="row";
+    d.innerHTML=
+      '<div class="demo" style="background:'+x.bg+';color:'+x.fg+'" aria-hidden="true">Texto de ejemplo</div>'+
+      '<div class="info"><h4>'+x.label+'</h4><p><code>'+x.code+'</code> · '+x.use+'</p></div>'+
+      '<div class="score"><div class="r">'+x.r+':1</div><span class="pill '+x.lvl+'">'+pillTxt[x.lvl]+'</span></div>';
+    fl.appendChild(d);
+  });
+
+  // Correcciones
+  var fixes=[
+    {t:"Enlaces celestes",cap:"El celeste no da contraste como texto. Oscurece el tono para los enlaces.",
+     bfg:"#00AEEF",bbg:"#FFFFFF",bst:"2.53:1",afg:"#0C5372",abg:"#FFFFFF",ast:"8.41:1",
+     hex:[["Actual","#00AEEF"],["Propuesto","#0C5372"]]},
+    {t:"Enlaces azul brillante",cap:"Azul #007BFF como enlace en texto: baja el contraste.",
+     bfg:"#007BFF",bbg:"#FFFFFF",bst:"3.98:1",afg:"#0B54B5",abg:"#FFFFFF",ast:"7.12:1",
+     hex:[["Actual","#007BFF"],["Propuesto","#0B54B5"]]},
+    {t:"Azul institucional con texto blanco",cap:"Oscurece el azul de marca para botones y encabezados.",
+     bfg:"#FFFFFF",bbg:"#3366CC",bst:"5.37:1",afg:"#FFFFFF",abg:"#1F4E9E",ast:"7.95:1",
+     hex:[["Actual","#3366CC"],["Propuesto","#1F4E9E"]]},
+    {t:"Botones celestes",cap:"Para relleno celeste con texto blanco, usa el mismo azul oscurecido.",
+     bfg:"#FFFFFF",bbg:"#00AEEF",bst:"2.53:1",afg:"#FFFFFF",abg:"#0C5372",ast:"8.41:1",
+     hex:[["Actual","#00AEEF"],["Propuesto","#0C5372"]]},
+    {t:"Botones naranja",cap:"El naranja de marca se conserva: cambia el texto a oscuro, no blanco.",
+     bfg:"#FFFFFF",bbg:"#FF8803",bst:"2.39:1",afg:"#2A1A00",abg:"#FF8803",ast:"7.04:1",
+     hex:[["Naranja","#FF8803"],["Texto","#2A1A00"]]},
+    {t:"Rellenos teal claro",cap:"Sobre el teal, texto oscuro en vez de blanco (o oscurece el teal).",
+     bfg:"#FFFFFF",bbg:"#4DBCC5",bst:"2.25:1",afg:"#0F2A44",abg:"#4DBCC5",ast:"6.49:1",
+     hex:[["Teal","#4DBCC5"],["Texto","#0F2A44"]]}
+  ];
+  var xl=document.getElementById("fixList");
+  var arrow='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  fixes.forEach(function(x){
+    var d=document.createElement("div"); d.className="fix";
+    var hex=x.hex.map(function(h){return '<span><b>'+h[0]+':</b> '+h[1]+'</span>';}).join("");
+    d.innerHTML=
+      '<h4>'+x.t+'</h4><p class="cap">'+x.cap+'</p>'+
+      '<div class="ba">'+
+        '<div><div class="chipdemo" style="background:'+x.bbg+';color:'+x.bfg+'" aria-hidden="true">Aa</div><span class="st bad">Hoy · '+x.bst+'</span></div>'+
+        '<div class="arrow">'+arrow+'</div>'+
+        '<div><div class="chipdemo" style="background:'+x.abg+';color:'+x.afg+'" aria-hidden="true">Aa</div><span class="st good">Propuesto · '+x.ast+'</span></div>'+
+      '</div>'+
+      '<div class="hexrow">'+hex+'</div>';
+    xl.appendChild(d);
+  });
+})();
+</script>
+
+</body></html>

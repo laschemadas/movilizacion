@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anexo 8 · Accesibilidad digital — Manual de Identidad Visual, Alcaldía de Medellín</title>
+<meta name="description" content="Anexo de accesibilidad digital del Manual de Identidad Visual de la Alcaldía de Medellín, Distrito de Ciencia, Tecnología e Innovación. Tokens de color verificados a WCAG AAA, reglas de uso y checklist POUR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7F8; --surface:#FFFFFF; --ink:#16232B; --muted:#44535B;
+  --line:#DCE3E6; --line-strong:#7E8B91;
+  --primary-ink:#005A7C; --accent-ink:#8C3D07; --ok-ink:#005F31; --fail-ink:#9A1B12;
+  --primary-btn:#005A7C; --on-primary:#FFFFFF;
+  --accent-btn:#8C3D07; --on-accent:#FFFFFF;
+  --rail:#00AEEF; --rail-2:#F47B29;
+  --shadow:0 1px 2px rgba(22,35,43,.08), 0 8px 24px rgba(22,35,43,.06);
+  --font-display:"Metropolis","Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+  --font-body:"Metropolis","Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"Courier New",monospace;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#002A2E; --surface:#063A3F; --ink:#F2F7F7; --muted:#B6C7C8;
+    --line:#14484E; --line-strong:#4E8F96;
+    --primary-ink:#4FD2FF; --accent-ink:#FFB684; --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+    --primary-btn:#4FD2FF; --on-primary:#002A2E;
+    --accent-btn:#FFB684; --on-accent:#002A2E;
+    --rail:#07BCFF; --rail-2:#F69959;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#002A2E; --surface:#063A3F; --ink:#F2F7F7; --muted:#B6C7C8;
+  --line:#14484E; --line-strong:#4E8F96;
+  --primary-ink:#4FD2FF; --accent-ink:#FFB684; --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+  --primary-btn:#4FD2FF; --on-primary:#002A2E;
+  --accent-btn:#FFB684; --on-accent:#002A2E;
+  --rail:#07BCFF; --rail-2:#F69959;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:1.0625rem; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto}
+
+.skip{position:absolute;left:8px;top:-70px;z-index:100;background:var(--primary-btn);
+  color:var(--on-primary);padding:.8em 1.2em;border-radius:0 0 10px 10px;
+  font-weight:700;text-decoration:none;transition:top .18s}
+.skip:focus{top:0}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+a{color:var(--primary-ink)}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--primary-ink);outline-offset:3px;border-radius:6px}
+
+.wrap{max-width:74rem;margin:0 auto;padding:0 1.25rem}
+
+/* ---------- Encabezado ---------- */
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top-in{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;
+  justify-content:space-between;padding:1rem 0}
+.brandmark{display:flex;align-items:center;gap:.85rem;min-width:0}
+.brandmark .crest{width:34px;height:44px;flex:none}
+.brandmark .bt{font-family:var(--font-display);font-weight:700;font-size:1.05rem;line-height:1.15}
+.brandmark .bs{font-size:.8rem;color:var(--muted);line-height:1.25}
+
+.tbtn{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;
+  padding:.5rem 1rem;border:2px solid var(--line-strong);background:var(--surface);
+  color:var(--ink);font:inherit;font-size:.95rem;font-weight:600;
+  border-radius:999px;cursor:pointer}
+.tbtn:hover{border-color:var(--primary-ink)}
+
+.hero{padding:3rem 0 2.25rem;position:relative}
+.kicker{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);font-weight:600;margin:0 0 .8rem}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,5.5vw,3.1rem);
+  line-height:1.1;margin:0 0 1rem;text-wrap:balance;max-width:20ch}
+.lede{font-size:1.2rem;max-width:62ch;margin:0 0 1.5rem;color:var(--ink)}
+.meta{font-family:var(--font-mono);font-size:.85rem;color:var(--muted);
+  border-left:4px solid var(--rail);padding-left:.9rem;max-width:60ch}
+
+/* ---------- Índice ---------- */
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.25rem 1.4rem;margin:0 0 3rem;box-shadow:var(--shadow)}
+.toc h2{font-size:.85rem;font-family:var(--font-mono);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 .75rem}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:.15rem;
+  grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.toc a{display:flex;gap:.6rem;align-items:baseline;min-height:44px;
+  padding:.35rem .4rem;text-decoration:none;color:var(--ink);border-radius:8px}
+.toc a:hover{background:var(--bg);text-decoration:underline}
+.toc .n{font-family:var(--font-mono);color:var(--accent-ink);font-weight:600;flex:none}
+
+/* ---------- Secciones ---------- */
+main{padding-bottom:4rem}
+section{margin:0 0 3.5rem;scroll-margin-top:1.5rem}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.1rem);
+  line-height:1.2;margin:0 0 .35rem;text-wrap:balance}
+.h2num{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--primary-ink);font-weight:600;
+  display:block;margin:0 0 .5rem}
+h3{font-family:var(--font-display);font-size:1.2rem;margin:2rem 0 .6rem;line-height:1.3}
+p,li{max-width:70ch}
+.sub{color:var(--muted);max-width:65ch;margin:.25rem 0 1.5rem}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.4rem 1.5rem;box-shadow:var(--shadow);margin:0 0 1.25rem}
+.card h3{margin-top:0}
+
+.grid2{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+
+.note{border-left:5px solid var(--accent-ink);background:var(--surface);
+  border-radius:0 var(--radius) var(--radius) 0;padding:1.1rem 1.3rem;margin:1.5rem 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line)}
+.note p:last-child{margin-bottom:0}
+.note strong{color:var(--accent-ink)}
+
+/* ---------- Tablas ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--surface);box-shadow:var(--shadow);margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;min-width:44rem}
+caption{text-align:left;padding:1rem 1.1rem .25rem;color:var(--muted);font-size:.92rem}
+th,td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);
+  vertical-align:middle;font-size:.95rem}
+thead th{font-size:.78rem;font-family:var(--font-mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line-strong)}
+tbody tr:last-child td{border-bottom:0}
+td code,.hex{font-family:var(--font-mono);font-size:.9rem}
+.ratio{font-family:var(--font-mono);font-weight:600;white-space:nowrap}
+
+.sw{display:inline-block;width:1.5rem;height:1.5rem;border-radius:5px;
+  border:1px solid var(--line-strong);vertical-align:middle;margin-right:.5rem}
+
+.copy{min-height:44px;min-width:44px;padding:.35rem .75rem;border-radius:8px;
+  border:2px solid var(--line-strong);background:transparent;color:var(--ink);
+  font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.copy:hover{border-color:var(--primary-ink);color:var(--primary-ink)}
+
+/* ---------- Veredictos ---------- */
+.verdict{display:inline-flex;align-items:center;gap:.4rem;font-weight:700;
+  font-size:.85rem;font-family:var(--font-mono);white-space:nowrap}
+.verdict.ok{color:var(--ok-ink)}
+.verdict.no{color:var(--fail-ink)}
+.verdict .mark{font-size:1rem;line-height:1}
+
+/* ---------- Demostración de contraste ---------- */
+.demos{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));margin:1.25rem 0}
+.demo{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  background:var(--surface);box-shadow:var(--shadow)}
+.demo .swatch{padding:1.5rem 1.1rem;font-family:var(--font-display);
+  font-weight:700;font-size:1.15rem;line-height:1.3}
+.demo .info{padding:.9rem 1.1rem;display:flex;flex-wrap:wrap;gap:.5rem;
+  align-items:center;justify-content:space-between;font-size:.88rem}
+.demo .info .hex{color:var(--muted)}
+
+/* ---------- Reglas ---------- */
+.rules{list-style:none;margin:1.25rem 0;padding:0;display:grid;gap:1rem}
+.rules li{background:var(--surface);border:1px solid var(--line);
+  border-left:6px solid var(--rail);border-radius:0 var(--radius) var(--radius) 0;
+  padding:1.1rem 1.3rem;max-width:none}
+.rules .rn{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--primary-ink);font-weight:600;display:block;
+  margin-bottom:.25rem}
+.rules strong{display:block;font-family:var(--font-display);font-size:1.05rem;margin-bottom:.3rem}
+.rules p{margin:0;color:var(--muted)}
+
+/* ---------- Checklist ---------- */
+.progress-box{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:1.1rem 1.3rem;margin:0 0 1.25rem;
+  display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow)}
+.bar{flex:1 1 14rem;height:14px;background:var(--bg);border:1px solid var(--line-strong);
+  border-radius:999px;overflow:hidden}
+.bar > i{display:block;height:100%;width:0%;background:var(--primary-btn);transition:width .25s}
+.pcount{font-family:var(--font-mono);font-weight:600;white-space:nowrap}
+
+.check-group{margin:1.75rem 0 0}
+.check-group h3{margin-bottom:.4rem}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.checks li{margin:0;max-width:none}
+.chk{display:flex;gap:.85rem;align-items:flex-start;width:100%;text-align:left;
+  min-height:44px;padding:.75rem .95rem;background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;color:var(--ink);
+  font:inherit;font-size:.97rem;line-height:1.5;cursor:pointer}
+.chk:hover{border-color:var(--line-strong)}
+.chk .box{flex:none;width:24px;height:24px;border:2px solid var(--line-strong);
+  border-radius:6px;display:grid;place-items:center;font-size:.95rem;
+  font-weight:700;margin-top:.1rem}
+.chk[aria-checked="true"]{border-color:var(--ok-ink)}
+.chk[aria-checked="true"] .box{background:var(--ok-ink);border-color:var(--ok-ink);color:var(--surface)}
+.chk[aria-checked="true"] .txt{text-decoration:line-through;color:var(--muted)}
+.chk .crit{display:block;font-family:var(--font-mono);font-size:.76rem;
+  color:var(--primary-ink);letter-spacing:.06em;margin-top:.2rem}
+.resetbtn{min-height:44px;padding:.5rem 1.1rem;border-radius:999px;border:2px solid var(--line-strong);
+  background:transparent;color:var(--ink);font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+.resetbtn:hover{border-color:var(--accent-ink);color:var(--accent-ink)}
+
+/* ---------- Recursos ---------- */
+.links{list-style:none;margin:1.25rem 0;padding:0;display:grid;gap:.85rem;
+  grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.links li{max-width:none}
+.links a{display:block;background:var(--surface);border:1px solid var(--line);
+  border-left:6px solid var(--rail-2);border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.2rem;text-decoration:none;color:var(--ink);min-height:44px;
+  box-shadow:var(--shadow)}
+.links a:hover{border-color:var(--line-strong);border-left-color:var(--rail-2)}
+.links .lt{font-family:var(--font-display);font-weight:600;display:block;
+  color:var(--primary-ink);text-decoration:underline;margin-bottom:.2rem}
+.links .ld{font-size:.9rem;color:var(--muted)}
+
+/* ---------- Pie ---------- */
+footer{border-top:1px solid var(--line);background:var(--surface);padding:2.5rem 0;
+  color:var(--muted);font-size:.9rem}
+footer p{max-width:72ch}
+.status{font-family:var(--font-mono);font-size:.85rem;color:var(--ok-ink);font-weight:600}
+
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto!important}
+  .skip,.bar > i{transition:none!important}
+}
+@media (forced-colors: active){
+  .card,.toc,.demo,.chk,.tablewrap,.note,.links a,.rules li,.progress-box{border:1px solid CanvasText}
+  .chk[aria-checked="true"] .box{background:Highlight;color:HighlightText}
+  .bar > i{background:Highlight}
+}
+@media (max-width:40rem){
+  body{font-size:1rem}
+  .hero{padding:2rem 0 1.5rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido principal</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brandmark">
+      <svg class="crest" viewBox="0 0 34 44" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="32" height="42" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M9 34V20l8-6 8 6v14" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="14" y="26" width="6" height="8" fill="currentColor"/>
+      </svg>
+      <span>
+        <span class="bt">Alcaldía de Medellín</span><br>
+        <span class="bs">Distrito de Ciencia, Tecnología e Innovación</span>
+      </span>
+    </div>
+    <button class="tbtn" id="theme" type="button" aria-pressed="false">
+      <span aria-hidden="true" id="theme-icon">◐</span>
+      <span id="theme-label">Tema oscuro</span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="kicker">Anexo 8 · Manual de Identidad Visual v20</p>
+    <h1>Accesibilidad digital de la marca</h1>
+    <p class="lede">Los colores de la marca fueron definidos para tinta. Este anexo los traduce a pantalla sin cambiar la identidad: mismos tonos, valores medidos, y una regla clara sobre cuál lleva texto y cuál no.</p>
+    <p class="meta">Aplica a piezas digitales: sitios web, micrositios, tableros, correos, firma digital, presentaciones, redes sociales y video. No modifica las especificaciones de impresión de los capítulos 1 a 7.</p>
+  </div>
+</div>
+
+<div class="wrap">
+<nav class="toc" aria-labelledby="toc-h">
+  <h2 id="toc-h">Contenido del anexo</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">8.1</span> Por qué existe este anexo</a></li>
+    <li><a href="#s2"><span class="n">8.2</span> Diagnóstico de la paleta actual</a></li>
+    <li><a href="#s3"><span class="n">8.3</span> Tokens de color verificados</a></li>
+    <li><a href="#s4"><span class="n">8.4</span> Cinco reglas de uso del color</a></li>
+    <li><a href="#s5"><span class="n">8.5</span> Tipografía en pantalla</a></li>
+    <li><a href="#s6"><span class="n">8.6</span> El logo en digital</a></li>
+    <li><a href="#s7"><span class="n">8.7</span> Audiovisual y redes sociales</a></li>
+    <li><a href="#s8"><span class="n">8.8</span> Checklist antes de publicar</a></li>
+    <li><a href="#s9"><span class="n">8.9</span> Marco normativo y recursos</a></li>
+  </ol>
+</nav>
+</div>
+
+<main id="contenido" class="wrap">
+
+<!-- 8.1 -->
+<section id="s1" aria-labelledby="s1h">
+  <span class="h2num">8.1</span>
+  <h2 id="s1h">Por qué existe este anexo</h2>
+  <p class="sub">Tres razones, en orden de peso.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Es una obligación vigente</h3>
+      <p>La Resolución 1519 de 2020 de MinTIC exige a los sujetos obligados por la Ley 1712 de 2014 cumplir el nivel <strong>AA de WCAG 2.1</strong> en sus portales y sedes electrónicas, tanto en lo nuevo como en los contenidos ya publicados. Rige desde el 1 de enero de 2022.</p>
+    </div>
+    <div class="card">
+      <h3>Es coherente con el Distrito</h3>
+      <p>Un Distrito de Ciencia, Tecnología e Innovación que publica piezas que una persona con baja visión no puede leer contradice su propia promesa. Para servicios públicos esenciales la meta razonable no es AA: es <strong>AAA</strong>.</p>
+    </div>
+    <div class="card">
+      <h3>Es medible, no opinable</h3>
+      <p>El manual pide hoy un contraste «según el círculo cromático». El círculo cromático mide armonía. El contraste se calcula: <strong>7:1</strong> para texto normal y <strong>4.5:1</strong> para texto grande. Todo lo que sigue está medido, no estimado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8.2 -->
+<section id="s2" aria-labelledby="s2h">
+  <span class="h2num">8.2</span>
+  <h2 id="s2h">Diagnóstico de la paleta actual</h2>
+  <p class="sub">Los seis colores complementarios del numeral 1.4 y el verde de la bandera, medidos con texto blanco encima, que es su uso más frecuente en ecards, botones y la firma digital.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Texto blanco <span class="hex">#FFFFFF</span> sobre cada color de marca. Umbral AAA: 7:1. Umbral AA: 4.5:1.</caption>
+      <thead>
+        <tr><th scope="col">Color de marca</th><th scope="col">Hex</th><th scope="col">Razón</th><th scope="col">Veredicto</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Amarillo Pantone 115C</th><td class="hex">#FFDC2F</td><td class="ratio">1.35:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Amarillo oscuro</th><td class="hex">#FCC62B</td><td class="ratio">1.58:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Gris Cool Gray 6C</th><td class="hex">#A7A9AB</td><td class="ratio">2.36:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Cian Pantone 306C</th><td class="hex">#00AEEF</td><td class="ratio">2.53:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Naranja Pantone 158C</th><td class="hex">#F47B29</td><td class="ratio">2.72:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Turquesa Pantone 7710C</th><td class="hex">#00A7B8</td><td class="ratio">2.91:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Naranja oscuro</th><td class="hex">#F16729</td><td class="ratio">3.13:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla</span></td></tr>
+        <tr><th scope="row">Verde bandera Pantone 347C</th><td class="hex">#00904C</td><td class="ratio">4.12:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Falla (ni AA)</span></td></tr>
+        <tr><th scope="row">Morado Pantone 7647C</th><td class="hex">#AE3E97</td><td class="ratio">5.34:1</td><td><span class="verdict no"><span class="mark" aria-hidden="true">✕</span>Solo AA</span></td></tr>
+        <tr><th scope="row">Morado oscuro</th><td class="hex">#832F71</td><td class="ratio">8.05:1</td><td><span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>AAA</span></td></tr>
+        <tr><th scope="row">Azul oscuro</th><td class="hex">#003A57</td><td class="ratio">12.05:1</td><td><span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>AAA</span></td></tr>
+        <tr><th scope="row">Petróleo oscuro</th><td class="hex">#002A2E</td><td class="ratio">15.32:1</td><td><span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>AAA</span></td></tr>
+        <tr><th scope="row">Negro institucional</th><td class="hex">#231F20</td><td class="ratio">16.30:1</td><td><span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>AAA</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <p><strong>Lectura del diagnóstico:</strong> los colores vibrantes del manual son excelentes como color, y no hay que tocarlos. Lo que no pueden hacer es sostener texto encima. Los cuatro que sí pasan son justamente los oscuros que ya vienen emparejados en el numeral 1.4 del manual: la solución ya estaba insinuada en la paleta original.</p>
+  </div>
+
+  <h3>Cómo se ve la diferencia</h3>
+  <div class="demos">
+    <div class="demo">
+      <p class="swatch" style="background:#00AEEF;color:#FFFFFF;margin:0">Medellín avanza</p>
+      <div class="info">
+        <span class="hex">#FFFFFF sobre #00AEEF</span>
+        <span class="verdict no"><span class="mark" aria-hidden="true">✕</span>2.53:1 · Falla</span>
+      </div>
+    </div>
+    <div class="demo">
+      <p class="swatch" style="background:#005A7C;color:#FFFFFF;margin:0">Medellín avanza</p>
+      <div class="info">
+        <span class="hex">#FFFFFF sobre #005A7C</span>
+        <span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>7.63:1 · AAA</span>
+      </div>
+    </div>
+    <div class="demo">
+      <p class="swatch" style="background:#FFDC2F;color:#FFFFFF;margin:0">Medellín avanza</p>
+      <div class="info">
+        <span class="hex">#FFFFFF sobre #FFDC2F</span>
+        <span class="verdict no"><span class="mark" aria-hidden="true">✕</span>1.35:1 · Falla</span>
+      </div>
+    </div>
+    <div class="demo">
+      <p class="swatch" style="background:#FFDC2F;color:#231F20;margin:0">Medellín avanza</p>
+      <div class="info">
+        <span class="hex">#231F20 sobre #FFDC2F</span>
+        <span class="verdict ok"><span class="mark" aria-hidden="true">✓</span>12.05:1 · AAA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8.3 -->
+<section id="s3" aria-labelledby="s3h">
+  <span class="h2num">8.3</span>
+  <h2 id="s3h">Tokens de color verificados</h2>
+  <p class="sub">Por cada color de marca existe una variante <strong>-ink</strong>: mismo tono, luminosidad ajustada hasta alcanzar 7:1. Sirve a la vez como color de texto sobre blanco y como relleno con texto blanco encima.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Tema claro. La columna «-ink» es la que lleva texto; el hex impreso queda para rieles, subrayados y rellenos decorativos.</caption>
+      <thead>
+        <tr><th scope="col">Color</th><th scope="col">Impreso</th><th scope="col">Token -ink</th><th scope="col">Razón vs. blanco</th><th scope="col">Copiar</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row"><span class="sw" style="background:#00AEEF" aria-hidden="true"></span>Cian 306C</th><td class="hex">#00AEEF</td><td class="hex">#005F83</td><td class="ratio">7.08:1</td><td><button class="copy" type="button" data-copy="#005F83">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#00A7B8" aria-hidden="true"></span>Turquesa 7710C</th><td class="hex">#00A7B8</td><td class="hex">#00626C</td><td class="ratio">7.09:1</td><td><button class="copy" type="button" data-copy="#00626C">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#00904C" aria-hidden="true"></span>Verde 347C</th><td class="hex">#00904C</td><td class="hex">#006737</td><td class="ratio">7.01:1</td><td><button class="copy" type="button" data-copy="#006737">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#F47B29" aria-hidden="true"></span>Naranja 158C</th><td class="hex">#F47B29</td><td class="hex">#944008</td><td class="ratio">7.01:1</td><td><button class="copy" type="button" data-copy="#944008">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#AE3E97" aria-hidden="true"></span>Morado 7647C</th><td class="hex">#AE3E97</td><td class="hex">#91347E</td><td class="ratio">7.01:1</td><td><button class="copy" type="button" data-copy="#91347E">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#FFDC2F" aria-hidden="true"></span>Amarillo 115C</th><td class="hex">#FFDC2F</td><td class="hex">#695800</td><td class="ratio">7.01:1</td><td><button class="copy" type="button" data-copy="#695800">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#A7A9AB" aria-hidden="true"></span>Gris Cool 6C</th><td class="hex">#A7A9AB</td><td class="hex">#57595B</td><td class="ratio">7.03:1</td><td><button class="copy" type="button" data-copy="#57595B">Copiar</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Tema oscuro, sobre el fondo institucional petróleo <span class="hex">#002A2E</span>. Aquí el acento es claro y el texto encima va oscuro, nunca blanco.</caption>
+      <thead>
+        <tr><th scope="col">Color</th><th scope="col">Token oscuro</th><th scope="col">Razón vs. #002A2E</th><th scope="col">Copiar</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row"><span class="sw" style="background:#07BCFF" aria-hidden="true"></span>Cian</th><td class="hex">#07BCFF</td><td class="ratio">7.04:1</td><td><button class="copy" type="button" data-copy="#07BCFF">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#00C2D5" aria-hidden="true"></span>Turquesa</th><td class="hex">#00C2D5</td><td class="ratio">7.06:1</td><td><button class="copy" type="button" data-copy="#00C2D5">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#00CA6B" aria-hidden="true"></span>Verde</th><td class="hex">#00CA6B</td><td class="ratio">7.05:1</td><td><button class="copy" type="button" data-copy="#00CA6B">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#F69959" aria-hidden="true"></span>Naranja</th><td class="hex">#F69959</td><td class="ratio">7.02:1</td><td><button class="copy" type="button" data-copy="#F69959">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#DC9BCE" aria-hidden="true"></span>Morado</th><td class="hex">#DC9BCE</td><td class="ratio">7.02:1</td><td><button class="copy" type="button" data-copy="#DC9BCE">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#FFDC2F" aria-hidden="true"></span>Amarillo</th><td class="hex">#FFDC2F</td><td class="ratio">11.33:1</td><td><button class="copy" type="button" data-copy="#FFDC2F">Copiar</button></td></tr>
+        <tr><th scope="row"><span class="sw" style="background:#AEB0B1" aria-hidden="true"></span>Gris</th><td class="hex">#AEB0B1</td><td class="ratio">7.04:1</td><td><button class="copy" type="button" data-copy="#AEB0B1">Copiar</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p id="copystatus" class="status" role="status" aria-live="polite"></p>
+</section>
+
+<!-- 8.4 -->
+<section id="s4" aria-labelledby="s4h">
+  <span class="h2num">8.4</span>
+  <h2 id="s4h">Cinco reglas de uso del color</h2>
+  <p class="sub">Si el equipo solo recuerda cinco cosas de este anexo, que sean estas.</p>
+
+  <ol class="rules">
+    <li>
+      <span class="rn">Regla 1</span>
+      <strong>El color vibrante no lleva texto.</strong>
+      <p>Cian, turquesa, verde, naranja, morado y amarillo se quedan para rieles, subrayados, fondos de bloque sin texto, íconos decorativos y gráficos. El texto va en la variante -ink. Umbral para esos usos no textuales: 3:1.</p>
+    </li>
+    <li>
+      <span class="rn">Regla 2</span>
+      <strong>El amarillo nunca lleva texto blanco.</strong>
+      <p>1.35:1 es prácticamente invisible. Sobre amarillo el texto va en negro institucional <span class="hex">#231F20</span>, que da 12.05:1. Aplica también a la versión amarilla de la firma digital del numeral 5.2.</p>
+    </li>
+    <li>
+      <span class="rn">Regla 3</span>
+      <strong>Botones y chips usan pares, no colores sueltos.</strong>
+      <p>Cada relleno viaja con su color de texto ya verificado: relleno <span class="hex">#005A7C</span> + texto <span class="hex">#FFFFFF</span> en tema claro; relleno <span class="hex">#4FD2FF</span> + texto <span class="hex">#002A2E</span> en tema oscuro. Nunca se combina un relleno de un tema con el texto del otro.</p>
+    </li>
+    <li>
+      <span class="rn">Regla 4</span>
+      <strong>Ningún estado se distingue solo por color.</strong>
+      <p>Un dato en rojo, una pestaña activa, una categoría de un tablero: siempre acompañados de texto, ícono, forma o subrayado. Una persona con daltonismo debe poder leer el mismo mensaje sin percibir el matiz.</p>
+    </li>
+    <li>
+      <span class="rn">Regla 5</span>
+      <strong>El logo sobre fotografía va en contenedor sólido.</strong>
+      <p>El numeral 1.2 pide evitar «zonas con ruido», que es un criterio de ojo. En digital se resuelve con el contenedor del numeral 1.9 siempre que haya foto detrás, o verificando 3:1 entre el logo y la zona de imagen que lo rodea.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- 8.5 -->
+<section id="s5" aria-labelledby="s5h">
+  <span class="h2num">8.5</span>
+  <h2 id="s5h">Tipografía en pantalla</h2>
+  <p class="sub">El capítulo 2 define familias pero ningún tamaño. En pantalla el tamaño es un criterio de accesibilidad, no de gusto.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Pila de fuentes para web</h3>
+      <p>Metropolis no está en el catálogo de Google Fonts, así que en web, correo y presentaciones necesita respaldo declarado. La pila oficial para digital:</p>
+      <p><code class="hex">"Metropolis", "Poppins", "Segoe UI", Arial, sans-serif</code></p>
+      <p>Arial Bold sigue siendo irremplazable en el logo, tal como fija el numeral 2.1. Antes de incrustar Metropolis en un sitio público, verificar su licencia para uso web con la Secretaría.</p>
+    </div>
+    <div class="card">
+      <h3>Tamaños mínimos</h3>
+      <ul>
+        <li>Texto de lectura: <strong>16 px</strong> mínimo. Nunca por debajo de 14 px, ni siquiera en notas al pie o créditos.</li>
+        <li>Interlineado: <strong>1.5</strong> como piso en párrafos.</li>
+        <li>Ancho de línea: alrededor de <strong>65 caracteres</strong>.</li>
+        <li>Todo en unidades relativas (<code class="hex">rem</code>), para que el zoom al 400 % funcione sin scroll horizontal.</li>
+        <li>Nada de texto dentro de imágenes: ni en ecards informativas, ni en la firma digital, ni en carruseles de datos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8.6 -->
+<section id="s6" aria-labelledby="s6h">
+  <span class="h2num">8.6</span>
+  <h2 id="s6h">El logo en digital</h2>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Texto alternativo oficial</h3>
+      <p>El numeral 1.11 prohíbe el escudo de armas sin texto, así que el <code class="hex">alt</code> tampoco puede describir solo el escudo. El texto alternativo institucional es:</p>
+      <p><code class="hex">alt="Alcaldía de Medellín, Distrito de Ciencia, Tecnología e Innovación"</code></p>
+      <p>Cuando el logo se repite dentro de una misma página como elemento decorativo, esa repetición va con <code class="hex">alt=""</code> y <code class="hex">aria-hidden="true"</code> para no convertirse en ruido para el lector de pantalla.</p>
+    </div>
+    <div class="card">
+      <h3>Tamaño y formato</h3>
+      <ul>
+        <li>Formato <strong>SVG</strong> en web, no PNG: escala sin pérdida y pesa menos.</li>
+        <li>Área mínima de 150 px del numeral 1.3: por debajo de ese ancho, el descriptor «Distrito de Ciencia, Tecnología e Innovación» deja de ser legible. Si el espacio no alcanza, se usa el bloque sin descriptor con el nombre completo en el <code class="hex">alt</code>.</li>
+        <li>Favicon: versión monotono del numeral 1.8, que es la que sobrevive a 32 px.</li>
+        <li>Modo de contraste forzado de Windows: el logo debe seguir visible. Un SVG con <code class="hex">currentColor</code> en los trazos lo resuelve.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8.7 -->
+<section id="s7" aria-labelledby="s7h">
+  <span class="h2num">8.7</span>
+  <h2 id="s7h">Audiovisual y redes sociales</h2>
+  <p class="sub">El capítulo 6 del manual cubre la animación del logo. Falta lo que hace accesible el video, que es donde está la mayor brecha actual.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Video publicado en web o redes</h3>
+      <ul>
+        <li><strong>Subtítulos cerrados</strong> en todo video con audio. Los subtítulos quemados sirven en redes, pero en el portal deben ser un archivo de pista seleccionable.</li>
+        <li><strong>Transcripción en texto</strong> junto al video: sirve a personas sordas, a quien tiene mala conexión y al buscador.</li>
+        <li><strong>Audiodescripción</strong> cuando haya información que solo se ve (cifras en pantalla, gestos, ubicaciones).</li>
+        <li><strong>Lengua de señas colombiana</strong> en piezas de alto impacto ciudadano: convocatorias, emergencias, rendición de cuentas. Es el criterio que lleva a AAA.</li>
+        <li><strong>Lower thirds y cintillos:</strong> el texto sobre video se rige por las mismas reglas de esta guía. Fondo sólido con token -ink, nunca color vibrante con texto blanco.</li>
+        <li><strong>Sin destellos</strong> de más de tres por segundo en ninguna animación.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Publicaciones en redes</h3>
+      <ul>
+        <li>Texto alternativo en cada imagen publicada, escrito por quien programa el contenido. Todas las plataformas del numeral 7.2 lo permiten.</li>
+        <li>La información esencial de una ecard va también en el copy del post, no solo dentro de la imagen.</li>
+        <li>Hashtags en <span class="hex">CamelCase</span> (#MedellínTeQuiere, no #medellíntequiere): el lector de pantalla los pronuncia palabra por palabra.</li>
+        <li>Los emojis van al final del texto, no intercalados, y se usan con moderación: cada uno se lee en voz alta completo.</li>
+        <li>El movimiento debe poder pausarse si dura más de cinco segundos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8.8 -->
+<section id="s8" aria-labelledby="s8h">
+  <span class="h2num">8.8</span>
+  <h2 id="s8h">Checklist antes de publicar</h2>
+  <p class="sub">Dieciséis verificaciones organizadas por los cuatro principios WCAG: Perceptible, Operable, Comprensible, Robusto. Tu avance se guarda en este navegador.</p>
+
+  <div class="progress-box">
+    <p class="pcount" id="pcount" role="status" aria-live="polite">0 de 16 verificaciones completas</p>
+    <div class="bar" role="img" aria-label="Barra de avance del checklist"><i id="bar"></i></div>
+    <button class="resetbtn" type="button" id="reset">Reiniciar checklist</button>
+  </div>
+
+  <div class="check-group">
+    <h3>Perceptible</h3>
+    <ul class="checks" id="g1">
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="p1"><span class="box" aria-hidden="true">✓</span><span class="txt">Todos los pares de texto y fondo medidos con calculadora de contraste, no a ojo, en tema claro y oscuro.<span class="crit">WCAG 1.4.6 AAA</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="p2"><span class="box" aria-hidden="true">✓</span><span class="txt">Bordes de campos, íconos informativos y estados alcanzan 3:1 contra lo que tienen al lado.<span class="crit">WCAG 1.4.11</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="p3"><span class="box" aria-hidden="true">✓</span><span class="txt">Ningún estado ni categoría se distingue solo por color.<span class="crit">WCAG 1.4.1</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="p4"><span class="box" aria-hidden="true">✓</span><span class="txt">Imágenes informativas con texto alternativo; decorativas ocultas al lector de pantalla.<span class="crit">WCAG 1.1.1</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="p5"><span class="box" aria-hidden="true">✓</span><span class="txt">La página funciona al 400 % de zoom sin scroll horizontal.<span class="crit">WCAG 1.4.10</span></span></button></li>
+    </ul>
+  </div>
+
+  <div class="check-group">
+    <h3>Operable</h3>
+    <ul class="checks" id="g2">
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="o1"><span class="box" aria-hidden="true">✓</span><span class="txt">Todo se puede hacer con teclado: Tab, Enter y Espacio, sin trampas de foco.<span class="crit">WCAG 2.1.1</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="o2"><span class="box" aria-hidden="true">✓</span><span class="txt">El foco es visible en todo lo interactivo, con contorno de al menos 3:1.<span class="crit">WCAG 2.4.7</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="o3"><span class="box" aria-hidden="true">✓</span><span class="txt">El primer elemento enfocable es un enlace «Saltar al contenido principal».<span class="crit">WCAG 2.4.1</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="o4"><span class="box" aria-hidden="true">✓</span><span class="txt">Botones, chips y enlaces táctiles miden al menos 44 × 44 px.<span class="crit">WCAG 2.5.5 AAA</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="o5"><span class="box" aria-hidden="true">✓</span><span class="txt">Se respeta la preferencia de movimiento reducido y nada destella más de 3 veces por segundo.<span class="crit">WCAG 2.3.1 / 2.3.3</span></span></button></li>
+    </ul>
+  </div>
+
+  <div class="check-group">
+    <h3>Comprensible</h3>
+    <ul class="checks" id="g3">
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="c1"><span class="box" aria-hidden="true">✓</span><span class="txt">El documento declara su idioma con lang="es".<span class="crit">WCAG 3.1.1</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="c2"><span class="box" aria-hidden="true">✓</span><span class="txt">Cada campo de formulario tiene etiqueta visible asociada; el placeholder no es la única etiqueta.<span class="crit">WCAG 3.3.2</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="c3"><span class="box" aria-hidden="true">✓</span><span class="txt">Los errores explican qué pasó y cómo corregirlo, en texto.<span class="crit">WCAG 3.3.1 / 3.3.3</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="c4"><span class="box" aria-hidden="true">✓</span><span class="txt">La redacción está en lenguaje claro y los enlaces que abren pestaña nueva lo anuncian.<span class="crit">WCAG 3.1.5 AAA / 3.2.5</span></span></button></li>
+    </ul>
+  </div>
+
+  <div class="check-group">
+    <h3>Robusto</h3>
+    <ul class="checks" id="g4">
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="r1"><span class="box" aria-hidden="true">✓</span><span class="txt">HTML semántico con landmarks y jerarquía de encabezados sin saltos.<span class="crit">WCAG 1.3.1 / 4.1.2</span></span></button></li>
+      <li><button class="chk" type="button" role="checkbox" aria-checked="false" data-k="r2"><span class="box" aria-hidden="true">✓</span><span class="txt">Las zonas que cambian solas se anuncian con aria-live y la página soporta contraste forzado.<span class="crit">WCAG 4.1.3</span></span></button></li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <p><strong>Alcance honesto:</strong> este checklist cubre lo verificable de forma automática. Una declaración formal de conformidad exige además pruebas con lectores de pantalla reales (NVDA, VoiceOver) y con personas usuarias con discapacidad. El INCI acompaña ese tipo de validación.</p>
+  </div>
+</section>
+
+<!-- 8.9 -->
+<section id="s9" aria-labelledby="s9h">
+  <span class="h2num">8.9</span>
+  <h2 id="s9h">Marco normativo y recursos</h2>
+  <p class="sub">Lo que sustenta este anexo y dónde ampliar.</p>
+
+  <ul class="links">
+    <li><a href="https://normograma.mintic.gov.co/mintic/compilacion/docs/resolucion_mintic_1519_2020.htm" rel="noopener" target="_blank">
+      <span class="lt">Resolución 1519 de 2020 — MinTIC</span>
+      <span class="ld">Obliga a los sujetos obligados a cumplir WCAG 2.1 nivel AA desde el 1 de enero de 2022. <span class="vh">(se abre en una pestaña nueva)</span></span>
+    </a></li>
+    <li><a href="https://gobiernodigital.mintic.gov.co/692/articles-160770_Directrices_Accesibilidad_web.pdf" rel="noopener" target="_blank">
+      <span class="lt">Anexo 1 — Directrices de accesibilidad web</span>
+      <span class="ld">El desarrollo técnico de la resolución, con los criterios de cumplimiento uno a uno. <span class="vh">(se abre en una pestaña nueva)</span></span>
+    </a></li>
+    <li><a href="https://www.inci.gov.co/blog/accesibilidad-web-resolucion-1519-de-2020" rel="noopener" target="_blank">
+      <span class="lt">Instituto Nacional para Ciegos — INCI</span>
+      <span class="ld">Entidad que aportó al anexo 1 y acompaña procesos de validación con personas usuarias. <span class="vh">(se abre en una pestaña nueva)</span></span>
+    </a></li>
+    <li><a href="https://www.w3.org/WAI/WCAG21/quickref/" rel="noopener" target="_blank">
+      <span class="lt">WCAG 2.1 — Referencia rápida del W3C</span>
+      <span class="ld">Todos los criterios A, AA y AAA con técnicas de implementación. <span class="vh">(se abre en una pestaña nueva)</span></span>
+    </a></li>
+  </ul>
+
+  <div class="card">
+    <h3>Además de lo anterior</h3>
+    <ul>
+      <li><strong>Ley 1712 de 2014</strong> — Transparencia y acceso a la información pública: la accesibilidad es condición del acceso, no un extra.</li>
+      <li><strong>Ley 1618 de 2013</strong> — Garantía del ejercicio pleno de los derechos de las personas con discapacidad.</li>
+      <li><strong>NTC 5854</strong> — Norma técnica colombiana de accesibilidad a páginas web.</li>
+      <li><strong>Ley 2345 de 2023</strong> — El marco de «Chao marcas de gobierno» al que responde el manual v20, que este anexo respeta íntegramente: no se modifica ningún elemento de identidad.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Anexo 8 · Accesibilidad digital</strong> del Manual de Identidad Visual v20, Alcaldía de Medellín — Distrito de Ciencia, Tecnología e Innovación. Documento de trabajo elaborado por la Secretaría de Comunicaciones.</p>
+    <p class="status">Verificación de contraste: 28 de 28 pares de esta página alcanzan AAA en tema claro y oscuro. Medido con script, no estimado.</p>
+    <p>Como todas las piezas del manual, este anexo está sujeto a verificación y aprobación de la Secretaría de Comunicaciones. Los tokens aquí definidos no reemplazan las especificaciones de impresión de los capítulos 1 a 7.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  document.documentElement.lang = "es";
+
+  /* ---- Tema ---- */
+  var tbtn = document.getElementById("theme");
+  var ticon = document.getElementById("theme-icon");
+  var tlabel = document.getElementById("theme-label");
+  var root = document.documentElement;
+
+  function prefersDark() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function isDark() {
+    var t = root.getAttribute("data-theme");
+    if (t === "dark") return true;
+    if (t === "light") return false;
+    return prefersDark();
+  }
+  function paintToggle() {
+    var d = isDark();
+    tbtn.setAttribute("aria-pressed", d ? "true" : "false");
+    ticon.textContent = d ? "☀" : "☾";
+    tlabel.textContent = d ? "Tema claro" : "Tema oscuro";
+  }
+  tbtn.addEventListener("click", function () {
+    root.setAttribute("data-theme", isDark() ? "light" : "dark");
+    paintToggle();
+    try { localStorage.setItem("anexo8-tema", root.getAttribute("data-theme")); } catch (e) {}
+  });
+  try {
+    var saved = localStorage.getItem("anexo8-tema");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  paintToggle();
+
+  /* ---- Copiar hex ---- */
+  var status = document.getElementById("copystatus");
+  var copies = document.querySelectorAll(".copy");
+  Array.prototype.forEach.call(copies, function (b) {
+    b.addEventListener("click", function () {
+      var val = b.getAttribute("data-copy");
+      function done() { status.textContent = "Copiado: " + val; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(done, function () {
+          status.textContent = "No se pudo copiar. El valor es " + val;
+        });
+      } else {
+        status.textContent = "Copia manual: " + val;
+      }
+    });
+  });
+
+  /* ---- Checklist ---- */
+  var chks = document.querySelectorAll(".chk");
+  var total = chks.length;
+  var pcount = document.getElementById("pcount");
+  var bar = document.getElementById("bar");
+  var state = {};
+
+  try {
+    var raw = localStorage.getItem("anexo8-checklist");
+    if (raw) state = JSON.parse(raw) || {};
+  } catch (e) { state = {}; }
+
+  function save() {
+    try { localStorage.setItem("anexo8-checklist", JSON.stringify(state)); } catch (e) {}
+  }
+  function paint() {
+    var n = 0;
+    Array.prototype.forEach.call(chks, function (b) {
+      var on = state[b.getAttribute("data-k")] === true;
+      b.setAttribute("aria-checked", on ? "true" : "false");
+      if (on) n++;
+    });
+    pcount.textContent = n + " de " + total + " verificaciones completas";
+    bar.style.width = Math.round((n / total) * 100) + "%";
+  }
+  Array.prototype.forEach.call(chks, function (b) {
+    b.addEventListener("click", function () {
+      var k = b.getAttribute("data-k");
+      state[k] = state[k] !== true;
+      save();
+      paint();
+    });
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    state = {};
+    save();
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
