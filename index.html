@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Caja de herramientas · Medellín se comunica aprendiendo</title>
+<meta name="description" content="Producto mínimo viable de la Caja de herramientas para la comunicación comunitaria, alternativa, independiente y ciudadana. Secretaría de Comunicaciones · Distrito de Ciencia, Tecnología e Innovación de Medellín.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Paleta oficial Alcaldía de Medellín · Distrito CTI — Anexo 8 (v20).
+     Verificada AAA en tema claro y oscuro. Vibrantes SOLO como rieles/íconos;
+     el texto va en las variantes -ink. */
+  :root{
+    --bg:#F5F7F8; --surface:#FFFFFF; --surface-2:#ECF1F3; --border:#DCE3E6; --border-strong:#7E8B91;
+    --ink:#16232B; --muted:#44535B;
+    --primary:#00546F; --primary-strong:#003A57; --primary-tint:#DBEAF1;
+    --accent:#8C3D07; --accent-strong:#6E3006; --accent-ink:#8C3D07;
+    --gold:#695800; --azul:#00546F; --verde:#006737; --amarillo:#695800;
+    --accent-btn:#8C3D07; --on-accent:#FFFFFF; --primary-btn:#005A7C; --on-primary:#FFFFFF;
+    --verde-ink:#006737; --azul-ink:#00546F; --azul-badge:#005A7C;
+    --rail:#00AEEF; --rail-verde:#00904C; --rail-amarillo:#FFDC2F; --rail-naranja:#F47B29;
+    --shadow:0 1px 2px rgba(22,35,43,.06),0 8px 24px -12px rgba(22,35,43,.16);
+    --shadow-lift:0 2px 4px rgba(22,35,43,.07),0 22px 44px -20px rgba(22,35,43,.28);
+    --radius:16px; --radius-sm:10px; --maxw:1120px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#002A2E;--surface:#063A3F;--surface-2:#053A3E;--border:#14484E;--border-strong:#4E8F96;
+      --ink:#F2F7F7;--muted:#B6C7C8;--primary:#4FD2FF;--primary-strong:#7FE0FF;--primary-tint:#0C3A44;
+      --accent:#FFB684;--accent-strong:#FFC79E;--accent-ink:#FFB684;--gold:#FFDC2F;
+      --azul:#4FD2FF;--verde:#43E08F;--amarillo:#FFDC2F;
+      --accent-btn:#FFB684;--on-accent:#002A2E;--primary-btn:#4FD2FF;--on-primary:#002A2E;
+      --verde-ink:#43E08F;--azul-ink:#4FD2FF;--azul-badge:#4FD2FF;
+      --rail:#07BCFF;--rail-verde:#00CA6B;--rail-amarillo:#FFDC2F;--rail-naranja:#F69959;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+      --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#002A2E;--surface:#063A3F;--surface-2:#053A3E;--border:#14484E;--border-strong:#4E8F96;
+    --ink:#F2F7F7;--muted:#B6C7C8;--primary:#4FD2FF;--primary-strong:#7FE0FF;--primary-tint:#0C3A44;
+    --accent:#FFB684;--accent-strong:#FFC79E;--accent-ink:#FFB684;--gold:#FFDC2F;
+    --azul:#4FD2FF;--verde:#43E08F;--amarillo:#FFDC2F;
+    --accent-btn:#FFB684;--on-accent:#002A2E;--primary-btn:#4FD2FF;--on-primary:#002A2E;
+    --verde-ink:#43E08F;--azul-ink:#4FD2FF;--azul-badge:#4FD2FF;
+    --rail:#07BCFF;--rail-verde:#00CA6B;--rail-amarillo:#FFDC2F;--rail-naranja:#F69959;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;line-height:1.08;text-wrap:balance;margin:0}
+  a{color:inherit}
+  .eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  .btn{display:inline-flex;align-items:center;gap:.5em;cursor:pointer;border:none;font-family:inherit;font-size:15.5px;font-weight:600;border-radius:999px;padding:.72em 1.35em;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;text-decoration:none;min-height:44px}
+  .btn-primary{background:var(--accent-btn);color:var(--on-accent)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--accent)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+  .btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+  header.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .top-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:16px;letter-spacing:-.01em;line-height:1.05}
+  .brand small{display:block;font-family:"Public Sans";font-weight:500;font-size:11px;color:var(--muted);letter-spacing:0}
+  .mark{width:36px;height:36px;border-radius:10px;flex:none;background:linear-gradient(135deg,#005A7C,#003A57);display:grid;place-items:center;color:#fff;font-size:19px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+  .top-nav{display:flex;gap:4px;align-items:center}
+  .top-nav a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 11px;border-radius:8px;min-height:38px;display:inline-flex;align-items:center;transition:color .15s,background .15s}
+  .top-nav a:hover{color:var(--ink);background:var(--surface-2)}
+  .theme-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--ink);width:44px;height:44px;border-radius:10px;cursor:pointer;display:grid;place-items:center;font-size:17px;transition:transform .15s}
+  .theme-btn:hover{transform:rotate(-12deg)}
+  @media(max-width:860px){.top-nav a{display:none}}
+
+  .hero{position:relative;padding:70px 0 48px;overflow:hidden}
+  .hero-grid{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0);background-size:26px 26px;mask-image:linear-gradient(180deg,#000 0%,transparent 78%)}
+  .hero .wrap{position:relative}
+  .hero-inner{max-width:780px}
+  .hero h1{font-size:clamp(34px,5.6vw,60px);letter-spacing:-.025em;margin:18px 0 0}
+  .hero h1 .hl{color:var(--primary);position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.3em;background:var(--accent);opacity:.24;border-radius:4px;z-index:-1}
+  .lede{font-size:clamp(18px,2.2vw,21px);color:var(--muted);margin:22px 0 0;max-width:64ch}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:30px;margin-top:42px;padding-top:26px;border-top:1px solid var(--border)}
+  .stat b{font-family:"Bricolage Grotesque";font-weight:800;font-size:26px;color:var(--ink);display:block;line-height:1;font-variant-numeric:tabular-nums}
+  .stat span{font-size:13px;color:var(--muted)}
+
+  section{padding:44px 0;scroll-margin-top:80px}
+  .sec-head{max-width:680px;margin-bottom:26px}
+  .sec-head h2{font-size:clamp(24px,3.2vw,33px);letter-spacing:-.02em;margin-top:8px}
+  .sec-head p{color:var(--muted);margin:10px 0 0;font-size:16px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .22s ease,border-color .2s;display:flex;flex-direction:column;gap:11px;text-decoration:none}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cat,var(--primary))}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:color-mix(in srgb,var(--cat,var(--primary)) 45%,var(--border))}
+  .card .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:23px;background:color-mix(in srgb,var(--cat,var(--primary)) 14%,var(--surface));color:var(--cat-ink,var(--primary))}
+  .card .tag{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cat-ink,var(--ink));font-family:"IBM Plex Mono",monospace}
+  .card h3{font-size:19px;letter-spacing:-.01em}
+  .card p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.5;flex:1}
+  .card .go{font-size:14px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:.4em;margin-top:2px}
+  .card:hover .go{color:var(--cat-ink,var(--primary))}
+  .card .go svg{transition:transform .18s}
+  .card:hover .go svg{transform:translateX(4px)}
+
+  .band{background:linear-gradient(135deg,#00485F,#002A2E);color:#fff;border-radius:calc(var(--radius) + 6px);padding:42px 40px;position:relative;overflow:hidden;margin-top:8px}
+  .band::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 68%)}
+  .band h2{color:#fff;font-size:clamp(24px,3.2vw,32px);max-width:20ch;position:relative}
+  .band p{color:#fff;margin:14px 0 0;max-width:58ch;position:relative;opacity:.96}
+  .band .btn-primary{margin-top:24px;background:#fff;color:#003A57;position:relative}
+  .band .btn-primary:hover{background:#fff;color:#8C3D07}
+
+  footer{border-top:1px solid var(--border);padding:38px 0 52px;margin-top:36px;color:var(--muted);font-size:14px}
+  .foot-inner{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+  footer .brand{color:var(--ink)}
+  footer .disc{max-width:70ch;font-size:12.5px;margin-top:18px;line-height:1.55}
+
+  .skip{position:absolute;left:8px;top:-60px;z-index:100;background:var(--primary-btn);color:var(--on-primary);padding:.75em 1.2em;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .18s}
+  .skip:focus{top:0}
+  .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  @media (forced-colors: active){
+    .card,.band,.theme-btn{border:1px solid CanvasText}
+    .btn-primary{border:1px solid CanvasText}
+    svg{forced-color-adjust:auto}
+  }
+</style>
+</head>
+<body>
+<a href="#contenido" class="skip">Saltar al contenido principal</a>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">◇</span>
+      <span>Caja de herramientas<small>Secretaría de Comunicaciones · Distrito CTI de Medellín</small></span>
+    </div>
+    <nav class="top-nav" aria-label="Secciones">
+      <a href="#empieza">Empieza aquí</a>
+      <a href="#formacion">Formación</a>
+      <a href="#guias">Guías</a>
+      <a href="#tableros">Tableros</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar entre modo claro y oscuro">◐</button>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="hero-inner">
+        <span class="eyebrow">Producto mínimo viable · Comunicación para la movilización</span>
+        <h1>La caja de herramientas para que tu voz <span class="hl">incida</span> en el territorio.</h1>
+        <p class="lede">Un solo lugar para explorar todas las piezas del proyecto: módulos formativos, serious games sobre tus derechos, guías de lenguaje claro y accesibilidad, y tableros de datos. Hechas para redes ciudadanas, medios comunitarios y el equipo del Distrito. Entra a cualquiera y úsala hoy.</p>
+        <div class="hero-cta">
+          <a href="#empieza" class="btn btn-primary">Explorar la caja <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="piezas/hub-medellin-comunica.html" class="btn btn-ghost">Ir a Medellín se comunica aprendiendo</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>14</b><span>piezas interactivas<br>listas para usar</span></div>
+          <div class="stat"><b>5</b><span>serious games sobre<br>tus derechos</span></div>
+          <div class="stat"><b>AAA</b><span>contraste verificado<br>por script</span></div>
+          <div class="stat"><b>1712</b><span>transparencia y datos<br>abiertos como base</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="empieza">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Empieza aquí</span>
+        <h2>Las dos entradas principales</h2>
+        <p>Si es tu primera vez, arranca por la portada formativa o por el índice completo de módulos.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="piezas/hub-medellin-comunica.html" style="--cat:var(--rail);--cat-ink:var(--primary)">
+          <span class="ico" aria-hidden="true">📻</span>
+          <span class="tag">Portada · Formación</span>
+          <h3>Medellín se comunica aprendiendo</h3>
+          <p>Planeador de territorio, cartas de acción, constructor de convocatorias y la fórmula de las 5C para comunicar desde el barrio.</p>
+          <span class="go">Entrar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/modulos.html" style="--cat:var(--rail);--cat-ink:var(--primary)">
+          <span class="ico" aria-hidden="true">🧰</span>
+          <span class="tag">Índice · Módulos</span>
+          <h3>Caja de herramientas · Módulos</h3>
+          <p>El mapa completo de la ruta pedagógica: los módulos formativos y el acceso a todas las piezas de la caja.</p>
+          <span class="go">Entrar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacion">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Aprende jugando</span>
+        <h2>Serious games: tus derechos, en modo juego</h2>
+        <p>Cada juego te pone a decidir. Aprendes la norma en la práctica, no de memoria.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="piezas/ley1712-detective.html" style="--cat:var(--rail-verde);--cat-ink:var(--verde-ink)">
+          <span class="ico" aria-hidden="true">🔎</span>
+          <span class="tag">Serious game · Ley 1712</span>
+          <h3>Detective de datos</h3>
+          <p>Transparencia y acceso a la información: qué puedes pedir, qué debe publicar el Estado y cómo se garantiza tu derecho a saber.</p>
+          <span class="go">Jugar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/ley1755-caso.html" style="--cat:var(--rail-verde);--cat-ink:var(--verde-ink)">
+          <span class="ico" aria-hidden="true">✉️</span>
+          <span class="tag">Serious game · Ley 1755</span>
+          <h3>El caso: derecho de petición</h3>
+          <p>El derecho de petición paso a paso: tipos de petición, términos de respuesta y qué hacer si la administración no responde a tiempo.</p>
+          <span class="go">Jugar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/mipg-dirige.html" style="--cat:var(--rail-verde);--cat-ink:var(--verde-ink)">
+          <span class="ico" aria-hidden="true">🏛️</span>
+          <span class="tag">Serious game · MIPG</span>
+          <h3>Dirige tu dependencia</h3>
+          <p>Cómo el MIPG organiza la gestión pública para generar valor: dimensiones, políticas y el ciclo planear-hacer-verificar-actuar.</p>
+          <span class="go">Jugar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/participacion-escalera.html" style="--cat:var(--rail-verde);--cat-ink:var(--verde-ink)">
+          <span class="ico" aria-hidden="true">🪜</span>
+          <span class="tag">Serious game · Ley 1757</span>
+          <h3>La escalera de la incidencia</h3>
+          <p>De la asistencia a la incidencia real: la escalera de la participación y cómo incidir en Medellín (Planeación Local y PP).</p>
+          <span class="go">Jugar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/sala-de-medios.html" style="--cat:var(--rail-verde);--cat-ink:var(--verde-ink)">
+          <span class="ico" aria-hidden="true">🎙️</span>
+          <span class="tag">Serious game · Decisiones</span>
+          <h3>Sala de Medios</h3>
+          <p>Diriges un medio ciudadano de Medellín: enfrentas dilemas éticos y cada decisión mueve los indicadores de la política pública de comunicación.</p>
+          <span class="go">Jugar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="guias">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Escribe y publica bien</span>
+        <h2>Guías y estándares</h2>
+        <p>Las reglas prácticas para que cada pieza sea clara, incluyente y consistente con la marca del Distrito.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="piezas/lenguaje-claro.html" style="--cat:var(--rail-naranja);--cat-ink:var(--accent-ink)">
+          <span class="ico" aria-hidden="true">✍️</span>
+          <span class="tag">Guía</span>
+          <h3>Lenguaje Claro</h3>
+          <p>Escribe de forma sencilla, directa y ciudadana. Ejemplos antes y después, fórmula de respuesta y checklist de calidad.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/estandar-publicacion.html" style="--cat:var(--rail-naranja);--cat-ink:var(--accent-ink)">
+          <span class="ico" aria-hidden="true">📐</span>
+          <span class="tag">Estándar técnico</span>
+          <h3>Publicación digital v2</h3>
+          <p>Los criterios técnicos para publicar contenido digital en el Distrito CTI, con accesibilidad y consistencia de marca.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/anexo8-accesibilidad.html" style="--cat:var(--rail-naranja);--cat-ink:var(--accent-ink)">
+          <span class="ico" aria-hidden="true">♿</span>
+          <span class="tag">Accesibilidad · Anexo 8</span>
+          <h3>Accesibilidad digital</h3>
+          <p>Los tokens de color AAA y las reglas de accesibilidad del Manual de Identidad Visual de la Alcaldía.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="tableros">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Datos y utilidades</span>
+        <h2>Tableros y herramientas de apoyo</h2>
+        <p>Para visualizar datos de participación y para verificar la calidad de tus piezas antes de publicar.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="piezas/tablero-participa.html" style="--cat:var(--rail);--cat-ink:var(--azul-badge)">
+          <span class="ico" aria-hidden="true">📊</span>
+          <span class="tag">Tablero</span>
+          <h3>Participa Medellín</h3>
+          <p>Visualización de datos de participación ciudadana para apoyar la toma de decisiones.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/contraste-medellin.html" style="--cat:var(--rail);--cat-ink:var(--azul-badge)">
+          <span class="ico" aria-hidden="true">🎨</span>
+          <span class="tag">Utilidad</span>
+          <h3>Verificador de contraste</h3>
+          <p>Mide el contraste de color de la paleta contra los umbrales WCAG AA y AAA.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/demo-accesibilidad.html" style="--cat:var(--rail);--cat-ink:var(--azul-badge)">
+          <span class="ico" aria-hidden="true">🧪</span>
+          <span class="tag">Demo</span>
+          <h3>Diagnóstico de Accesibilidad</h3>
+          <p>Demostración de cómo se diagnostica la accesibilidad de una pieza digital.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="piezas/respuestas-chat.html" style="--cat:var(--rail);--cat-ink:var(--azul-badge)">
+          <span class="ico" aria-hidden="true">💬</span>
+          <span class="tag">Banco de respuestas</span>
+          <h3>Respuestas de Chat en Vivo</h3>
+          <p>Respuestas listas para moderar chats de convocatorias y movilización con lenguaje claro.</p>
+          <span class="go">Abrir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="band">
+        <h2>Este es un producto mínimo viable</h2>
+        <p>Reúne las piezas construidas hasta hoy para verlas juntas y en línea. Es la base para seguir sumando herramientas, recibir retroalimentación del equipo y los aliados en territorio, y convertir la caja en un referente de comunicación pública en Latinoamérica.</p>
+        <a href="piezas/hub-medellin-comunica.html" class="btn btn-primary">Comenzar por la portada <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="brand" style="display:flex;align-items:center;gap:11px"><span class="mark" aria-hidden="true">◇</span> <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:16px">Medellín se comunica aprendiendo</span></div>
+      <div>Secretaría de Comunicaciones · Distrito de Ciencia, Tecnología e Innovación · Medellín</div>
+    </div>
+    <p class="disc">Caja de herramientas pedagógicas para la comunicación comunitaria, alternativa, independiente y ciudadana. Los textos generados por las piezas son plantillas orientativas y no constituyen asesoría jurídica; términos y trámites pueden variar según la entidad. Verifica siempre los datos oficiales antes de radicar una solicitud o derecho de petición.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement, tb=document.getElementById("themeBtn");
+  function stored(){try{return localStorage.getItem("mca-theme")}catch(e){return null}}
+  var s=stored(); if(s){root.setAttribute("data-theme",s);}
+  function syncTheme(){
+    var cur=root.getAttribute("data-theme");
+    var isDark = cur ? cur==="dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+    tb.setAttribute("aria-pressed", isDark?"true":"false");
+    tb.setAttribute("aria-label", isDark?"Activar modo claro":"Activar modo oscuro");
+    return isDark;
+  }
+  tb.addEventListener("click",function(){
+    var isDark=syncTheme();
+    var next=isDark?"light":"dark";
+    root.setAttribute("data-theme",next);
+    try{localStorage.setItem("mca-theme",next)}catch(e){}
+    syncTheme();
+  });
+  syncTheme();
+})();
+</script>
+</body>
+</html>
