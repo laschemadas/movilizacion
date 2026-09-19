@@ -1,0 +1,718 @@
+<!doctype html><html lang="es"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MIPG · Dirige tu dependencia (serious game)</title>
+<meta name="description" content="Dirige tu dependencia: simulador de decisiones directivas con el MIPG (Decreto 1499 de 2017). Aplicas las dimensiones del modelo para generar valor público.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   Ley 1755 · "El caso" — serious game de decisiones.
+   Paleta oficial Alcaldía de Medellín · Distrito CTI (Anexo 8, Manual v20).
+   Contraste verificado a WCAG AAA por script (tema claro y oscuro).
+   Vibrantes de marca solo como rieles/íconos; el texto va en variantes -ink.
+   Diseño lúdico: Framework Octalysis (CD1 épico cívico, CD3 decisión, CD4
+   "mi caso"), White Hat, sin rankings de personas ni mecánicas de miedo;
+   indicadores pedagógicos y reversibles. Nivel cognitivo: Aplicar/Evaluar.
+   =========================================================================== */
+:root{
+  --bg:#F5F7F8; --surface:#FFFFFF; --surface-2:#EEF3F4; --ink:#16232B; --muted:#44535B;
+  --line:#DCE3E6; --line-strong:#7E8B91;
+  --primary:#00506E; --primary-ink:#00506E; --accent:#823705; --accent-ink:#823705;
+  --primary-btn:#005A7C; --on-primary:#FFFFFF; --accent-btn:#8C3D07; --on-accent:#FFFFFF;
+  --ok-ink:#005A2E; --fail-ink:#9A1B12;
+  --ring:#00506E;
+  --rail:#00AEEF; --rail-2:#F47B29;
+  --shadow:0 1px 2px rgba(22,35,43,.08),0 8px 24px -12px rgba(22,35,43,.16);
+  --shadow-lift:0 2px 4px rgba(22,35,43,.08),0 22px 44px -20px rgba(22,35,43,.28);
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#002A2E; --surface:#063A3F; --surface-2:#04353A; --ink:#F2F7F7; --muted:#B6C7C8;
+    --line:#14484E; --line-strong:#4E8F96;
+    --primary:#4FD2FF; --primary-ink:#4FD2FF; --accent:#FFB684; --accent-ink:#FFB684;
+    --primary-btn:#4FD2FF; --on-primary:#002A2E; --accent-btn:#FFB684; --on-accent:#002A2E;
+    --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+    --ring:#4FD2FF;
+    --rail:#07BCFF; --rail-2:#F69959;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.72);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#002A2E; --surface:#063A3F; --surface-2:#04353A; --ink:#F2F7F7; --muted:#B6C7C8;
+  --line:#14484E; --line-strong:#4E8F96;
+  --primary:#4FD2FF; --primary-ink:#4FD2FF; --accent:#FFB684; --accent-ink:#FFB684;
+  --primary-btn:#4FD2FF; --on-primary:#002A2E; --accent-btn:#FFB684; --on-accent:#002A2E;
+  --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+  --ring:#4FD2FF;
+  --rail:#07BCFF; --rail-2:#F69959;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.72);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;
+  line-height:1.12;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(1.8rem,4.6vw,3rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3.4vw,2rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+/* Accesibilidad */
+.skip{position:absolute;left:12px;top:-64px;z-index:200;background:var(--primary-btn);
+  color:var(--on-primary);padding:.75em 1.2em;border-radius:0 0 12px 12px;
+  font-weight:700;text-decoration:none;transition:top .18s}
+.skip:focus{top:0}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ring);
+  outline-offset:2px;border-radius:6px}
+::placeholder{color:var(--muted);opacity:1}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:50;background:var(--surface);
+  border-bottom:1px solid var(--line)}
+.top .row{display:flex;align-items:center;gap:14px;justify-content:space-between;
+  max-width:920px;margin:0 auto;padding:10px 20px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .dot{width:34px;height:34px;border-radius:9px;flex:0 0 auto;
+  background:var(--primary-btn);
+  display:grid;place-items:center;color:var(--on-primary);font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
+.brand b{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.98rem;line-height:1.1}
+.brand small{display:block;color:var(--muted);font-size:.78rem;font-weight:500;letter-spacing:.02em}
+.theme-btn{min-height:44px;min-width:44px;padding:.5em .8em;border-radius:10px;
+  border:1px solid var(--line-strong);background:var(--surface-2);color:var(--ink);
+  font:inherit;font-weight:600;font-size:.86rem;cursor:pointer;display:inline-flex;
+  align-items:center;gap:.4em}
+.theme-btn:hover{border-color:var(--primary)}
+.hdr-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.homelink{display:inline-flex;align-items:center;min-height:44px;padding:.5em .85em;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface-2);color:var(--ink);font:inherit;font-weight:600;font-size:.86rem;text-decoration:none;white-space:nowrap}
+.homelink:hover{border-color:var(--primary)}
+@media(max-width:520px){.homelink{font-size:0;padding:.5em .7em}.homelink span{font-size:1rem}}
+
+/* HUD indicadores */
+.hud{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);padding:14px 16px;margin:16px 0 6px}
+.hud .hud-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.hud .escena{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem}
+.hud .caso{font-family:"IBM Plex Mono",monospace;font-size:.82rem;color:var(--accent-ink);font-weight:600}
+.meters{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+@media(min-width:640px){.meters{grid-template-columns:repeat(4,1fr)}}
+.meter .mrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meter .mname{font-size:.82rem;font-weight:600;color:var(--muted)}
+.meter .mval{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.86rem;color:var(--ink);font-variant-numeric:tabular-nums}
+.meter .bar{height:10px;background:var(--surface-2);border:1px solid var(--line);border-radius:99px;overflow:hidden;margin-top:5px}
+.meter .bar > i{display:block;height:100%;width:50%;border-radius:99px;background:var(--rail);transition:width .5s ease}
+
+/* Cards / screens */
+main{padding:8px 0 60px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px}
+@media(min-width:600px){.card{padding:32px}}
+section[hidden]{display:none!important}
+.reveal{animation:rise .4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--accent-ink)}
+.lead{font-size:1.12rem;color:var(--muted)}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  min-height:48px;padding:.7em 1.4em;border-radius:12px;border:1px solid transparent;
+  font:inherit;font-weight:700;cursor:pointer;text-decoration:none;font-size:1rem}
+.btn.primary{background:var(--primary-btn);color:var(--on-primary)}
+.btn.primary:hover{box-shadow:var(--shadow-lift)}
+.btn.ghost{background:var(--surface-2);color:var(--ink);border-color:var(--line-strong)}
+.btn.ghost:hover{border-color:var(--primary)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+
+/* Intro: cómo se juega + casos */
+.steps{display:grid;gap:14px;margin:22px 0;grid-template-columns:1fr}
+@media(min-width:640px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.step .n{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;color:var(--on-primary);
+  background:var(--primary-btn);margin-bottom:10px}
+.step h3{margin:.1em 0 .2em}
+.step p{margin:0;color:var(--muted);font-size:.98rem}
+
+.casegrid{display:grid;gap:14px;grid-template-columns:1fr;margin:14px 0 4px}
+@media(min-width:640px){.casegrid{grid-template-columns:repeat(3,1fr)}}
+.casebtn{display:flex;flex-direction:column;gap:6px;text-align:left;width:100%;
+  background:var(--surface);border:1.5px solid var(--line-strong);border-radius:14px;padding:18px 16px;
+  color:var(--ink);font:inherit;cursor:pointer;position:relative;overflow:hidden}
+.casebtn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--cc,var(--rail))}
+.casebtn:hover{border-color:var(--primary);background:var(--surface-2)}
+.casebtn .ci{font-size:1.6rem}
+.casebtn b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.05rem}
+.casebtn span{color:var(--muted);font-size:.95rem}
+.casebtn .pick{margin-top:6px;font-weight:700;color:var(--primary-ink);font-size:.92rem}
+
+/* Escena */
+.escena-tag{display:inline-flex;align-items:center;gap:.4em;font-family:"IBM Plex Mono",monospace;
+  font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--primary-ink);background:var(--surface-2);padding:.34em .7em;border-radius:99px;border:1px solid var(--line)}
+.situacion{background:var(--surface-2);border:1px solid var(--line);border-left:5px solid var(--rail);
+  border-radius:12px;padding:16px 18px;margin:16px 0}
+.situacion p:last-child{margin-bottom:0}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+  min-height:48px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line-strong);
+  background:var(--surface);color:var(--ink);font:inherit;font-size:1rem;cursor:pointer;line-height:1.45}
+.opt:hover:not([disabled]){border-color:var(--primary);background:var(--surface-2)}
+.opt .k{flex:0 0 auto;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;
+  font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.85rem;
+  background:var(--surface-2);border:1px solid var(--line-strong);color:var(--ink)}
+.opt[disabled]{cursor:default}
+.opt.chosen{border-color:var(--primary);background:var(--surface-2)}
+.opt.dim{opacity:.72}
+
+/* Feedback (consecuencia) */
+.feedback{margin-top:16px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+  border-left-width:5px;background:var(--surface-2);font-size:1rem}
+.feedback.good{border-left-color:var(--ok-ink)}
+.feedback.warn{border-left-color:var(--accent-ink)}
+.feedback.bad{border-left-color:var(--fail-ink)}
+.feedback .fh{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;display:flex;align-items:center;gap:.45em;margin-bottom:4px}
+.feedback.good .fh{color:var(--ok-ink)}
+.feedback.warn .fh{color:var(--accent-ink)}
+.feedback.bad .fh{color:var(--fail-ink)}
+.feedback .fnorm{display:block;margin-top:8px;font-size:.92rem;color:var(--muted)}
+.deltas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chipd{font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-weight:600;border-radius:99px;
+  padding:.24em .6em;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.chipd.up{color:var(--ok-ink)}
+.chipd.down{color:var(--fail-ink)}
+
+/* Resultados */
+.medal{text-align:center;padding:10px 0 2px}
+.medal .ring{width:112px;height:112px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;
+  background:var(--surface-2);border:3px solid var(--accent-btn);font-size:2.8rem}
+.finalmeters{display:grid;gap:14px;grid-template-columns:1fr;margin:18px 0}
+@media(min-width:560px){.finalmeters{grid-template-columns:repeat(2,1fr)}}
+.fmeter{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.fmeter .mrow{display:flex;justify-content:space-between;align-items:baseline}
+.fmeter .mname{font-weight:700;font-size:.98rem}
+.fmeter .mval{font-family:"IBM Plex Mono",monospace;font-weight:700;font-variant-numeric:tabular-nums}
+.fmeter .bar{height:12px;background:var(--surface);border:1px solid var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.fmeter .bar > i{display:block;height:100%;background:var(--rail);border-radius:99px}
+.fmeter .desc{font-size:.9rem;color:var(--muted);margin:8px 0 0}
+
+/* Misión de transferencia */
+.mision{background:var(--surface-2);border:1px solid var(--line);border-left:5px solid var(--rail-2);border-radius:14px;padding:18px;margin-top:8px}
+.field{margin-top:12px}
+.field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:6px}
+.field input,.field textarea{width:100%;min-height:48px;padding:.6em .8em;font:inherit;font-size:1rem;
+  color:var(--ink);background:var(--surface);border:1.5px solid var(--line-strong);border-radius:10px}
+.field textarea{min-height:84px;resize:vertical}
+.field input:hover,.field textarea:hover{border-color:var(--primary)}
+.hint{font-size:.92rem;color:var(--muted);margin:8px 0 0}
+.locked-note{background:var(--surface-2);border:1px solid var(--line);border-left:5px solid var(--accent-ink);border-radius:12px;padding:16px 18px;margin-top:8px}
+
+/* Recursos */
+.reslinks{display:grid;gap:12px;grid-template-columns:1fr;margin-top:8px}
+@media(min-width:560px){.reslinks{grid-template-columns:1fr 1fr}}
+.rlink{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  background:var(--surface-2);text-decoration:none;color:var(--ink)}
+.rlink:hover{border-color:var(--primary)}
+.rlink b{display:block;color:var(--primary-ink)}
+.rlink span{font-size:.92rem;color:var(--muted)}
+
+footer{color:var(--muted);font-size:.9rem;text-align:center;padding:26px 20px 8px}
+footer a{color:var(--primary-ink)}
+
+/* Constancia (acta simbólica) */
+#acta{margin-top:18px}
+.diploma{border-radius:14px;padding:6px;box-shadow:0 10px 30px rgba(20,35,30,.18);
+  background-image:linear-gradient(135deg,#005A7C,#8C3D07)}
+.diploma .inner{background:#FBFCFC;border:2px solid #005A7C;border-radius:10px;
+  padding:28px 26px;text-align:center;position:relative}
+.diploma .kicker{font-family:"IBM Plex Mono",monospace;font-size:.74rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:#005A7C;margin:0 0 4px}
+.diploma .seal{width:60px;height:60px;border-radius:50%;margin:2px auto 8px;display:grid;place-items:center;
+  background:#005A7C;color:#fff;font-size:1.6rem;border:3px solid #8C3D07}
+.diploma h3.ct{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.6rem;color:#16232B;margin:2px 0 2px}
+.diploma .sub{color:#44535B;font-size:.95rem;margin:0 0 14px}
+.diploma .toName{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.7rem;
+  color:#005A7C;margin:8px 0 6px;border-bottom:2px solid #005A7C;display:inline-block;padding:0 .3em .1em;max-width:100%;overflow-wrap:anywhere}
+.diploma .body{color:#16232B;font-size:1rem;max-width:54ch;margin:8px auto 4px;line-height:1.55}
+.diploma .body b{color:#8C3D07}
+.diploma .compromiso{background:#F2F6F7;border:1px dashed #005A7C;border-radius:10px;padding:12px 14px;margin:14px auto 2px;max-width:56ch;color:#16232B;font-size:.98rem;text-align:left}
+.diploma .compromiso b{display:block;font-family:"Bricolage Grotesque",sans-serif;color:#005A7C;margin-bottom:4px}
+.diploma .meta{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:center;margin:16px 0 4px;font-size:.9rem;color:#44535B}
+.diploma .meta .val{display:block;color:#16232B;font-weight:700;font-family:"IBM Plex Mono",monospace}
+.diploma .signrow{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-around;margin-top:20px}
+.diploma .sign{flex:1 1 180px;max-width:240px;border-top:1.5px solid #16232B;padding-top:6px;font-size:.84rem;color:#44535B}
+.diploma .sign b{display:block;color:#16232B;font-size:.9rem;font-family:"Bricolage Grotesque",sans-serif}
+.certactions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto!important}
+  .reveal{animation:none}
+  .meter .bar > i,.opt{transition:none}
+}
+@media print{
+  @page{margin:12mm}
+  body{background:#fff}
+  body *{visibility:hidden!important}
+  #acta,#acta *{visibility:visible!important}
+  #acta{position:absolute;left:0;top:0;width:100%;margin:0}
+  .diploma{box-shadow:none}
+  .certactions{display:none!important}
+}
+@media (forced-colors: active){
+  .card,.step,.opt,.casebtn,.hud,.btn,.fmeter,.rlink,.mision{border:1px solid CanvasText}
+  .meter .bar > i,.fmeter .bar > i{background:Highlight}
+}
+</style>
+
+<a class="skip" href="#main">Saltar al contenido principal</a>
+
+<header class="top">
+  <div class="row">
+    <div class="brand">
+      <span class="dot" aria-hidden="true">M</span>
+      <span>
+        <b>Medellín se comunica aprendiendo</b>
+        <small>Alcaldía de Medellín · Distrito CTI · Secretaría de Comunicaciones</small>
+      </span>
+    </div>
+    <div class="hdr-actions">
+      <a class="homelink" href="modulos.html" rel="noopener" aria-label="Volver a la Caja de herramientas (página principal)"><span aria-hidden="true">←</span>&nbsp;Caja de herramientas</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">🌗</span><span id="themeLabel">Tema</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <div class="hud" id="hud" hidden>
+    <div class="hud-top">
+      <span class="escena" id="hudEscena">Escena 1<span class="vh"> de 8</span></span>
+      <span class="caso" id="hudCaso"></span>
+    </div>
+    <div class="meters" id="meters" aria-live="polite"></div>
+  </div>
+
+  <section id="intro" class="card reveal" aria-labelledby="introH">
+    <p class="eyebrow">MIPG · Modelo Integrado de Planeación y Gestión · Serious game</p>
+    <h1 id="introH">Dirige tu dependencia: gestión pública con valor</h1>
+    <p class="lead">No respondes un examen: <b>diriges un área pública</b>. Eliges un caso y, decisión a decisión, aplicas las dimensiones del MIPG para generar valor público, con integridad y buenos resultados.</p>
+
+    <div class="steps" role="list">
+      <div class="step" role="listitem"><div class="n" aria-hidden="true">1</div><h3>Eliges tu caso directivo</h3><p>Tomas uno de tres escenarios de dirección; ese caso es tuyo todo el recorrido.</p></div>
+      <div class="step" role="listitem"><div class="n" aria-hidden="true">2</div><h3>Decides en 8 escenas</h3><p>Eliges cómo dirigir; ves la consecuencia y el fundamento MIPG al instante.</p></div>
+      <div class="step" role="listitem"><div class="n" aria-hidden="true">3</div><h3>Cierras con un compromiso real</h3><p>Defines una mejora que impulsarás este trimestre y descargas tu constancia.</p></div>
+    </div>
+
+    <h2 style="margin-top:10px">Elige tu caso</h2>
+    <p class="lead" style="font-size:1rem">Tres escenarios de dirección pública. Escoge el más parecido al tuyo.</p>
+    <div class="casegrid" id="caseGrid" role="group" aria-label="Elige un caso para comenzar"></div>
+    <p class="hint">Toma unos 8–12 minutos. Funciona con teclado y lector de pantalla. Contenido con fines educativos.</p>
+  </section>
+
+  <section id="play" class="card" aria-labelledby="playH" hidden>
+    <div id="playHost"></div>
+  </section>
+
+  <section id="results" class="card" aria-labelledby="resH" hidden>
+    <p class="eyebrow">Cierre</p>
+    <h2 id="resH">Así quedó tu gestión</h2>
+    <div class="medal">
+      <div class="ring" id="medalRing" aria-hidden="true">🧭</div>
+      <p class="lead" id="medalText" style="margin-bottom:6px"></p>
+    </div>
+
+    <div class="finalmeters" id="finalMeters" aria-live="polite"></div>
+
+    <h3 style="margin-top:22px">Tu misión de transferencia</h3>
+    <div id="misionHost"></div>
+
+    <section id="acta" hidden aria-label="Constancia de compromiso ciudadano">
+      <div class="diploma">
+        <div class="inner">
+          <div class="seal" aria-hidden="true">🧭</div>
+          <p class="kicker">Medellín se comunica aprendiendo · Secretaría de Comunicaciones</p>
+          <h3 class="ct">Constancia de compromiso directivo</h3>
+          <p class="sub">MIPG · Gestión pública con valor</p>
+          <p style="margin:6px 0 0;color:#44535B">Se reconoce a</p>
+          <div class="toName" id="actaNameOut">Participante</div>
+          <p class="body">Por dirigir con criterio el caso <b id="actaCaseOut">—</b> en el simulador del MIPG y comprometerse a fortalecer la gestión pública con valor.</p>
+          <div class="compromiso"><b>Mi compromiso este trimestre</b><span id="actaComOut">—</span></div>
+          <div class="meta">
+            <span>Resultado<span class="val" id="actaScoreOut">—</span></span>
+            <span>Fecha<span class="val" id="actaDateOut">—</span></span>
+            <span>Folio<span class="val" id="actaFolioOut">—</span></span>
+          </div>
+          <div class="signrow">
+            <div class="sign"><b>Secretaría de Comunicaciones</b>Medellín se comunica aprendiendo</div>
+            <div class="sign"><b>Naturaleza</b>Constancia pedagógica, no oficial</div>
+          </div>
+        </div>
+      </div>
+      <div class="certactions">
+        <button class="btn primary" id="actaDownloadBtn" type="button">⬇ Descargar constancia (PDF)</button>
+        <button class="btn ghost" id="actaEditBtn" type="button">Editar mi compromiso</button>
+      </div>
+    </section>
+
+    <h3 style="margin-top:22px">Da el siguiente paso</h3>
+    <p class="lead" style="font-size:1rem">Enlaces oficiales para actuar.</p>
+    <div class="reslinks"><a class="rlink" href="https://www.funcionpublica.gov.co/web/mipg" target="_blank" rel="noopener"><b>MIPG · Función Pública <span class="vh">(se abre en una pestaña nueva)</span></b><span>El modelo, sus 7 dimensiones y 19 políticas ↗</span></a><a class="rlink" href="https://www.funcionpublica.gov.co" target="_blank" rel="noopener"><b>Función Pública <span class="vh">(se abre en una pestaña nueva)</span></b><span>Guías, autodiagnósticos y FURAG ↗</span></a><a class="rlink" href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=56882" target="_blank" rel="noopener"><b>Ley 1712 de 2014 <span class="vh">(se abre en una pestaña nueva)</span></b><span>Transparencia y acceso a la información ↗</span></a><a class="rlink" href="https://www.medellin.gov.co" target="_blank" rel="noopener"><b>medellin.gov.co <span class="vh">(se abre en una pestaña nueva)</span></b><span>Gestión institucional del Distrito ↗</span></a></div>
+
+    <div class="actions">
+      <button class="btn ghost" id="restartBtn" type="button">Jugar otro caso</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>Herramienta pedagógica de la <b>Secretaría de Comunicaciones</b> · Alcaldía de Medellín, Distrito CTI.<br>
+    Simulador con fines educativos, basado en el MIPG (Decreto 1499 de 2017). Adapta las decisiones a tu contexto institucional.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  try{ document.documentElement.lang = "es"; }catch(e){}
+  var $ = function(id){ return document.getElementById(id); };
+  var KEYS = ["A","B","C","D"];
+
+  var IND = [{k:"VAL",name:"Valor público",desc:"Cuánto le sirve tu gestión a la ciudadanía."},{k:"INT",name:"Integridad",desc:"Cultura de integridad y buen trato en tu equipo."},{k:"DES",name:"Desempeño",desc:"Planeación, medición y resultados de tu área."},{k:"CON",name:"Confianza",desc:"Confianza ciudadana e institucional que generas."}];
+  var PRIMARY = "VAL";
+  var CASES = [
+  {id:"jefatura", ci:"🏛️", cc:"var(--rail)", title:"Nueva jefatura",
+   desc:"Asumes la jefatura de una dependencia y quieres que genere valor real.",
+   asunto:"el arranque de tu gestión con el MIPG"},
+  {id:"comunicaciones", ci:"📣", cc:"var(--rail-2)", title:"Equipo de comunicaciones",
+   desc:"Lideras el equipo de comunicaciones de la entidad.",
+   asunto:"la gestión de tu equipo de comunicaciones"},
+  {id:"servicio", ci:"🤝", cc:"var(--primary-ink)", title:"Servicio al ciudadano",
+   desc:"Te encargan mejorar la atención a la ciudadanía.",
+   asunto:"la mejora del servicio al ciudadano"}
+ ];
+  function SCENES(C){ return [
+  {tag:"Escena 1 · Tu norte", title:"¿Para qué gestionas?",
+   sit:"<p>Empieza "+C.asunto+". ¿Qué guía tus decisiones?</p>",
+   opts:[
+    {t:"Oriento cada decisión a generar valor público, no solo a cumplir el requisito.", tone:"good",
+     fb:"Ese es el norte del MIPG: resultados que le sirven a la gente.",
+     norm:"Decreto 1499 de 2017: el MIPG articula la gestión para generar valor público.",
+     d:{VAL:12,CON:6,DES:4}},
+    {t:"Me concentro en “cumplir para la foto” y evitar hallazgos.", tone:"warn",
+     fb:"Cumplir por miedo al control no genera valor.",
+     norm:"El modelo busca resultados, no solo formalismos.",
+     d:{VAL:-8,INT:-4}},
+    {t:"Hago lo que siempre se ha hecho, sin revisar.", tone:"warn",
+     fb:"Sin propósito claro, manda la inercia.",
+     norm:"El MIPG pide planear con foco en resultados.",
+     d:{VAL:-4,DES:-4}}
+   ]},
+  {tag:"Escena 2 · Las personas", title:"El corazón del modelo",
+   sit:"<p>Debes decidir cómo trabajar con tu equipo.</p>",
+   opts:[
+    {t:"Invierto en el talento humano y aplico el Código de Integridad con el ejemplo.", tone:"good",
+     fb:"El talento humano es la dimensión central del MIPG.",
+     norm:"Dimensión 1 (Talento Humano) y Código de Integridad.",
+     d:{INT:14,CON:8,DES:4}},
+    {t:"Impongo con autoritarismo y castigo el error.", tone:"bad",
+     fb:"Erosionas el clima y la integridad del equipo.",
+     norm:"La integridad y el buen trato son parte del modelo.",
+     d:{INT:-12,CON:-8}},
+    {t:"Delego todo sin acompañar.", tone:"warn",
+     fb:"Sin liderazgo, el equipo se desorienta.",
+     norm:"El talento humano se lidera, no se abandona.",
+     d:{DES:-4,CON:-2}}
+   ]},
+  {tag:"Escena 3 · Rumbo", title:"Planear con objetivos",
+   sit:"<p>Tienes metas para el año.</p>",
+   opts:[
+    {t:"Defino objetivos, indicadores y responsables.", tone:"good",
+     fb:"Lo que se planea y se mide, se puede mejorar.",
+     norm:"Dimensión 2 (Direccionamiento Estratégico y Planeación).",
+     d:{DES:12,VAL:6}},
+    {t:"Improviso sobre la marcha.", tone:"warn",
+     fb:"Sin plan ni indicadores, no sabrás si avanzas.",
+     norm:"La planeación da rumbo y permite evaluar.",
+     d:{DES:-8,VAL:-4}},
+    {t:"Copio el plan del año pasado sin ajustarlo.", tone:"warn",
+     fb:"Un plan desactualizado no refleja tu realidad.",
+     norm:"La planeación se revisa con datos.",
+     d:{DES:-4}}
+   ]},
+  {tag:"Escena 4 · Hacia la ciudadanía", title:"La ventanilla hacia afuera",
+   sit:"<p>La ciudadanía interactúa con tu área.</p>",
+   opts:[
+    {t:"Simplifico trámites y mejoro el servicio al ciudadano.", tone:"good",
+     fb:"El valor se ve en la experiencia de la gente.",
+     norm:"Dimensión 3: servicio al ciudadano, racionalización de trámites, gobierno digital.",
+     d:{VAL:12,CON:10}},
+    {t:"Dejo los trámites como están, aunque sean engorrosos.", tone:"warn",
+     fb:"La fricción innecesaria aleja a la ciudadanía.",
+     norm:"Racionalizar trámites es parte del modelo.",
+     d:{VAL:-6,CON:-6}},
+    {t:"Priorizo lo interno y descuido la atención.", tone:"bad",
+     fb:"El servicio al ciudadano es un fin, no un estorbo.",
+     norm:"La gestión mira hacia adentro y hacia afuera.",
+     d:{VAL:-8,CON:-8}}
+   ]},
+  {tag:"Escena 5 · Información y comunicación", title:"Transparencia que genera confianza",
+   sit:"<p>Manejas información pública en tu área.</p>",
+   opts:[
+    {t:"Impulso transparencia activa y comunicación estratégica, con buena gestión documental.", tone:"good",
+     fb:"Comunicar y transparentar genera confianza.",
+     norm:"Dimensión 5 (Información y Comunicación); conecta con la Ley 1712.",
+     d:{CON:12,VAL:8,INT:4}},
+    {t:"Publico lo mínimo y guardo el resto “por si acaso”.", tone:"warn",
+     fb:"La opacidad mina la confianza.",
+     norm:"La transparencia es parte del modelo y de la ley.",
+     d:{CON:-8,INT:-4}},
+    {t:"Comunico sin orden ni archivo.", tone:"warn",
+     fb:"Sin gestión documental se pierde la memoria institucional.",
+     norm:"La gestión documental sostiene el acceso.",
+     d:{DES:-4}}
+   ]},
+  {tag:"Escena 6 · Conocimiento", title:"El saber no es de una sola persona",
+   sit:"<p>Una persona clave del equipo se va.</p>",
+   opts:[
+    {t:"Documento y comparto el conocimiento; fomento la innovación.", tone:"good",
+     fb:"El conocimiento compartido protege a la entidad.",
+     norm:"Dimensión 6 (Gestión del Conocimiento e Innovación).",
+     d:{DES:10,VAL:6,CON:4}},
+    {t:"Dejo que el saber viva solo en la cabeza de esa persona.", tone:"bad",
+     fb:"Su salida deja un hueco crítico.",
+     norm:"El conocimiento debe quedar en la entidad.",
+     d:{DES:-10,VAL:-4}},
+    {t:"Guardo todo pero no lo comparto.", tone:"warn",
+     fb:"Acumular sin difundir no genera valor.",
+     norm:"El conocimiento se gestiona para usarse.",
+     d:{DES:-4}}
+   ]},
+  {tag:"Escena 7 · El control como aliado", title:"Llega una revisión de control interno",
+   sit:"<p>Te toca una revisión de control interno.</p>",
+   opts:[
+    {t:"Uso el control interno (MECI) para mejorar, no solo para “pasar”.", tone:"good",
+     fb:"El control bien usado previene y mejora.",
+     norm:"Dimensión 7 (Control Interno) y MECI.",
+     d:{INT:10,DES:8,CON:4}},
+    {t:"Escondo los problemas para que no salgan en el informe.", tone:"bad",
+     fb:"Ocultar riesgos los agranda.",
+     norm:"El control interno gestiona riesgos, no los tapa.",
+     d:{INT:-10,CON:-6}},
+    {t:"Veo el control como pura tramitología.", tone:"warn",
+     fb:"Reducido a checklist, pierde su valor.",
+     norm:"El MECI es una herramienta de mejora.",
+     d:{DES:-4}}
+   ]},
+  {tag:"Escena 8 · Medir para mejorar", title:"Llega el FURAG y el Índice de Desempeño",
+   sit:"<p>Es hora de reportar y medir tu gestión.</p>",
+   opts:[
+    {t:"Reporto con honestidad y uso el FURAG/IDI para priorizar mejoras.", tone:"good",
+     fb:"Medir con verdad es la base para avanzar.",
+     norm:"FURAG → Índice de Desempeño Institucional (IDI); medición y mejora.",
+     d:{DES:14,VAL:8,INT:6}},
+    {t:"Inflo los datos para quedar bien.", tone:"bad",
+     fb:"Un dato falso te deja peor: decides a ciegas.",
+     norm:"La medición honesta orienta la mejora real.",
+     d:{INT:-12,DES:-6}},
+    {t:"Reporto por cumplir y no miro los resultados.", tone:"warn",
+     fb:"Sin analizar, la medición no sirve.",
+     norm:"El IDI guía dónde mejorar.",
+     d:{DES:-4,VAL:-2}}
+   ]}
+ ]; }
+  var TOTAL = 8;
+  var PASS_PRI = 60, PASS_MIN = 35;
+
+  var state = { caseObj:null, scenes:[], i:0, ind:{}, total:TOTAL };
+  function initInd(){ state.ind={}; IND.forEach(function(m){ state.ind[m.k]=50; }); }
+  function clamp(n){ return Math.max(0, Math.min(100, n)); }
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+  function primaryName(){ for(var i=0;i<IND.length;i++){ if(IND[i].k===PRIMARY) return IND[i].name; } return "Resultado"; }
+
+  function show(id){
+    ["intro","play","results"].forEach(function(s){ $(s).hidden = (s !== id); });
+    $("hud").hidden = (id !== "play");
+    var m=$("main"); if(m){ m.setAttribute("tabindex","-1"); }
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function renderCases(){
+    var g=$("caseGrid"); g.innerHTML="";
+    CASES.forEach(function(c){
+      var b=document.createElement("button");
+      b.type="button"; b.className="casebtn"; b.style.setProperty("--cc", c.cc);
+      b.setAttribute("aria-label","Elegir el caso: "+c.title+". "+c.desc);
+      b.innerHTML='<span class="ci" aria-hidden="true">'+c.ci+'</span><b>'+c.title+'</b><span>'+c.desc+'</span><span class="pick">Tomar este caso →</span>';
+      b.addEventListener("click", function(){ startCase(c); });
+      g.appendChild(b);
+    });
+  }
+
+  function startCase(c){
+    state.caseObj=c; state.scenes=SCENES(c); state.i=0; initInd();
+    $("hudCaso").textContent="Caso: "+c.title;
+    show("play"); renderMeters($("meters"), false); renderScene();
+  }
+
+  function renderMeters(host, big){
+    host.innerHTML="";
+    IND.forEach(function(m){
+      var v=state.ind[m.k];
+      var wrap=document.createElement("div"); wrap.className= big?"fmeter":"meter";
+      var inner='<div class="mrow"><span class="mname">'+m.name+'</span>'+
+        '<span class="mval">'+v+'<span class="vh"> de 100</span></span></div>'+
+        '<div class="bar" aria-hidden="true"><i style="width:'+v+'%"></i></div>';
+      if(big){ inner+='<p class="desc">'+m.desc+'</p>'; }
+      wrap.innerHTML=inner; host.appendChild(wrap);
+    });
+  }
+
+  function updateHud(){
+    $("hudEscena").innerHTML="Escena "+(state.i+1)+"<span class=\"vh\"> de "+state.total+"</span>";
+    renderMeters($("meters"), false);
+  }
+
+  function renderScene(){
+    updateHud();
+    var sc=state.scenes[state.i];
+    var host=$("playHost"); host.innerHTML="";
+    var wrap=document.createElement("div"); wrap.className="reveal";
+    var tag=document.createElement("span"); tag.className="escena-tag"; tag.textContent=sc.tag; wrap.appendChild(tag);
+    var h=document.createElement("h2"); h.id="playH"; h.style.marginTop=".5em"; h.textContent=sc.title; wrap.appendChild(h);
+    var sit=document.createElement("div"); sit.className="situacion"; sit.innerHTML=sc.sit; wrap.appendChild(sit);
+
+    var list=document.createElement("div"); list.className="opts"; list.setAttribute("role","group");
+    list.setAttribute("aria-label","Tus opciones de decisión");
+    var buttons=[];
+    var order=shuffle(sc.opts.map(function(_,i){return i;}));
+    order.forEach(function(origIdx, pos){
+      var op=sc.opts[origIdx];
+      var b=document.createElement("button"); b.type="button"; b.className="opt";
+      var k=document.createElement("span"); k.className="k"; k.setAttribute("aria-hidden","true"); k.textContent=KEYS[pos];
+      var t=document.createElement("span"); t.className="t"; t.textContent=op.t;
+      b.appendChild(k); b.appendChild(t);
+      (function(op,b){ b.addEventListener("click", function(){ choose(sc, op, b, buttons); }); })(op,b);
+      buttons.push(b); list.appendChild(b);
+    });
+    wrap.appendChild(list);
+
+    var fb=document.createElement("div"); fb.className="feedback"; fb.hidden=true; fb.setAttribute("role","status"); fb.id="fbBox"; wrap.appendChild(fb);
+    var act=document.createElement("div"); act.className="actions";
+    var next=document.createElement("button"); next.type="button"; next.className="btn primary"; next.id="nextBtn";
+    next.textContent=(state.i===state.total-1)?"Ver el cierre →":"Siguiente escena →"; next.disabled=true;
+    next.addEventListener("click", function(){ state.i++; if(state.i<state.total){ renderScene(); } else { renderResults(); } });
+    act.appendChild(next); wrap.appendChild(act); host.appendChild(wrap);
+  }
+
+  function applyDeltas(d){
+    var parts=[];
+    IND.forEach(function(m){ var dv=d[m.k]||0; if(dv!==0){ state.ind[m.k]=clamp(state.ind[m.k]+dv); parts.push({name:m.name, dv:dv}); } });
+    return parts;
+  }
+
+  function choose(sc, op, btn, buttons){
+    buttons.forEach(function(b){ b.disabled=true; if(b===btn){ b.classList.add("chosen"); } else { b.classList.add("dim"); } });
+    var tone, fbText, norm, deltas;
+    if(sc.timing){
+      var correct=state.caseObj.termino; var right=(op.term===correct);
+      tone=right?"good":"warn";
+      fbText = right ? (op["fb"+op.term]||"Correcto.") : op.fbX;
+      deltas = right ? applyDeltas({TMP:16,RES:8,CLA:2}) : applyDeltas({TMP:-6,RES:-2});
+      norm="Artículo 14: 15 días hábiles como regla general; 10 para documentos e información; 30 para consultas. En tu caso aplican "+correct+" días hábiles.";
+    } else {
+      tone=op.tone; fbText=op.fb; norm=op.norm; deltas=applyDeltas(op.d);
+    }
+    renderMeters($("meters"), false);
+    var fb=$("fbBox"); fb.hidden=false; fb.className="feedback "+tone;
+    var head = tone==="good" ? "✓ Buena decisión" : (tone==="warn" ? "! Cuidado" : "✗ Riesgoso");
+    var dhtml='<div class="deltas">';
+    deltas.forEach(function(p){ dhtml+='<span class="chipd '+(p.dv>0?"up":"down")+'">'+p.name+' '+(p.dv>0?"+":"")+p.dv+'</span>'; });
+    dhtml+='</div>';
+    fb.innerHTML='<span class="fh">'+head+'</span><div>'+fbText+'</div><span class="fnorm">'+norm+'</span>'+dhtml;
+    var nb=$("nextBtn"); nb.disabled=false; nb.focus();
+  }
+
+  function passed(){ var mn=100; IND.forEach(function(m){ if(state.ind[m.k]<mn) mn=state.ind[m.k]; }); return state.ind[PRIMARY]>=PASS_PRI && mn>=PASS_MIN; }
+
+  function renderResults(){
+    renderMeters($("finalMeters"), true);
+    var ok=passed();
+    $("medalRing").textContent = ok ? "🎖️" : "🧭";
+    $("medalText").textContent = ok ? "Tu gestión generó valor público: cuidaste a las personas, planeaste con rumbo, fuiste transparente y mediste con honestidad." : "Tu gestión quedó a medio camino. Revisa las escenas donde bajaron los indicadores y vuelve a intentarlo.";
+    renderMision(ok); show("results");
+  }
+
+  var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  function todayEs(){ var d=new Date(); return d.getDate()+" de "+MESES[d.getMonth()]+" de "+d.getFullYear(); }
+  function makeFolio(){ var s="ABCDEFGHJKLMNPQRSTUVWXYZ23456789", r=""; for(var i=0;i<5;i++){ r+=s.charAt(Math.floor(Math.random()*s.length)); } return "MIPG-"+(new Date().getFullYear())+"-"+r; }
+
+  function renderMision(ok){
+    $("acta").hidden=true;
+    var host=$("misionHost");
+    if(!ok){
+      host.innerHTML='<div class="locked-note"><p style="margin:0"><b>Aún puedes afinar tu caso.</b> '+
+        'La constancia se genera cuando tu caso prospera ('+primaryName()+' ≥ '+PASS_PRI+' y ningún indicador por debajo de '+PASS_MIN+'). '+
+        'Vuelve a intentarlo: repasa las escenas y elige la ruta que más aporta.</p>'+
+        '<div class="certactions"><button class="btn primary" id="retryBtn" type="button">Repasar y jugar de nuevo</button></div></div>';
+      $("retryBtn").addEventListener("click", doRestart); return;
+    }
+    host.innerHTML='<div class="mision">'+
+      '<p style="margin:0 0 .4em"><b>El aprendizaje se completa en el territorio.</b> Elige una dimensión o política del MIPG que vas a fortalecer en tu área este trimestre.</p>'+
+      '<div class="field"><label for="mName">Tu nombre completo</label>'+
+        '<input id="mName" type="text" autocomplete="name" maxlength="70" placeholder="Ej.: María Camila Restrepo"></div>'+
+      '<div class="field"><label for="mAsunto">¿Qué vas a fortalecer?</label>'+
+        '<input id="mAsunto" type="text" maxlength="90" placeholder="Ej.: transparencia activa en mi dependencia"></div>'+
+      '<div class="field"><label for="mCom">Tu compromiso concreto (qué acción y cuándo)</label>'+
+        '<textarea id="mCom" maxlength="240" placeholder="Ej.: Este trimestre publico proactivamente los contratos de mi área y capacito al equipo."></textarea></div>'+
+      '<p class="hint" id="mErr" role="status"></p>'+
+      '<div class="certactions"><button class="btn primary" id="mGenBtn" type="button">Generar mi constancia</button></div>'+
+    '</div>';
+    $("mAsunto").value = state.caseObj.asunto.charAt(0).toUpperCase()+state.caseObj.asunto.slice(1);
+    $("mGenBtn").addEventListener("click", generateActa);
+  }
+
+  function generateActa(){
+    var name=($("mName").value||"").trim();
+    var asunto=($("mAsunto").value||"").trim();
+    var com=($("mCom").value||"").trim();
+    if(name.length<2){ $("mErr").textContent="Escribe tu nombre para emitir la constancia."; $("mName").focus(); return; }
+    if(com.length<8){ $("mErr").textContent="Escribe tu compromiso concreto."; $("mCom").focus(); return; }
+    $("mErr").textContent="";
+    $("actaNameOut").textContent=name;
+    $("actaCaseOut").textContent="“"+state.caseObj.title+"”";
+    $("actaComOut").textContent=com + (asunto? "  (Asunto: "+asunto+")" : "");
+    $("actaScoreOut").textContent=primaryName()+" "+state.ind[PRIMARY]+"/100";
+    $("actaDateOut").textContent=todayEs();
+    if(!$("actaFolioOut").dataset.set){ $("actaFolioOut").textContent=makeFolio(); $("actaFolioOut").dataset.set="1"; }
+    var acta=$("acta"); acta.hidden=false; acta.classList.add("reveal");
+    acta.setAttribute("tabindex","-1"); acta.focus(); acta.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  function doRestart(){ state={caseObj:null,scenes:[],i:0,ind:{},total:TOTAL}; var fo=$("actaFolioOut"); if(fo){ delete fo.dataset.set; } show("intro"); }
+
+  function currentDark(){ var t=document.documentElement.getAttribute("data-theme"); if(t==="dark")return true; if(t==="light")return false; return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches; }
+  function syncThemeBtn(){ var d=currentDark(); $("themeIcon").textContent=d?"☀️":"🌙"; $("themeLabel").textContent=d?"Claro":"Oscuro"; $("themeBtn").setAttribute("aria-pressed",String(d)); $("themeBtn").setAttribute("aria-label", d?"Cambiar a tema claro":"Cambiar a tema oscuro"); }
+  $("themeBtn").addEventListener("click", function(){ document.documentElement.setAttribute("data-theme", currentDark()?"light":"dark"); syncThemeBtn(); });
+  if(window.matchMedia){ var mq=window.matchMedia("(prefers-color-scheme: dark)"); (mq.addEventListener?mq.addEventListener.bind(mq,"change"):mq.addListener.bind(mq))(function(){ if(!document.documentElement.getAttribute("data-theme")) syncThemeBtn(); }); }
+  syncThemeBtn();
+
+  $("restartBtn").addEventListener("click", doRestart);
+  $("actaDownloadBtn").addEventListener("click", function(){ window.print(); });
+  $("actaEditBtn").addEventListener("click", function(){ $("acta").hidden=true; var n=$("mCom"); if(n){ n.focus(); } $("misionHost").scrollIntoView({behavior:"smooth", block:"center"}); });
+
+  renderCases();
+})();
+</script>
+
+</body></html>

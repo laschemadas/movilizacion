@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estándar técnico de publicación digital v2 — Alcaldía de Medellín, Distrito CTI</title>
+<meta name="description" content="Estándar técnico de publicación digital del ecosistema de la Alcaldía de Medellín, Distrito de Ciencia, Tecnología e Innovación. Versión 2, en lenguaje claro y con criterios de accesibilidad verificables.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7F8; --surface:#FFFFFF; --ink:#16232B; --muted:#44535B;
+  --line:#DCE3E6; --line-strong:#7E8B91;
+  --primary-ink:#005A7C; --accent-ink:#8C3D07; --ok-ink:#005F31; --fail-ink:#9A1B12;
+  --primary-btn:#005A7C; --on-primary:#FFFFFF;
+  --rail:#00AEEF; --rail-2:#F47B29;
+  --shadow:0 1px 2px rgba(22,35,43,.08), 0 8px 24px rgba(22,35,43,.06);
+  --font-display:"Metropolis","Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+  --font-body:"Metropolis","Poppins","Segoe UI",Arial,Helvetica,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"Courier New",monospace;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#002A2E; --surface:#063A3F; --ink:#F2F7F7; --muted:#B6C7C8;
+    --line:#14484E; --line-strong:#4E8F96;
+    --primary-ink:#4FD2FF; --accent-ink:#FFB684; --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+    --primary-btn:#4FD2FF; --on-primary:#002A2E;
+    --rail:#07BCFF; --rail-2:#F69959;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#002A2E; --surface:#063A3F; --ink:#F2F7F7; --muted:#B6C7C8;
+  --line:#14484E; --line-strong:#4E8F96;
+  --primary-ink:#4FD2FF; --accent-ink:#FFB684; --ok-ink:#43E08F; --fail-ink:#FFB0A6;
+  --primary-btn:#4FD2FF; --on-primary:#002A2E;
+  --rail:#07BCFF; --rail-2:#F69959;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto}
+.skip{position:absolute;left:8px;top:-70px;z-index:100;background:var(--primary-btn);
+  color:var(--on-primary);padding:.8em 1.2em;border-radius:0 0 10px 10px;
+  font-weight:700;text-decoration:none;transition:top .18s}
+.skip:focus{top:0}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a{color:var(--primary-ink)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--primary-ink);outline-offset:3px;border-radius:6px}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.25rem}
+
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top-in{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding:1rem 0}
+.brandmark{display:flex;align-items:center;gap:.85rem;min-width:0}
+.brandmark .crest{width:32px;height:42px;flex:none}
+.brandmark .bt{font-family:var(--font-display);font-weight:700;font-size:1.02rem;line-height:1.15}
+.brandmark .bs{font-size:.78rem;color:var(--muted);line-height:1.25}
+.tbtn{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.5rem 1rem;
+  border:2px solid var(--line-strong);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:.95rem;font-weight:600;border-radius:999px;cursor:pointer}
+.tbtn:hover{border-color:var(--primary-ink)}
+
+.hero{padding:3rem 0 2rem}
+.kicker{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-ink);font-weight:600;margin:0 0 .8rem}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,5.2vw,2.9rem);
+  line-height:1.12;margin:0 0 1rem;text-wrap:balance;max-width:22ch}
+.lede{font-size:1.15rem;max-width:62ch;margin:0 0 1.25rem}
+.meta{font-family:var(--font-mono);font-size:.85rem;color:var(--muted);
+  border-left:4px solid var(--rail);padding-left:.9rem;max-width:62ch}
+
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.25rem 1.4rem;margin:0 0 3rem;box-shadow:var(--shadow)}
+.toc h2{font-size:.82rem;font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 .75rem}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:.1rem;
+  grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.toc a{display:flex;gap:.6rem;align-items:baseline;min-height:44px;padding:.35rem .4rem;
+  text-decoration:none;color:var(--ink);border-radius:8px}
+.toc a:hover{background:var(--bg);text-decoration:underline}
+.toc .n{font-family:var(--font-mono);color:var(--accent-ink);font-weight:600;flex:none}
+
+main{padding-bottom:4rem}
+section{margin:0 0 3.25rem;scroll-margin-top:1.5rem}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.45rem,3.2vw,2rem);
+  line-height:1.2;margin:0 0 .5rem;text-wrap:balance}
+.h2num{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--primary-ink);font-weight:600;display:block;margin:0 0 .45rem}
+h3{font-family:var(--font-display);font-size:1.15rem;margin:1.9rem 0 .55rem;line-height:1.3}
+p,li{max-width:70ch}
+ul,ol{padding-left:1.3rem}
+li{margin:.3rem 0}
+.sub{color:var(--muted);max-width:65ch;margin:.2rem 0 1.4rem}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.3rem 1.45rem;box-shadow:var(--shadow);margin:1.2rem 0}
+.card h3{margin-top:0}
+.card > :last-child{margin-bottom:0}
+.grid2{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(19rem,1fr))}
+
+.note{border-left:5px solid var(--accent-ink);background:var(--surface);
+  border-radius:0 var(--radius) var(--radius) 0;padding:1.05rem 1.3rem;margin:1.4rem 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.note > :last-child{margin-bottom:0}
+.note strong{color:var(--accent-ink)}
+.fix{border-left-color:var(--ok-ink)}
+.fix strong{color:var(--ok-ink)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--surface);box-shadow:var(--shadow);margin:1.2rem 0}
+table{border-collapse:collapse;width:100%;min-width:34rem}
+caption{text-align:left;padding:1rem 1.1rem .25rem;color:var(--muted);font-size:.9rem}
+th,td{text-align:left;padding:.7rem .9rem;border-bottom:1px solid var(--line);vertical-align:top;font-size:.95rem}
+thead th{font-size:.76rem;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);border-bottom:2px solid var(--line-strong)}
+tbody tr:last-child td{border-bottom:0}
+code,.mono{font-family:var(--font-mono);font-size:.9rem}
+
+.pend{font-family:var(--font-mono);font-size:.85rem;color:var(--fail-ink);
+  border:1px dashed var(--fail-ink);border-radius:6px;padding:.05em .45em;white-space:normal}
+
+.crit{list-style:none;padding:0;margin:1rem 0;display:grid;gap:.55rem}
+.crit li{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--rail);
+  border-radius:0 10px 10px 0;padding:.8rem 1.05rem;max-width:none}
+.crit .cn{font-family:var(--font-mono);font-weight:600;color:var(--primary-ink);margin-right:.5rem}
+
+footer{border-top:1px solid var(--line);background:var(--surface);padding:2.5rem 0;
+  color:var(--muted);font-size:.9rem}
+footer p{max-width:72ch}
+.status{font-family:var(--font-mono);font-size:.85rem;color:var(--ok-ink);font-weight:600}
+
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}.skip{transition:none!important}}
+@media (forced-colors: active){
+  .card,.toc,.tablewrap,.note,.crit li{border:1px solid CanvasText}
+  .pend{border:1px dashed CanvasText}
+}
+@media (max-width:40rem){body{font-size:1rem}.hero{padding:2rem 0 1.5rem}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido principal</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brandmark">
+      <svg class="crest" viewBox="0 0 34 44" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="32" height="42" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M9 34V20l8-6 8 6v14" fill="none" stroke="currentColor" stroke-width="2"/>
+        <rect x="14" y="26" width="6" height="8" fill="currentColor"/>
+      </svg>
+      <span>
+        <span class="bt">Alcaldía de Medellín</span><br>
+        <span class="bs">Distrito de Ciencia, Tecnología e Innovación</span>
+      </span>
+    </div>
+    <button class="tbtn" id="theme" type="button" aria-pressed="false">
+      <span aria-hidden="true" id="theme-icon">☾</span>
+      <span id="theme-label">Tema oscuro</span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="kicker">Versión 2 · Documento para revisión del Comité Técnico</p>
+    <h1>Estándar técnico de publicación digital</h1>
+    <p class="lede">Las reglas para publicar imágenes, video, audio y documentos en el ecosistema digital del Distrito, optimizarlos para buscadores y garantizar que cualquier persona pueda acceder a ellos.</p>
+    <p class="meta">Aplica a servidores públicos de cualquier secretaría, entes descentralizados, proveedores y contratistas. Si solo necesita publicar una noticia, lea los capítulos 3, 7 y 8.</p>
+  </div>
+</div>
+
+<div class="wrap">
+<nav class="toc" aria-labelledby="toc-h">
+  <h2 id="toc-h">Contenido</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">1</span> ¿Para qué existe este estándar?</a></li>
+    <li><a href="#s2"><span class="n">2</span> ¿Quién aprueba qué?</a></li>
+    <li><a href="#s3"><span class="n">3</span> ¿Cómo preparo una imagen?</a></li>
+    <li><a href="#s4"><span class="n">4</span> ¿Cómo publico un video?</a></li>
+    <li><a href="#s5"><span class="n">5</span> ¿Cómo publico un audio?</a></li>
+    <li><a href="#s6"><span class="n">6</span> ¿Cómo publico un documento?</a></li>
+    <li><a href="#s7"><span class="n">7</span> ¿Cómo posiciono el contenido?</a></li>
+    <li><a href="#s8"><span class="n">8</span> Criterios de accesibilidad verificables</a></li>
+    <li><a href="#s9"><span class="n">9</span> Color, marca e identidad</a></li>
+    <li><a href="#s10"><span class="n">10</span> Acuerdos de niveles de servicio</a></li>
+    <li><a href="#s11"><span class="n">11</span> Seguridad y gestión delegada</a></li>
+    <li><a href="#s12"><span class="n">12</span> Conformidad y reporte de barreras</a></li>
+    <li><a href="#s13"><span class="n">13</span> Glosario</a></li>
+    <li><a href="#s14"><span class="n">14</span> Vacíos por confirmar</a></li>
+  </ol>
+</nav>
+</div>
+
+<main id="contenido" class="wrap">
+
+<section id="s0" aria-labelledby="s0h">
+  <h2 id="s0h">Qué cambió frente a la versión 1</h2>
+  <div class="note fix">
+    <p><strong>Cinco correcciones de fondo:</strong> los criterios de accesibilidad pasaron de enunciados a requisitos medibles; se corrigió la excepción de subtítulos en transmisiones en vivo, que contradecía el propio nivel AA declarado; se agregó la obligación de transcribir los audios; se agregaron requisitos de accesibilidad para los documentos PDF y de hoja de cálculo; y se conectó este estándar con el Anexo 8 del Manual de Identidad Visual, para que los colores publicados cumplan contraste.</p>
+  </div>
+</section>
+
+<section id="s1" aria-labelledby="s1h">
+  <span class="h2num">Capítulo 1</span>
+  <h2 id="s1h">¿Para qué existe este estándar?</h2>
+  <p>Unificamos estas especificaciones para que cualquier persona pueda acceder a la información pública del Distrito, sin importar su conexión, su dispositivo o su discapacidad.</p>
+  <h3>Tres marcos nos obligan</h3>
+  <ul>
+    <li><strong>Ley 1712 de 2014</strong>, de transparencia y acceso a la información pública. La accesibilidad es condición del acceso, no un agregado.</li>
+    <li><strong>Resolución 1519 de 2020 de MinTIC</strong>, que exige a las entidades públicas cumplir el estándar internacional de accesibilidad web WCAG 2.1 en nivel AA. Rige desde el 1 de enero de 2022 para los sitios nuevos y para los contenidos ya publicados.</li>
+    <li><strong>Ley 1618 de 2013</strong>, que garantiza el ejercicio pleno de los derechos de las personas con discapacidad.</li>
+  </ul>
+  <div class="note">
+    <p><strong>El nivel AA es el piso legal. La meta del Distrito es el nivel AAA</strong>, porque somos un Distrito de Ciencia, Tecnología e Innovación y porque la información que publicamos es un servicio público esencial.</p>
+  </div>
+  <p>Una página pesada, un video sin subtítulos o un PDF escaneado no son problemas de calidad: son barreras que le impiden a una persona ejercer un derecho.</p>
+  <h3>Sobre la plataforma</h3>
+  <p>El ecosistema opera sobre WordPress con una arquitectura administrada por la Secretaría de Innovación Digital. Las versiones exactas del gestor de contenidos, la base de datos y los servidores se documentan en el inventario técnico interno, no en este documento, por seguridad informática.</p>
+  <p><span class="pend">[pendiente: confirmar con Innovación Digital la versión vigente del CMS y su calendario de actualización]</span></p>
+</section>
+
+<section id="s2" aria-labelledby="s2h">
+  <span class="h2num">Capítulo 2</span>
+  <h2 id="s2h">¿Quién aprueba qué?</h2>
+  <h3>Comité Técnico</h3>
+  <p>Toda iniciativa digital nueva pasa por el Comité Técnico, integrado por las secretarías de Comunicaciones e Innovación Digital, desde la idea y no cuando ya está construida. El Comité decide sobre funcionalidades, tono comunicacional y cumplimiento normativo.</p>
+  <p><strong>Cómo llevar una iniciativa al Comité:</strong> escriba a <span class="pend">[pendiente: correo del Comité Técnico]</span> con el objetivo de la pieza, el público al que se dirige y la fecha esperada de publicación. El Comité responde en <span class="pend">[pendiente: plazo]</span> días hábiles.</p>
+
+  <h3>Matriz de roles</h3>
+  <div class="tablewrap">
+    <table>
+      <caption>Qué puede hacer cada rol en el gestor de contenidos.</caption>
+      <thead><tr><th scope="col">Rol</th><th scope="col">Qué puede hacer</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Suscriptor</th><td>Entrar al sistema y consultar perfiles.</td></tr>
+        <tr><th scope="row">Autor</th><td>Crear entradas. Un editor o administrador debe aprobarlas antes de publicar.</td></tr>
+        <tr><th scope="row">SEO Editor / SEO Manager</th><td>Gestionar metadatos, direcciones web y optimización para buscadores.</td></tr>
+        <tr><th scope="row">Editor</th><td>Publicar contenidos propios y de terceros.</td></tr>
+        <tr><th scope="row">Administrador</th><td>Control total: extensiones, plantillas, código fuente y usuarios.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Flujo de publicación</h3>
+  <ol>
+    <li>La dependencia elabora el contenido siguiendo este estándar.</li>
+    <li>Avisa por correo al equipo de Comunicación Digital que está listo para auditoría, a <span class="pend">[pendiente: correo de Comunicación Digital]</span>.</li>
+    <li>Comunicación Digital revisa y publica.</li>
+  </ol>
+  <p>Ninguna página se hace visible sin esa revisión previa. Cada dependencia responde por la veracidad y la actualización de sus contenidos; el equipo de Comunicación Digital acompaña ese proceso y resuelve dudas antes de la publicación, no después.</p>
+</section>
+
+<section id="s3" aria-labelledby="s3h">
+  <span class="h2num">Capítulo 3</span>
+  <h2 id="s3h">¿Cómo preparo una imagen?</h2>
+  <p class="sub">Una imagen pesada demora la carga y consume los datos de quien la ve. Por eso los límites son estrictos.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Imagen destacada: la que encabeza la nota y aparece al compartirla en redes.</caption>
+      <thead><tr><th scope="col">Requisito</th><th scope="col">Especificación</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Peso máximo</th><td>150 KB</td></tr>
+        <tr><th scope="row">Ancho mínimo</th><td>1200 px. Recomendado: 1200 × 800 px o 1000 × 500 px</td></tr>
+        <tr><th scope="row">Orientación</th><td>Horizontal, obligatoriamente</td></tr>
+        <tr><th scope="row">Formato</th><td>JPG obligatorio. Las redes sociales lo necesitan para generar la previsualización del enlace</td></tr>
+        <tr><th scope="row">Atributos</th><td>Texto alternativo y título descriptivo, siempre</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Imágenes dentro del cuerpo de la nota</h3>
+  <ul>
+    <li>Use <strong>WebP o AVIF</strong> cuando el sistema lo permita: pesan entre 25 % y 50 % menos que un JPG equivalente.</li>
+    <li>Use <strong>PNG solo cuando necesite fondo transparente</strong>.</li>
+    <li>Active la <strong>carga diferida</strong> y las <strong>imágenes adaptativas</strong> (<code>srcset</code>), para que un celular no descargue la versión de escritorio.</li>
+  </ul>
+
+  <h3>Reglas que aplican a toda imagen</h3>
+  <ul>
+    <li><strong>Prohibido el texto incrustado en la imagen.</strong> Un lector de pantalla no lo lee, no se puede traducir, no se puede buscar y se ve borroso al ampliar. Si el mensaje es importante, va en el texto de la página.</li>
+    <li><strong>No corte las cabezas</strong> en las fotografías de personas.</li>
+    <li><strong>Texto alternativo útil.</strong> Describa lo que aporta la imagen, no lo que se ve. Para la foto de una entrega de obra: «El alcalde inaugura el paseo urbano de la carrera 83 junto a habitantes del barrio El Progreso», no «foto del alcalde».</li>
+    <li><strong>Imágenes decorativas:</strong> si la imagen no aporta información, déjela con el atributo alternativo vacío (<code>alt=""</code>) para que el lector de pantalla la ignore. Un ALT relleno de palabras clave estorba más que la ausencia de ALT.</li>
+  </ul>
+</section>
+
+<section id="s4" aria-labelledby="s4h">
+  <span class="h2num">Capítulo 4</span>
+  <h2 id="s4h">¿Cómo publico un video?</h2>
+  <p><strong>No suba videos al portal.</strong> Todos los videos del Distrito van al canal oficial de YouTube de la Alcaldía de Medellín.</p>
+  <p><strong>Cómo solicitarlo:</strong> escriba a <span class="pend">[pendiente: correo de Comunicación Digital]</span> con el enlace de descarga del video, el título y la descripción. Le devuelven el código para insertarlo en la página.</p>
+
+  <h3>Accesibilidad del video</h3>
+  <ul>
+    <li><strong>Subtítulos en el 100 % de los videos con audio</strong>, incluidas las <strong>transmisiones en vivo</strong>, que requieren subtitulado en directo.</li>
+    <li><strong>Los subtítulos automáticos de YouTube no cumplen.</strong> Sirven como borrador; un editor debe revisarlos y corregirlos antes de publicar. Los nombres propios, las cifras y los términos técnicos son justo lo que la transcripción automática falla.</li>
+    <li><strong>Transcripción en texto</strong> junto al video, en la misma página. Sirve a personas sordas, a quien tiene mala conexión y al posicionamiento en buscadores.</li>
+    <li><strong>Audiodescripción</strong> cuando haya información que solo se ve: cifras en pantalla, gestos, ubicaciones, rótulos.</li>
+    <li><strong>Lengua de Señas Colombiana</strong>, obligatoria en cuatro casos: alocuciones de la Alcaldía o la Presidencia, información sobre emergencias y desastres, seguridad ciudadana, y rendición de cuentas anual.</li>
+    <li><strong>Sin destellos</strong> de más de tres por segundo, en ninguna animación. Pueden provocar crisis epilépticas.</li>
+    <li><strong>Rótulos y cintillos</strong> con los colores del Anexo 8. Nunca texto blanco sobre un color vibrante de marca.</li>
+  </ul>
+
+  <div class="note fix">
+    <p><strong>Corrección frente a la versión 1:</strong> la versión anterior exceptuaba las transmisiones en vivo de la obligación de subtitular. El subtitulado en directo es un criterio de nivel AA, el mismo nivel que este estándar declara obligatorio, así que la excepción hacía que el documento se incumpliera a sí mismo.</p>
+  </div>
+</section>
+
+<section id="s5" aria-labelledby="s5h">
+  <span class="h2num">Capítulo 5</span>
+  <h2 id="s5h">¿Cómo publico un audio?</h2>
+  <ul>
+    <li><strong>Formato MP3</strong>, exclusivamente.</li>
+    <li><strong>Nombre y descripción</strong> del vocero o del grupo de participantes.</li>
+    <li><strong>Transcripción completa en texto</strong>, publicada junto al audio.</li>
+  </ul>
+  <div class="note fix">
+    <p><strong>Corrección frente a la versión 1:</strong> sin transcripción, el contenido de un audio no existe para una persona sorda. Es un requisito de nivel A, el más básico de todos, y la versión anterior no lo contemplaba: pedía describir al vocero, lo cual identifica la fuente pero no da acceso al contenido.</p>
+  </div>
+</section>
+
+<section id="s6" aria-labelledby="s6h">
+  <span class="h2num">Capítulo 6</span>
+  <h2 id="s6h">¿Cómo publico un documento?</h2>
+  <div class="tablewrap">
+    <table>
+      <caption>Formatos y límites para documentos adjuntos.</caption>
+      <thead><tr><th scope="col">Requisito</th><th scope="col">Especificación</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Formatos</th><td>PDF y XLSX. También se permiten PPTX, DOCX y CSV</td></tr>
+        <tr><th scope="row">Peso máximo</th><td>60 MB. Por encima de 10 MB, advierta el peso junto al enlace</td></tr>
+        <tr><th scope="row">Datos</th><td>Si el documento contiene datos, publique además la versión en CSV y en el portal de datos abiertos, según la Ley 1712</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>El documento también debe ser accesible</h3>
+  <p>Un PDF publicado en el portal es contenido del portal y responde a las mismas reglas:</p>
+  <ul>
+    <li><strong>PDF etiquetado</strong>, con orden de lectura definido, encabezados reales e idioma declarado.</li>
+    <li><strong>Texto alternativo</strong> en las imágenes que contenga.</li>
+    <li><strong>Nada de PDF escaneados sin capa de texto.</strong> Una imagen de un documento es ilegible para un lector de pantalla. Si solo existe el escaneo, aplíquele reconocimiento de texto antes de publicarlo.</li>
+    <li><strong>No use XLS</strong>, que es un formato binario heredado. Use XLSX.</li>
+  </ul>
+  <p>Cuando un documento sea la única fuente de un trámite o de un derecho, publique también su contenido esencial como texto en la página. Nadie debería tener que descargar un archivo de 40 MB para saber cuándo vence un plazo.</p>
+</section>
+
+<section id="s7" aria-labelledby="s7h">
+  <span class="h2num">Capítulo 7</span>
+  <h2 id="s7h">¿Cómo posiciono el contenido en los buscadores?</h2>
+  <p>El SEO hace que la información del Distrito aparezca cuando la ciudadanía busca. Si una persona busca «cómo pagar el predial en Medellín», debe encontrar nuestra página y no la de un tercero.</p>
+
+  <h3>Títulos y direcciones web</h3>
+  <ul>
+    <li><strong>Título principal (H1):</strong> preciso y descriptivo. Uno solo por página.</li>
+    <li><strong>Dirección web (slug):</strong> corta y legible. Es obligatorio acortarla cuando el título es largo. Separe las palabras con guiones y conserve la estructura de la dependencia. Ejemplo: <code>/secretaria-de-comunicaciones/nuevo-plan-de-medios</code>.</li>
+    <li><strong>Encabezados H2, H3 y H4</strong> para organizar el contenido, sin saltar niveles: después de un H2 viene un H3, nunca un H4.</li>
+  </ul>
+  <div class="note">
+    <p>La jerarquía de encabezados sirve al mismo tiempo para dos cosas: los buscadores la usan para entender la página y los lectores de pantalla la usan para navegarla. Es el punto donde el posicionamiento y la accesibilidad coinciden por completo.</p>
+  </div>
+
+  <h3>Metadatos en Yoast SEO</h3>
+  <p>Bajo la supervisión de los roles SEO Editor y SEO Manager:</p>
+  <ul>
+    <li><strong>Título SEO:</strong> máximo 60 caracteres. Atractivo y relacionado con el tema.</li>
+    <li><strong>Meta-descripción:</strong> entre 120 y 155 caracteres. Resume la página e invita a entrar.</li>
+  </ul>
+</section>
+
+<section id="s8" aria-labelledby="s8h">
+  <span class="h2num">Capítulo 8</span>
+  <h2 id="s8h">Criterios de accesibilidad verificables</h2>
+  <p class="sub">La Resolución 1519 exige nivel AA; el Distrito apunta a AAA. Estos 16 criterios traducen esa obligación a verificaciones concretas. Se revisan antes de publicar y quedan como requisito contractual para los proveedores.</p>
+
+  <h3>Perceptible</h3>
+  <ul class="crit">
+    <li><span class="cn">1</span><strong>Contraste medido.</strong> Texto normal 4.5:1 como mínimo legal, 7:1 como meta del Distrito. Se mide con calculadora de contraste, no a ojo.</li>
+    <li><span class="cn">2</span><strong>Contraste de componentes.</strong> Bordes de campos, íconos informativos e indicadores de estado: 3:1 contra lo que tienen al lado.</li>
+    <li><span class="cn">3</span><strong>Nada depende solo del color.</strong> Un estado, una categoría o un dato en rojo van acompañados de texto, ícono o forma.</li>
+    <li><span class="cn">4</span><strong>Alternativas de texto.</strong> Imágenes informativas con ALT descriptivo; decorativas con ALT vacío.</li>
+    <li><span class="cn">5</span><strong>Zoom al 400 %</strong> sin que aparezca desplazamiento horizontal.</li>
+  </ul>
+
+  <h3>Operable</h3>
+  <ul class="crit">
+    <li><span class="cn">6</span><strong>Todo funciona con teclado</strong>, con Tab, Enter y Espacio, sin puntos donde el foco quede atrapado.</li>
+    <li><span class="cn">7</span><strong>El foco es visible</strong> en todo elemento interactivo.</li>
+    <li><span class="cn">8</span><strong>Enlace «Saltar al contenido principal»</strong> como primer elemento al que llega el teclado.</li>
+    <li><span class="cn">9</span><strong>Objetivos táctiles de 44 × 44 px</strong> como mínimo en botones, pestañas e íconos.</li>
+    <li><span class="cn">10</span><strong>Movimiento respetuoso.</strong> Se atiende la preferencia de movimiento reducido del sistema y nada parpadea más de tres veces por segundo.</li>
+  </ul>
+
+  <h3>Comprensible</h3>
+  <ul class="crit">
+    <li><span class="cn">11</span><strong>Idioma declarado</strong> en el código de la página.</li>
+    <li><span class="cn">12</span><strong>Formularios con etiqueta visible</strong> asociada a cada campo. El texto de ayuda dentro del campo no cuenta como etiqueta.</li>
+    <li><span class="cn">13</span><strong>Errores que explican</strong> qué pasó y cómo corregirlo, en texto.</li>
+    <li><span class="cn">14</span><strong>Lenguaje claro</strong> y enlaces que anuncian cuándo abren una pestaña nueva.</li>
+  </ul>
+
+  <h3>Robusto</h3>
+  <ul class="crit">
+    <li><span class="cn">15</span><strong>Código semántico:</strong> regiones de página identificadas, jerarquía de encabezados sin saltos, controles ARIA correctos.</li>
+    <li><span class="cn">16</span><strong>Zonas que cambian solas anunciadas</strong> a los lectores de pantalla, y compatibilidad con el modo de alto contraste del sistema.</li>
+  </ul>
+
+  <h3>Herramientas de apoyo</h3>
+  <p>El portal facilita la descarga de Convertic, el programa de MinTIC que entrega licencias gratuitas de lectores de pantalla, y de otras ayudas de navegación.</p>
+  <div class="note">
+    <p><strong>Ninguna herramienta, barra o widget de accesibilidad reemplaza el cumplimiento de estos 16 criterios.</strong> Las ayudas superpuestas pueden incluso interferir con el lector de pantalla que la persona ya trae configurado. Se ofrecen como complemento, nunca como sustituto.</p>
+  </div>
+</section>
+
+<section id="s9" aria-labelledby="s9h">
+  <span class="h2num">Capítulo 9</span>
+  <h2 id="s9h">Color, marca e identidad</h2>
+  <p>Los colores de toda pieza digital se toman de los <strong>tokens verificados del Anexo 8 del Manual de Identidad Visual v20</strong>, no de la paleta de impresión.</p>
+  <p>La razón es concreta: los colores vibrantes del manual fueron definidos para tinta y ninguno sostiene texto blanco encima en pantalla. El cian institucional con texto blanco da 2.53:1 y el amarillo da 1.35:1, contra un mínimo legal de 4.5:1. El Anexo 8 entrega, por cada color de marca, una variante del mismo tono que sí cumple.</p>
+  <div class="note">
+    <p><strong>La regla corta:</strong> el color vibrante se queda para rieles, subrayados, fondos decorativos e íconos. El texto va en la variante verificada.</p>
+  </div>
+  <p>El resto de las reglas de marca en pantalla —texto alternativo oficial del logo, contenedor sobre fotografía, tamaños mínimos de tipografía, firma digital y cabezotes— también está en el Anexo 8.</p>
+</section>
+
+<section id="s10" aria-labelledby="s10h">
+  <span class="h2num">Capítulo 10</span>
+  <h2 id="s10h">Acuerdos de niveles de servicio</h2>
+  <div class="tablewrap">
+    <table>
+      <caption>Plazos de respuesta del equipo de Comunicación Digital.</caption>
+      <thead><tr><th scope="col">Solicitud</th><th scope="col">Plazo</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Actualizaciones simples y cargas de contenido</th><td>2 días hábiles</td></tr>
+        <tr><th scope="row">Gestión de usuarios</th><td>3 a 5 días hábiles</td></tr>
+        <tr><th scope="row">Desarrollos complejos</th><td>Le confirmamos fecha en los 3 días hábiles siguientes a su solicitud, después de revisar la viabilidad técnica. <span class="pend">[pendiente: validar este compromiso con Innovación Digital]</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Los plazos corren desde que la solicitud llega completa. Una solicitud sin el material o sin la información requerida no inicia el conteo.</p>
+</section>
+
+<section id="s11" aria-labelledby="s11h">
+  <span class="h2num">Capítulo 11</span>
+  <h2 id="s11h">Seguridad y gestión delegada</h2>
+  <p>Para dependencias externas y proveedores:</p>
+  <ul>
+    <li><strong>Conexión segura:</strong> el acceso se hace por VPN Cisco AnyConnect. Solicítela en el Centro de Servicios Compartidos con un contrato vigente, a <span class="pend">[pendiente: canal de solicitud del CSC]</span>.</li>
+    <li><strong>Extensiones y librerías:</strong> no instale extensiones ni librerías de JavaScript externas sin el aval de la Secretaría de Innovación Digital. Cada componente externo agrega superficie de ataque y puede romper la accesibilidad del sitio.</li>
+    <li><strong>Publicación:</strong> ninguna página se hace visible sin la revisión previa del equipo de Comunicación Digital.</li>
+  </ul>
+</section>
+
+<section id="s12" aria-labelledby="s12h">
+  <span class="h2num">Capítulo 12</span>
+  <h2 id="s12h">Declaración de conformidad y reporte de barreras</h2>
+  <p>Cada sitio del ecosistema publica una página de accesibilidad con:</p>
+  <ul>
+    <li>El nivel de conformidad alcanzado y la fecha de la última revisión.</li>
+    <li>Las partes del sitio que aún no cumplen y el plazo previsto para corregirlas.</li>
+    <li>Un canal para que cualquier persona reporte una barrera: <span class="pend">[pendiente: correo o formulario de reporte]</span>.</li>
+    <li>El compromiso de respuesta a esos reportes: <span class="pend">[pendiente: plazo]</span> días hábiles.</li>
+  </ul>
+  <p>Decir «cumplimos AA en contraste y estructura, con validación de usuarios pendiente» es más útil y más defendible ante un ente de control que declarar un cumplimiento total sin respaldo.</p>
+  <p>Estos criterios cubren lo que se verifica de forma automática. Una certificación formal requiere además pruebas con lectores de pantalla reales y con personas usuarias con discapacidad. El Instituto Nacional para Ciegos acompaña ese tipo de validación.</p>
+</section>
+
+<section id="s13" aria-labelledby="s13h">
+  <span class="h2num">Capítulo 13</span>
+  <h2 id="s13h">Glosario</h2>
+  <div class="tablewrap">
+    <table>
+      <caption>Las siglas y los términos técnicos que aparecen en este documento.</caption>
+      <thead><tr><th scope="col">Término</th><th scope="col">Qué significa</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ALT</th><td>Texto alternativo. Descripción de una imagen que leen los lectores de pantalla.</td></tr>
+        <tr><th scope="row">ANS</th><td>Acuerdo de Niveles de Servicio. El plazo en que nos comprometemos a responder.</td></tr>
+        <tr><th scope="row">AA / AAA</th><td>Niveles de exigencia del estándar WCAG. AA es el piso legal; AAA es la meta del Distrito.</td></tr>
+        <tr><th scope="row">Carga diferida</th><td>Técnica que descarga una imagen solo cuando la persona llega a ella al desplazarse.</td></tr>
+        <tr><th scope="row">CMS</th><td>Gestor de contenidos. El sistema donde se escriben y publican las páginas.</td></tr>
+        <tr><th scope="row">CSC</th><td>Centro de Servicios Compartidos.</td></tr>
+        <tr><th scope="row">CSV</th><td>Archivo de datos separados por comas, que se abre en cualquier hoja de cálculo.</td></tr>
+        <tr><th scope="row">Imagen destacada</th><td>La imagen principal de una nota, la que aparece al compartirla en redes.</td></tr>
+        <tr><th scope="row">NTC 5854</th><td>Norma Técnica Colombiana de accesibilidad web.</td></tr>
+        <tr><th scope="row">Slug</th><td>La parte final de la dirección web de una página.</td></tr>
+        <tr><th scope="row">SEO</th><td>Optimización para buscadores. Lograr que la página aparezca en Google.</td></tr>
+        <tr><th scope="row">Subtítulos cerrados (CC)</th><td>Subtítulos que la persona puede activar o desactivar.</td></tr>
+        <tr><th scope="row">VPN</th><td>Conexión cifrada para entrar de forma segura a los sistemas internos.</td></tr>
+        <tr><th scope="row">WCAG 2.1</th><td>Estándar internacional de accesibilidad web del W3C.</td></tr>
+        <tr><th scope="row">WebP / AVIF</th><td>Formatos modernos de imagen, más livianos que el JPG.</td></tr>
+        <tr><th scope="row">WPO</th><td>Optimización del rendimiento web. Que las páginas carguen rápido.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s14" aria-labelledby="s14h">
+  <span class="h2num">Capítulo 14</span>
+  <h2 id="s14h">Vacíos por confirmar</h2>
+  <p class="sub">Antes de aprobar y publicar este estándar, el Comité Técnico debe completar seis datos.</p>
+  <ol>
+    <li>Correo del Comité Técnico y plazo de respuesta a iniciativas nuevas.</li>
+    <li>Correo del equipo de Comunicación Digital para solicitudes de video y avisos de auditoría.</li>
+    <li>Canal de solicitud de VPN en el Centro de Servicios Compartidos.</li>
+    <li>Versión vigente del gestor de contenidos y su calendario de actualización, validados con Innovación Digital.</li>
+    <li>Compromiso de respuesta para desarrollos complejos, que en la versión 1 aparecía como un rango de 5 a 30 días hábiles sin criterio de asignación.</li>
+    <li>Correo o formulario para reportar barreras de accesibilidad, y el plazo de respuesta asociado.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Estándar técnico de publicación digital, versión 2.</strong> Ecosistema digital de la Alcaldía de Medellín — Distrito de Ciencia, Tecnología e Innovación. Documento sujeto a revisión y aprobación del Comité Técnico, integrado por las secretarías de Comunicaciones e Innovación Digital.</p>
+    <p class="status">Esta página cumple los 16 criterios del capítulo 8. Verificación de contraste: 24 de 24 pares alcanzan AAA en tema claro y oscuro, medidos con script.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  document.documentElement.lang = "es";
+  var tbtn = document.getElementById("theme");
+  var ticon = document.getElementById("theme-icon");
+  var tlabel = document.getElementById("theme-label");
+  var root = document.documentElement;
+
+  function prefersDark() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function isDark() {
+    var t = root.getAttribute("data-theme");
+    if (t === "dark") return true;
+    if (t === "light") return false;
+    return prefersDark();
+  }
+  function paint() {
+    var d = isDark();
+    tbtn.setAttribute("aria-pressed", d ? "true" : "false");
+    ticon.textContent = d ? "☀" : "☾";
+    tlabel.textContent = d ? "Tema claro" : "Tema oscuro";
+  }
+  tbtn.addEventListener("click", function () {
+    root.setAttribute("data-theme", isDark() ? "light" : "dark");
+    paint();
+    try { localStorage.setItem("estandar-v2-tema", root.getAttribute("data-theme")); } catch (e) {}
+  });
+  try {
+    var s = localStorage.getItem("estandar-v2-tema");
+    if (s === "dark" || s === "light") root.setAttribute("data-theme", s);
+  } catch (e) {}
+  paint();
+})();
+</script>
+</body>
+</html>

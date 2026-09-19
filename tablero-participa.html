@@ -1,0 +1,418 @@
+<!doctype html><html lang="es"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Tablero Participa Medellín</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Libre+Franklin:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --bg:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --raise:#FFFFFF;
+    --ink:#14212E; --ink-soft:#586675; --ink-faint:#8593A2;
+    --line:#E3E9EF; --line-soft:#EDF1F5;
+    --navy:#12324F; --teal:#0E7C7B; --amber:#E8871E;
+    --good:#1E9A67; --warn:#D69412; --crit:#CE4257;
+    --good-bg:#E4F3EC; --warn-bg:#FBF0D8; --crit-bg:#F9E4E7;
+    --shadow:0 1px 2px rgba(18,50,79,.06),0 6px 20px rgba(18,50,79,.06);
+    --grid:#E9EEF3;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --bg:#0D141D; --surface:#151F2B; --surface-2:#1C2836; --raise:#1A2634;
+      --ink:#EAF1F7; --ink-soft:#9DACBC; --ink-faint:#6D7E8E;
+      --line:#26333F; --line-soft:#202C38;
+      --navy:#7FB0D6; --teal:#3FB8B4; --amber:#F0994A;
+      --good:#3FBE86; --warn:#E7B34A; --crit:#E76C7E;
+      --good-bg:#12312368; --warn-bg:#3a2f0f68; --crit-bg:#39181d68;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+      --grid:#243039;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D141D; --surface:#151F2B; --surface-2:#1C2836; --raise:#1A2634;
+    --ink:#EAF1F7; --ink-soft:#9DACBC; --ink-faint:#6D7E8E;
+    --line:#26333F; --line-soft:#202C38;
+    --navy:#7FB0D6; --teal:#3FB8B4; --amber:#F0994A;
+    --good:#3FBE86; --warn:#E7B34A; --crit:#E76C7E;
+    --good-bg:#123123; --warn-bg:#3a2f0f; --crit-bg:#39181d;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+    --grid:#243039;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html:focus-within{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Libre Franklin",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:clamp(16px,3vw,34px)}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .display{font-family:"Archivo",sans-serif}
+  .eyebrow{font-family:"Archivo",sans-serif; text-transform:uppercase; letter-spacing:.14em; font-size:.7rem; font-weight:700; color:var(--amber)}
+
+  header.top{display:flex; flex-wrap:wrap; gap:18px 24px; align-items:flex-end; justify-content:space-between; padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:26px}
+  header.top h1{font-family:"Archivo",sans-serif; font-weight:800; font-size:clamp(1.5rem,3.4vw,2.15rem); margin:.25rem 0 .3rem; letter-spacing:-.02em; text-wrap:balance; color:var(--ink)}
+  header.top p.sub{margin:0; color:var(--ink-soft); max-width:54ch; font-size:.95rem}
+  .brandline{display:flex; align-items:center; gap:10px}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px color-mix(in srgb,var(--teal) 20%,transparent)}
+  .topmeta{display:flex; flex-direction:column; align-items:flex-end; gap:10px}
+  .updated{font-size:.8rem; color:var(--ink-faint); display:flex; align-items:center; gap:7px; text-align:right}
+  .updated b{color:var(--ink-soft); font-weight:600}
+  .controls{display:flex; gap:8px}
+  button.ctl{font-family:"Archivo",sans-serif; font-weight:600; font-size:.8rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink-soft); padding:7px 13px; border-radius:9px; display:inline-flex; align-items:center; gap:7px; transition:.15s}
+  button.ctl:hover{border-color:var(--teal); color:var(--teal)}
+  button.ctl:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  button.ctl.on{background:var(--navy); border-color:var(--navy); color:#fff}
+  :root[data-theme="dark"] button.ctl.on, :root:not([data-theme="light"]) button.ctl.on{color:#0D141D}
+
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:14px; margin-bottom:22px}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow)}
+  .kpi{padding:16px 16px 14px; position:relative; overflow:hidden; display:flex; flex-direction:column; gap:8px}
+  .kpi .stripe{position:absolute; left:0; top:0; bottom:0; width:4px}
+  .kpi.s-good .stripe{background:var(--good)} .kpi.s-warn .stripe{background:var(--warn)} .kpi.s-crit .stripe{background:var(--crit)}
+  .kpi .label{font-size:.82rem; color:var(--ink-soft); font-weight:600; display:flex; align-items:center; gap:7px; padding-left:6px; min-height:2.5em}
+  .kpi .valrow{display:flex; align-items:baseline; gap:8px; padding-left:6px}
+  .kpi .value{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.85rem; letter-spacing:-.01em; line-height:1; color:var(--ink); border-radius:6px; padding:2px 3px; margin:-2px -3px; outline:none}
+  .kpi .value[contenteditable="true"]{box-shadow:inset 0 0 0 1.5px var(--amber); cursor:text}
+  .kpi .unit{font-size:.95rem; color:var(--ink-faint); font-weight:600; font-family:"IBM Plex Mono",monospace}
+  .kpi .target{padding-left:6px; font-size:.72rem; color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; display:flex; align-items:center; gap:5px}
+  .kpi .target b{color:var(--teal); font-weight:600}
+  .kpi .foot{display:flex; align-items:center; justify-content:space-between; gap:8px; padding-left:6px; margin-top:2px}
+  .chip{font-family:"Archivo",sans-serif; font-size:.66rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:3px 8px; border-radius:100px; display:inline-flex; align-items:center; gap:5px}
+  .chip.good{background:var(--good-bg); color:var(--good)} .chip.warn{background:var(--warn-bg); color:var(--warn)} .chip.crit{background:var(--crit-bg); color:var(--crit)}
+  .trend{font-family:"IBM Plex Mono",monospace; font-size:.76rem; font-weight:600; display:inline-flex; align-items:center; gap:4px}
+  .trend.up{color:var(--good)} .trend.down{color:var(--crit)} .trend.flat{color:var(--ink-faint)}
+  .spark{height:30px; width:100%; padding-left:6px; margin-top:2px}
+
+  .panels{display:grid; grid-template-columns:1.35fr 1fr; gap:16px; margin-bottom:16px}
+  @media (max-width:820px){ .panels{grid-template-columns:1fr} }
+  .panel{padding:18px 18px 20px}
+  .panel h2{font-family:"Archivo",sans-serif; font-weight:700; font-size:1.02rem; margin:0 0 3px; color:var(--ink); letter-spacing:-.01em}
+  .panel .cap{margin:0 0 16px; font-size:.83rem; color:var(--ink-soft)}
+  canvas{display:block; width:100%; max-width:100%}
+
+  .bars{display:flex; flex-direction:column; gap:15px}
+  .bar b.name{font-size:.86rem; font-weight:600; color:var(--ink); display:block; margin-bottom:6px}
+  .bar .track{height:11px; background:var(--surface-2); border-radius:100px; overflow:hidden; position:relative}
+  .bar .fill{height:100%; border-radius:100px; width:0; transition:width 1s cubic-bezier(.22,.61,.36,1)}
+  .bar .meta{display:flex; justify-content:space-between; align-items:center; margin-top:5px}
+  .bar .meta span{font-size:.76rem; color:var(--ink-soft)}
+  .bar .meta .mono{font-size:.8rem; color:var(--ink)}
+  .lvl-crit{background:linear-gradient(90deg,var(--crit),color-mix(in srgb,var(--crit) 70%,var(--amber)))}
+  .lvl-warn{background:linear-gradient(90deg,var(--warn),var(--amber))}
+  .lvl-good{background:linear-gradient(90deg,var(--teal),var(--good))}
+
+  .cov{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .covcell{background:var(--surface-2); border-radius:11px; padding:14px}
+  .covcell .n{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.7rem; color:var(--navy); line-height:1}
+  .covcell .t{font-size:.8rem; color:var(--ink-soft); margin-top:4px}
+  .ring{display:flex; align-items:center; gap:14px; margin-top:4px}
+
+  .alerts{display:flex; flex-direction:column; gap:10px}
+  .alert{display:flex; gap:12px; padding:12px 13px; border-radius:11px; background:var(--surface-2); align-items:flex-start}
+  .alert .ic{width:30px;height:30px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;font-family:"Archivo";font-weight:800;font-size:.9rem;color:#fff}
+  .alert.crit .ic{background:var(--crit)} .alert.warn .ic{background:var(--warn)} .alert.good .ic{background:var(--good)}
+  .alert .txt b{display:block; font-size:.88rem; color:var(--ink); margin-bottom:2px; font-weight:600}
+  .alert .txt span{font-size:.81rem; color:var(--ink-soft)}
+
+  /* Rendición 2026 panel */
+  .rdc{padding:20px}
+  .rdc h2{font-family:"Archivo",sans-serif; font-weight:700; font-size:1.05rem; margin:0 0 3px; color:var(--ink)}
+  .rdc .cap{margin:0 0 16px; font-size:.83rem; color:var(--ink-soft); max-width:80ch}
+  .rdc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px}
+  @media (max-width:760px){ .rdc-grid{grid-template-columns:1fr} }
+  .elem{background:var(--surface-2); border-radius:12px; padding:15px; border-left:4px solid var(--teal)}
+  .elem:nth-child(2){border-left-color:var(--amber)} .elem:nth-child(3){border-left-color:var(--navy)}
+  .elem .et{font-family:"Archivo",sans-serif; font-weight:700; font-size:.9rem; color:var(--ink); margin-bottom:5px; display:flex; align-items:center; gap:8px}
+  .elem .et .num{font-family:"IBM Plex Mono",monospace; color:var(--ink-faint); font-size:.8rem}
+  .elem p{margin:0; font-size:.8rem; color:var(--ink-soft); line-height:1.45}
+  .events{display:flex; flex-wrap:wrap; gap:10px}
+  .ev{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:11px; flex:1 1 200px}
+  .ev .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.5rem; color:var(--amber); line-height:1}
+  .ev .evt{font-size:.8rem; color:var(--ink-soft)}
+  .leadnote{margin-top:16px; background:var(--good-bg); border-radius:11px; padding:13px 15px; font-size:.85rem; color:var(--ink); display:flex; gap:10px; align-items:flex-start}
+  .leadnote .star{color:var(--good); font-weight:800; font-family:"Archivo"}
+
+  footer{margin-top:26px; padding-top:18px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 26px; justify-content:space-between; align-items:center}
+  footer p{margin:0; font-size:.78rem; color:var(--ink-faint); max-width:72ch}
+  .sectlabel{margin:28px 0 12px; display:flex; align-items:center; gap:12px}
+  .sectlabel .eyebrow{white-space:nowrap}
+  .sectlabel .rule{height:1px; background:var(--line); flex:1}
+  .hint{font-size:.78rem;color:var(--ink-faint);margin:-8px 0 18px;display:flex;align-items:center;gap:6px}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} .bar .fill{transition:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="brandline"><span class="dot"></span><span class="eyebrow">Observatorio de participación · Distrito CTI Medellín</span></div>
+      <h1>Tablero de monitoreo — Participa Medellín</h1>
+      <p class="sub">Indicadores de participación, percepción y rendición de cuentas para la toma de decisiones de la Secretaría de Comunicaciones.</p>
+    </div>
+    <div class="topmeta">
+      <div class="controls">
+        <button class="ctl" id="editBtn" aria-pressed="false"><span id="editIco">✎</span> <span id="editTxt">Editar datos</span></button>
+        <button class="ctl" id="themeBtn" title="Cambiar tema">◐ Tema</button>
+      </div>
+      <div class="updated">Actualizado: <b id="upd">2026</b> · Fuentes: Estrategia RdC 2026 · Plan de Desarrollo 2024–2027 · IPCM</div>
+    </div>
+  </header>
+
+  <div class="hint" id="editHint" hidden>✎ Modo edición activo — haz clic sobre cualquier cifra para actualizarla. Los cambios se guardan solo en este navegador.</div>
+
+  <div class="sectlabel"><span class="eyebrow">Indicadores oficiales 2026</span><span class="rule"></span></div>
+  <section class="kpis" id="kpis" aria-label="Indicadores clave"></section>
+
+  <div class="panels">
+    <div class="card panel">
+      <h2>Confianza en la primera autoridad</h2>
+      <p class="cap">Ciudadanía que confía en el alcalde (medición IPCM). La caída de 20 puntos entre 2019 y 2023 es el termómetro de fondo del reto de percepción.</p>
+      <canvas id="lineChart" height="230" aria-label="Gráfico de confianza institucional en el tiempo"></canvas>
+    </div>
+    <div class="card panel">
+      <h2>Brechas de comunicación por reto</h2>
+      <p class="cap">Severidad estimada de cada reto de articulación leído como reto comunicacional (0–100).</p>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+
+  <div class="card rdc">
+    <div class="sectlabel" style="margin-top:0"><span class="eyebrow" style="color:var(--teal)">Nuevo · Estrategia de Rendición de Cuentas Distrital 2026</span><span class="rule"></span></div>
+    <h2>Marco 2026: informar, dialogar, responder</h2>
+    <p class="cap">La Estrategia de Rendición de Cuentas 2026 (Ley 1757 de 2015 · MURC) estructura la gestión en tres elementos y define los momentos de diálogo del año. La Secretaría de Comunicaciones hace parte del equipo líder.</p>
+    <div class="rdc-grid">
+      <div class="elem"><div class="et"><span class="num">01</span> Información</div><p>Transparencia activa, pasiva, focalizada y colaborativa. Lenguaje claro, datos abiertos y comunicación visual en el territorio.</p></div>
+      <div class="elem"><div class="et"><span class="num">02</span> Diálogo</div><p>Presentar, explicar y justificar la gestión con la ciudadanía en escenarios presenciales y virtuales, con intercambio abierto.</p></div>
+      <div class="elem"><div class="et"><span class="num">03</span> Responsabilidad</div><p>Responder por resultados, asumir compromisos de mejora y facilitar el control ciudadano y de los órganos de control.</p></div>
+    </div>
+    <div class="events">
+      <div class="ev"><span class="big">2</span><span class="evt">Audiencias públicas de rendición de cuentas</span></div>
+      <div class="ev"><span class="big">4</span><span class="evt">Eventos temáticos de diálogo (3 infraestructura · 1 Acuerdo de Paz)</span></div>
+      <div class="ev"><span class="big">15</span><span class="evt">Días hábiles máx. para responder peticiones</span></div>
+    </div>
+    <div class="leadnote"><span class="star">★</span><div><b>Oportunidad para Comunicaciones:</b> el documento nombra a la Secretaría de Comunicaciones dentro del equipo líder 2026, junto a Planeación, Participación, Gobierno, Secretaría Privada y Proyectos Estratégicos. La comunicación deja de ser soporte y pasa a co-dirigir la estrategia.</div></div>
+  </div>
+
+  <div class="panels" style="margin-top:16px">
+    <div class="card panel">
+      <h2>Cobertura territorial</h2>
+      <p class="cap">Alcance de la oferta participativa en el territorio del Distrito.</p>
+      <div class="cov">
+        <div class="covcell"><div class="n mono">16</div><div class="t">Comunas por cubrir con voz local</div></div>
+        <div class="covcell"><div class="n mono">5</div><div class="t">Corregimientos en la estrategia</div></div>
+        <div class="covcell" style="grid-column:1/-1">
+          <div class="t" style="margin:0 0 8px">Acceso a sedes comunales</div>
+          <div class="ring"><canvas id="donut" width="120" height="120" style="width:88px;height:88px;flex:0 0 auto"></canvas>
+            <div><div class="mono" style="font-size:1.5rem;color:var(--crit);font-weight:600">1 de 5</div><div class="t">solo el 20 % accede hoy — 80 % de brecha por cerrar</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card panel">
+      <h2>Semáforo de alertas</h2>
+      <p class="cap">Qué exige atención comunicacional inmediata.</p>
+      <div class="alerts" id="alerts"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>Fuentes:</b> Estrategia de Rendición de Cuentas Distrital 2026 y Estrategia de Participación Ciudadana 2025–2026 (Alcaldía de Medellín); indicadores del Plan de Desarrollo 2024–2027 “Medellín Te Quiere” (línea base 2023) e Índice de Participación Ciudadana de Medellín (IPCM). Las metas 2026 son las oficiales del plan; la severidad por reto es una estimación interpretativa para priorización.</p>
+    <button class="ctl" id="resetBtn">↺ Restablecer cifras</button>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const LS="participa_medellin_v2";
+
+  const DEFAULTS = {
+    updated:"2026",
+    kpis:[
+      {id:"impacto", label:"Percibe impacto de la participación", value:38.5, unit:"%", meta:39.5, status:"warn", trend:"up", spark:[29,33,36,38.5]},
+      {id:"confianza", label:"Confía en el alcalde (IPCM 2023)", value:23, unit:"%", meta:null, status:"crit", trend:"down", spark:[43,36,30,23]},
+      {id:"ipcm", label:"Índice de Participación (IPCM)", value:0.468, unit:"/1", meta:null, status:"warn", trend:"flat", spark:[0.44,0.46,0.47,0.468]},
+      {id:"solicitudes", label:"Resuelve solicitudes por canales oficiales", value:50, unit:"%", meta:68, status:"crit", trend:"up", spark:[42,46,48,50]},
+      {id:"digital", label:"Canales digitales implementados", value:19, unit:"#", meta:50, status:"warn", trend:"up", spark:[8,12,16,19]},
+      {id:"ita", label:"Transparencia y acceso a información (ITA)", value:98, unit:"%", meta:98, status:"good", trend:"flat", spark:[95,97,98,98]},
+      {id:"acceso", label:"Accede a sedes comunales", value:20, unit:"%", meta:35, status:"crit", trend:"down", spark:[26,24,22,20]},
+      {id:"idi", label:"Desempeño institucional · gestión del conocimiento", value:84, unit:"", meta:89, status:"warn", trend:"up", spark:[78,80,82,84]},
+    ],
+    confianza:[{y:"2019",v:43},{y:"2021",v:33},{y:"2023",v:23}],
+    retos:[
+      {name:"Información y conocimiento mal difundido", v:78, lvl:"crit"},
+      {name:"Oferta participativa que no llega (acceso)", v:80, lvl:"crit"},
+      {name:"Agendas ciudadanas sin respuesta visible", v:71, lvl:"crit"},
+      {name:"Baja presencia y voz en el territorio", v:64, lvl:"warn"},
+    ],
+    alerts:[
+      {sev:"good", t:"Comunicaciones ya está en el equipo líder 2026", d:"La Estrategia de Rendición de Cuentas la nombra co-responsable: momento para liderar con datos y relato."},
+      {sev:"crit", t:"Resolución de solicitudes en 50%", d:"Meta 2026: 68%. Cada respuesta visible es un ladrillo de confianza. Prioridad de flujo “usted pidió / hicimos”."},
+      {sev:"warn", t:"Solo 19 canales digitales activos", d:"Meta 2026: 50. Ampliar y segmentar la presencia digital hacia el territorio."},
+      {sev:"crit", t:"Acceso territorial limitado (1 de 5)", d:"80% no llega a sedes comunales. Activar medios comunitarios y laboratorios de movilización."},
+    ],
+  };
+
+  let state = load();
+  function load(){
+    try{ const s=localStorage.getItem(LS); if(s){ return mergeDeep(structuredClone(DEFAULTS), JSON.parse(s)); } }catch(e){}
+    return structuredClone(DEFAULTS);
+  }
+  function save(){ try{ localStorage.setItem(LS, JSON.stringify({kpis:state.kpis, confianza:state.confianza})); }catch(e){} }
+  function mergeDeep(base, over){
+    if(over && over.kpis) over.kpis.forEach(k=>{ const b=base.kpis.find(x=>x.id===k.id); if(b&&typeof k.value==='number') b.value=k.value; });
+    if(over && over.confianza && over.confianza.length===base.confianza.length) base.confianza=over.confianza;
+    return base;
+  }
+
+  const fmt = (v,u)=> u==="/1" ? Number(v).toFixed(3) : (Math.round(v*10)/10).toString().replace(/\.0$/,"");
+  const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  const arrow={up:"▲",down:"▼",flat:"■"};
+  const trendLabel={up:"mejora",down:"baja",flat:"estable"};
+  function renderKPIs(){
+    const host=document.getElementById("kpis"); host.innerHTML="";
+    state.kpis.forEach(k=>{
+      const el=document.createElement("div");
+      el.className="card kpi s-"+k.status;
+      const unitTxt = (k.unit==="/1"||k.unit==="") ? "" : k.unit;
+      const targetHtml = (k.meta!=null) ? `<div class="target">Meta 2026 → <b>${fmt(k.meta,k.unit)}${k.unit==="%"?"%":""}</b></div>` : `<div class="target">Serie IPCM 2019–2023</div>`;
+      el.innerHTML=`
+        <span class="stripe"></span>
+        <div class="label">${k.label}</div>
+        <div class="valrow">
+          <span class="value mono" data-id="${k.id}">${fmt(k.value,k.unit)}</span>
+          <span class="unit">${unitTxt}</span>
+        </div>
+        ${targetHtml}
+        <canvas class="spark" data-spark="${k.id}" height="30"></canvas>
+        <div class="foot">
+          <span class="chip ${k.status}">${k.status==="crit"?"Crítico":k.status==="warn"?"Atención":"En meta"}</span>
+          <span class="trend ${k.trend}">${arrow[k.trend]} ${trendLabel[k.trend]}</span>
+        </div>`;
+      host.appendChild(el);
+      drawSpark(el.querySelector("canvas"), k.spark, k.status);
+    });
+    bindEditing();
+  }
+
+  function drawSpark(cv, data, status){
+    const dpr=window.devicePixelRatio||1; const w=cv.clientWidth||220, h=30;
+    cv.width=w*dpr; cv.height=h*dpr; const c=cv.getContext("2d"); c.scale(dpr,dpr);
+    const col = status==="crit"?cssv("--crit"):status==="warn"?cssv("--warn"):cssv("--good");
+    const mn=Math.min(...data), mx=Math.max(...data), pad=4, rng=(mx-mn)||1;
+    const x=i=> pad + i*(w-2*pad)/(data.length-1);
+    const y=v=> h-pad-((v-mn)/rng)*(h-2*pad);
+    c.beginPath(); data.forEach((v,i)=> i?c.lineTo(x(i),y(v)):c.moveTo(x(i),y(v)));
+    const grad=c.createLinearGradient(0,0,0,h); grad.addColorStop(0,col+"33"); grad.addColorStop(1,col+"00");
+    c.lineTo(x(data.length-1),h); c.lineTo(x(0),h); c.closePath(); c.fillStyle=grad; c.fill();
+    c.beginPath(); data.forEach((v,i)=> i?c.lineTo(x(i),y(v)):c.moveTo(x(i),y(v)));
+    c.strokeStyle=col; c.lineWidth=2; c.lineJoin="round"; c.stroke();
+    c.beginPath(); c.arc(x(data.length-1),y(data[data.length-1]),2.6,0,7); c.fillStyle=col; c.fill();
+  }
+
+  function drawLine(){
+    const cv=document.getElementById("lineChart"); const dpr=window.devicePixelRatio||1;
+    const w=cv.clientWidth||600, h=230; cv.width=w*dpr; cv.height=h*dpr;
+    const c=cv.getContext("2d"); c.scale(dpr,dpr); c.clearRect(0,0,w,h);
+    const D=state.confianza, pad={l:38,r:16,t:18,b:34};
+    const mx=50, mn=0;
+    const X=i=> pad.l + i*(w-pad.l-pad.r)/(D.length-1);
+    const Y=v=> pad.t + (1-(v-mn)/(mx-mn))*(h-pad.t-pad.b);
+    c.strokeStyle=cssv("--grid"); c.fillStyle=cssv("--ink-faint"); c.font='11px "IBM Plex Mono",monospace'; c.lineWidth=1;
+    [0,10,20,30,40,50].forEach(g=>{ const yy=Y(g); c.beginPath(); c.moveTo(pad.l,yy); c.lineTo(w-pad.r,yy); c.stroke(); c.textAlign="right"; c.fillText(g+"%",pad.l-8,yy+3); });
+    const teal=cssv("--teal");
+    c.beginPath(); D.forEach((d,i)=> i?c.lineTo(X(i),Y(d.v)):c.moveTo(X(i),Y(d.v)));
+    const g=c.createLinearGradient(0,pad.t,0,h-pad.b); g.addColorStop(0,teal+"30"); g.addColorStop(1,teal+"00");
+    c.lineTo(X(D.length-1),h-pad.b); c.lineTo(X(0),h-pad.b); c.closePath(); c.fillStyle=g; c.fill();
+    c.beginPath(); D.forEach((d,i)=> i?c.lineTo(X(i),Y(d.v)):c.moveTo(X(i),Y(d.v)));
+    c.strokeStyle=teal; c.lineWidth=2.6; c.lineJoin="round"; c.stroke();
+    D.forEach((d,i)=>{
+      c.beginPath(); c.arc(X(i),Y(d.v),4.5,0,7); c.fillStyle=cssv("--surface"); c.fill(); c.strokeStyle=teal; c.lineWidth=2.4; c.stroke();
+      c.fillStyle=cssv("--ink"); c.font='600 12px "IBM Plex Mono",monospace'; c.textAlign="center"; c.fillText(d.v+"%",X(i),Y(d.v)-11);
+      c.fillStyle=cssv("--ink-soft"); c.font='11px "Libre Franklin",sans-serif'; c.fillText(d.y,X(i),h-12);
+    });
+    const dv=D[D.length-1].v-D[0].v;
+    c.fillStyle=cssv("--crit"); c.font='700 12px "Archivo",sans-serif'; c.textAlign="right";
+    c.fillText((dv>0?"+":"")+dv+" pts",w-pad.r,pad.t+2);
+  }
+
+  function renderBars(){
+    const host=document.getElementById("bars"); host.innerHTML="";
+    state.retos.forEach((r,i)=>{
+      const el=document.createElement("div"); el.className="bar";
+      el.innerHTML=`<b class="name">${r.name}</b>
+        <div class="track"><div class="fill lvl-${r.lvl}"></div></div>
+        <div class="meta"><span>${r.lvl==="crit"?"Severidad alta":r.lvl==="warn"?"Severidad media":"Bajo"}</span><span class="mono">${r.v}/100</span></div>`;
+      host.appendChild(el);
+      const fill=el.querySelector(".fill");
+      requestAnimationFrame(()=> setTimeout(()=> fill.style.width=r.v+"%", 60+i*90));
+    });
+  }
+
+  function drawDonut(){
+    const cv=document.getElementById("donut"); const dpr=window.devicePixelRatio||1;
+    cv.width=120*dpr; cv.height=120*dpr; const c=cv.getContext("2d"); c.scale(dpr,dpr);
+    const cx=60,cy=60,r=44,lw=13, pct=0.20;
+    c.lineWidth=lw; c.lineCap="round";
+    c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.strokeStyle=cssv("--surface-2"); c.stroke();
+    c.beginPath(); c.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*pct); c.strokeStyle=cssv("--crit"); c.stroke();
+    c.fillStyle=cssv("--ink"); c.font='700 20px "IBM Plex Mono",monospace'; c.textAlign="center"; c.textBaseline="middle";
+    c.fillText("20%",cx,cy);
+  }
+
+  function renderAlerts(){
+    const host=document.getElementById("alerts"); host.innerHTML="";
+    const ico={crit:"!",warn:"▲",good:"✓"};
+    state.alerts.forEach(a=>{
+      const el=document.createElement("div"); el.className="alert "+a.sev;
+      el.innerHTML=`<div class="ic">${ico[a.sev]}</div><div class="txt"><b>${a.t}</b><span>${a.d}</span></div>`;
+      host.appendChild(el);
+    });
+  }
+
+  let editing=false;
+  function bindEditing(){
+    document.querySelectorAll('.value[data-id]').forEach(v=>{
+      v.contentEditable = editing ? "true":"false";
+      v.onblur = ()=>{
+        const k=state.kpis.find(x=>x.id===v.dataset.id);
+        let n=parseFloat(v.textContent.replace(",","."));
+        if(!isNaN(n)){ k.value=n; save(); } v.textContent=fmt(k.value,k.unit);
+      };
+      v.onkeydown = e=>{ if(e.key==="Enter"){ e.preventDefault(); v.blur(); } };
+    });
+  }
+  document.getElementById("editBtn").onclick=function(){
+    editing=!editing; this.classList.toggle("on",editing); this.setAttribute("aria-pressed",editing);
+    document.getElementById("editTxt").textContent=editing?"Listo":"Editar datos";
+    document.getElementById("editHint").hidden=!editing;
+    bindEditing();
+    if(editing) document.querySelector('.value[data-id]').focus();
+  };
+  document.getElementById("resetBtn").onclick=function(){
+    try{ localStorage.removeItem(LS); }catch(e){}
+    state=structuredClone(DEFAULTS); renderAll();
+  };
+
+  const tb=document.getElementById("themeBtn");
+  tb.onclick=function(){
+    const cur=document.documentElement.getAttribute("data-theme");
+    const sys=matchMedia("(prefers-color-scheme: dark)").matches;
+    const next = cur ? (cur==="dark"?"light":"dark") : (sys?"light":"dark");
+    document.documentElement.setAttribute("data-theme",next);
+    try{ localStorage.setItem("participa_theme",next); }catch(e){}
+    redraw();
+  };
+  try{ const t=localStorage.getItem("participa_theme"); if(t) document.documentElement.setAttribute("data-theme",t); }catch(e){}
+
+  function redraw(){ requestAnimationFrame(()=>{ drawLine(); drawDonut(); state.kpis.forEach(k=>{ const cv=document.querySelector(`[data-spark="${k.id}"]`); if(cv) drawSpark(cv,k.spark,k.status); }); }); }
+  function renderAll(){ document.getElementById("upd").textContent=state.updated; renderKPIs(); renderBars(); renderAlerts(); redraw(); }
+
+  renderAll();
+  let rt; addEventListener("resize",()=>{ clearTimeout(rt); rt=setTimeout(redraw,150); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",redraw);
+})();
+</script>
+
+</body></html>

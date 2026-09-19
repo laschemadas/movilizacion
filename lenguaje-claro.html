@@ -1,0 +1,448 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Guía de Lenguaje Claro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  :root{
+    --bg:#f4f2ec; --surface:#ffffff; --surface-2:#faf8f3;
+    --ink:#1b2320; --muted:#45514b; --faint:#474f4b;
+    --line:#e4ded2; --line-strong:#d3ccbd; --field-border:#8c8879;
+    --accent:#1f6f5c; --accent-ink:#164f42; --accent-deep:#164f42;
+    --accent-soft:#e3efe9; --accent-btn:#0f5346; --on-accent:#ffffff;
+    --tu:#164f42; --tu-soft:#e3efe9;
+    --usted:#1a5177; --usted-soft:#e4eef4;
+    --warn:#623f18; --warn-soft:#f2e9dd;
+    --a-band:#15517a; --b-band:#6d491d; --c-band:#463e67;
+    --shadow:0 1px 2px rgba(20,30,26,.05),0 10px 26px -14px rgba(20,30,26,.2);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+    --bg:#121613; --surface:#1a201d; --surface-2:#161b18;
+    --ink:#eef1ee; --muted:#a6b0ab; --faint:#adb6b1;
+    --line:#2b332e; --line-strong:#374039; --field-border:#646e68;
+    --accent:#4dbf9f; --accent-ink:#7ad3ba; --accent-deep:#7ad3ba;
+    --accent-soft:#193029; --accent-btn:#4dbf9f; --on-accent:#0c1310;
+    --tu:#7ad3ba; --tu-soft:#193029;
+    --usted:#8fc3e6; --usted-soft:#16262f;
+    --warn:#d5a869; --warn-soft:#2c2417;
+    --a-band:#15517a; --b-band:#6d491d; --c-band:#463e67;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#121613; --surface:#1a201d; --surface-2:#161b18;
+    --ink:#eef1ee; --muted:#a6b0ab; --faint:#adb6b1;
+    --line:#2b332e; --line-strong:#374039; --field-border:#646e68;
+    --accent:#4dbf9f; --accent-ink:#7ad3ba; --accent-deep:#7ad3ba;
+    --accent-soft:#193029; --accent-btn:#4dbf9f; --on-accent:#0c1310;
+    --tu:#7ad3ba; --tu-soft:#193029;
+    --usted:#8fc3e6; --usted-soft:#16262f;
+    --warn:#d5a869; --warn-soft:#2c2417;
+    --a-band:#15517a; --b-band:#6d491d; --c-band:#463e67;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .lede{max-width:66ch}
+
+  .skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--accent-btn);color:var(--on-accent);
+    padding:.75em 1.2em;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .18s}
+  .skip:focus{top:0}
+  .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  header.hero{background:linear-gradient(180deg,var(--surface),var(--surface-2));border-bottom:1px solid var(--line)}
+  .hero-in{padding:44px 0 34px}
+  .eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-ink);font-weight:700;margin:0 0 14px}
+  h1{font-size:clamp(2rem,5.4vw,3.1rem);line-height:1.04;margin:0 0 16px;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+  .thesis{font-family:"Newsreader",Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.4;color:var(--ink);
+    margin:0;padding:16px 20px;background:var(--accent-soft);border-left:4px solid var(--accent-ink);border-radius:0 10px 10px 0;max-width:60ch}
+  .thesis b{color:var(--accent-deep)}
+  .hero-meta{margin-top:18px;color:var(--muted);font-size:.86rem;max-width:64ch}
+  .hero-meta b{color:var(--ink)}
+
+  nav.toc{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .toc-row{display:flex;align-items:center;gap:10px;max-width:820px;margin:0 auto;padding:7px 22px}
+  .toc-in{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:thin}
+  .toc a{white-space:nowrap;font-size:.82rem;font-weight:600;color:var(--muted);text-decoration:none;
+    padding:8px 12px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px;border:1px solid transparent}
+  .toc a:hover{color:var(--ink);background:var(--surface);border-color:var(--line)}
+  .theme-toggle{font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;border:1px solid var(--field-border);
+    background:var(--surface);color:var(--ink);padding:6px 12px;min-height:44px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:7px;transition:.15s;flex:none}
+  .theme-toggle:hover{border-color:var(--accent-ink)}
+  .theme-toggle svg{width:16px;height:16px;flex:none}
+
+  section{padding:34px 0 6px;scroll-margin-top:64px}
+  .num-eyebrow{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:700;margin:0 0 6px}
+  h2{font-size:clamp(1.4rem,3vw,1.85rem);line-height:1.12;margin:0 0 12px;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+  .sub-h{font-size:1.12rem;margin:26px 0 8px;font-weight:700}
+  p{margin:0 0 14px}
+  .body{font-size:1.02rem;color:var(--ink)}
+  .muted{color:var(--muted)}
+  a.inline{color:var(--accent-deep);font-weight:600}
+
+  .rules{display:grid;gap:12px;margin:18px 0 6px}
+  .rule{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:15px 17px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+  .rule .k{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent-deep);
+    display:grid;place-items:center;font-weight:800;font-size:1rem;flex:none}
+  .rule h3{margin:2px 0 5px;font-size:1.02rem;font-weight:700}
+  .rule p{margin:0;font-size:.94rem;color:var(--muted)}
+  .rule .ex{margin-top:8px;font-size:.9rem}
+  .ex .no{color:var(--warn);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+  .ex .yes{color:var(--accent-deep);font-weight:600}
+  .ex .arrow{color:var(--muted);margin:0 7px}
+
+  .split{display:grid;gap:14px;margin:18px 0}
+  @media(min-width:640px){.split{grid-template-columns:1fr 1fr}}
+  .col{border-radius:var(--radius);padding:16px 17px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+  .col.tu{border-top:4px solid var(--tu)}
+  .col.usted{border-top:4px solid var(--usted)}
+  .col .lbl{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin:0 0 4px}
+  .col.tu .lbl{color:var(--tu)}
+  .col.usted .lbl{color:var(--usted)}
+  .col .chan{font-size:.86rem;color:var(--muted);margin:0 0 10px}
+  .col ul{margin:0;padding-left:18px}
+  .col li{margin:5px 0;font-size:.94rem}
+
+  .steps{counter-reset:s;display:grid;gap:10px;margin:18px 0}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px 13px 52px;position:relative;box-shadow:var(--shadow)}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;left:13px;top:12px;width:28px;height:28px;
+    background:var(--accent-btn);color:var(--on-accent);border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:.9rem}
+  .step b{display:block;margin-bottom:2px}
+  .step span{font-size:.92rem;color:var(--muted)}
+  .step em{font-style:normal;font-family:"Newsreader",Georgia,serif;color:var(--accent-deep)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin:18px 0}
+  table{border-collapse:collapse;width:100%;min-width:440px;background:var(--surface)}
+  th,td{text-align:left;padding:11px 15px;font-size:.94rem;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--ink);color:var(--bg);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase}
+  tbody tr:last-child td{border-bottom:0}
+  td.no{color:var(--warn);width:46%}
+  td.yes{color:var(--accent-deep);font-weight:600}
+
+  .ba{display:grid;gap:12px;margin:16px 0}
+  @media(min-width:640px){.ba{grid-template-columns:1fr 1fr}}
+  .ba .box{border-radius:var(--radius);padding:15px 16px;font-family:"Newsreader",Georgia,serif;font-size:1rem;line-height:1.5}
+  .ba .before{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);color:var(--ink)}
+  .ba .after{background:var(--tu-soft);border:1px solid color-mix(in srgb,var(--tu) 40%,transparent);color:var(--ink)}
+  .ba .tag{font-family:"Archivo",sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:8px}
+  .ba .before .tag{color:var(--warn)}
+  .ba .after .tag{color:var(--tu)}
+
+  .cat-band{display:flex;align-items:center;gap:12px;margin:26px 0 4px}
+  .cat-band .b{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;flex:none}
+  .cat-band h3{margin:0;font-size:1.15rem}
+  .resp{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin:14px 0;overflow:hidden}
+  .resp-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface-2)}
+  .resp-head .situ{font-weight:700;font-size:.98rem}
+  .resp-head .n{font-size:.74rem;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+  .resp-body{display:grid;gap:0}
+  @media(min-width:640px){.resp-body{grid-template-columns:1fr 1fr}}
+  .ver{padding:14px 16px}
+  .ver+.ver{border-top:1px solid var(--line)}
+  @media(min-width:640px){.ver+.ver{border-top:0;border-left:1px solid var(--line)}}
+  .ver .vtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+  .ver .vlbl{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+  .ver.tu .vlbl{color:var(--tu)}
+  .ver.usted .vlbl{color:var(--usted)}
+  .ver .txt{font-family:"Newsreader",Georgia,serif;font-size:1rem;line-height:1.5;margin:0}
+  .copy{font-family:inherit;font-weight:600;font-size:.76rem;cursor:pointer;border:1px solid var(--field-border);
+    background:var(--surface);color:var(--ink);padding:6px 11px;min-height:44px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;transition:.15s;flex:none}
+  .copy:hover{border-color:var(--accent-ink);color:var(--accent-deep)}
+  .copy.done{background:var(--accent-btn);color:var(--on-accent);border-color:var(--accent-btn)}
+  .copy svg{width:13px;height:13px}
+
+  .check{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 6px;box-shadow:var(--shadow);margin:16px 0}
+  .check label{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;min-height:44px;border-radius:10px;cursor:pointer;font-size:.98rem}
+  .check label:hover{background:var(--surface-2)}
+  .check input{margin-top:3px;width:20px;height:20px;accent-color:var(--accent-btn);flex:none}
+  .check input:checked+span{color:var(--muted);text-decoration:line-through}
+
+  .callout{background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--accent-ink);
+    border-radius:0 12px 12px 0;padding:14px 18px;margin:18px 0;font-size:.95rem;color:var(--muted)}
+  .callout b{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 46px;color:var(--faint);font-size:.82rem}
+  footer a{color:var(--accent-deep);text-decoration:underline;font-weight:600}
+  footer .src{margin-top:10px;line-height:1.8;color:var(--muted)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+    padding:11px 20px;border-radius:999px;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow);z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent-ink);outline-offset:2px;border-radius:6px}
+  @media (forced-colors: active){
+    .rule,.col,.step,.resp,.check,.callout,.copy,.tablewrap,.cat-band .b{border:1px solid CanvasText}
+    .copy.done{forced-color-adjust:none}
+  }
+</style>
+
+<script>(function(){try{var t=localStorage.getItem('tema-mov');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}document.documentElement.lang='es';})();</script>
+
+<a class="skip" href="#contenido">Saltar al contenido principal</a>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <p class="eyebrow">Secretaría de Comunicaciones · Equipo de Movilización</p>
+    <h1>Guía de lenguaje claro para responder a la ciudadanía</h1>
+    <p class="thesis">Una respuesta está en lenguaje claro cuando la persona <b>encuentra lo que necesita</b> y <b>entiende lo que encontró</b> a la primera lectura.</p>
+    <p class="hero-meta">Complemento al Manual de Manejo de Redes Sociales de la Alcaldía de Medellín. Define cómo escribir en chat, redes y respuestas formales con cercanía, claridad y un llamado a la acción. Incluye las 9 respuestas reescritas en versión <b>tú</b> (chat y redes) y <b>usted</b> (PQRSD y comunicados).</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Índice de la guía">
+  <div class="toc-row">
+    <div class="toc-in">
+      <a href="#porque">Por qué</a>
+      <a href="#reglas">Cómo se escribe</a>
+      <a href="#tratamiento">Tú o usted</a>
+      <a href="#formula">La fórmula</a>
+      <a href="#diccionario">Diccionario</a>
+      <a href="#antes">Antes / después</a>
+      <a href="#respuestas">Las 9 respuestas</a>
+      <a href="#checklist">Checklist</a>
+    </div>
+    <button class="theme-toggle" id="tema" type="button" aria-pressed="false" aria-label="Cambiar tema"></button>
+  </div>
+</nav>
+
+<main class="wrap body" id="contenido">
+
+  <section id="porque" aria-labelledby="h-porque">
+    <p class="num-eyebrow">01 · El porqué</p>
+    <h2 id="h-porque">Escribir claro es un derecho, no un adorno</h2>
+    <p>Cuando una persona nos escribe molesta o con dudas por los resultados de una convocatoria, cada palabra cuenta. El lenguaje burocrático —frases largas, tecnicismos, tono distante— aleja, genera desconfianza y multiplica los reclamos. El lenguaje claro hace lo contrario: <b>resuelve, tranquiliza y orienta</b> en una sola lectura.</p>
+    <p>Esta guía traduce al día a día del chat los principios de la <a class="inline" href="https://colaboracion.dnp.gov.co/CDT/Programa%20Nacional%20del%20Servicio%20al%20Ciudadano/GUIA%20DEL%20LENGUAJE%20CLARO.pdf" target="_blank" rel="noopener">Guía de Lenguaje Claro para Servidores Públicos<span class="vh"> (se abre en una pestaña nueva)</span></a> (DNP y Función Pública). No es solo buena práctica: aunque el primer <b>Proyecto de Ley de Lenguaje Claro</b> (PL 193/2023C) alcanzó a tener ponencia para segundo debate en la Cámara, se archivó en junio de 2025 por tránsito de legislatura sin llegar a votarse; en octubre de 2025 la Cámara de Representantes radicó una nueva versión (PL 282/2025C) que retoma la iniciativa. Mientras se define su trámite, adelantarnos por buena práctica nos pone como referente.</p>
+    <div class="callout"><b>Regla base del Manual:</b> las redes sociales y el chat no son un canal formal de trámite. Aquí orientamos con calidez; los casos particulares se resuelven por PQRSD o el correo oficial de la convocatoria.</div>
+  </section>
+
+  <section id="reglas" aria-labelledby="h-reglas">
+    <p class="num-eyebrow">02 · La técnica</p>
+    <h2 id="h-reglas">Ocho reglas para escribir claro</h2>
+    <div class="rules">
+      <div class="rule"><div class="k" aria-hidden="true">1</div><div><h3>Piensa primero en quien lee</h3><p>Escribe para una persona real, no para el archivo. Pregúntate: ¿esto responde su duda?</p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">2</div><div><h3>Lo más importante, primero</h3><p>La respuesta o la acción clave abre el mensaje; los detalles vienen después.</p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">3</div><div><h3>Una idea por frase</h3><p>Frases cortas, de unas 20 palabras. Si necesitas respirar al leerla en voz alta, pártela.</p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">4</div><div><h3>Voz activa</h3><p>Di quién hace la acción.</p><p class="ex"><span class="no">los puntajes fueron asignados</span><span class="arrow" aria-hidden="true">→</span><span class="yes">los jurados asignaron los puntajes</span></p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">5</div><div><h3>Verbos, no sustantivos abstractos</h3><p>Evita las nominalizaciones.</p><p class="ex"><span class="no">realizar la revisión correspondiente</span><span class="arrow" aria-hidden="true">→</span><span class="yes">revisarlo</span></p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">6</div><div><h3>Palabras cotidianas</h3><p>Si un término técnico es necesario, explícalo.</p><p class="ex"><span class="no">radicar</span><span class="arrow" aria-hidden="true">→</span><span class="yes">enviar</span></p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">7</div><div><h3>Habla de tú/usted y de «nosotros»</h3><p>Personaliza y humaniza: «te contamos», «quedamos atentos». El mensaje tiene remitente.</p></div></div>
+      <div class="rule"><div class="k" aria-hidden="true">8</div><div><h3>Léelo antes de enviar</h3><p>Léelo como si fueras la persona molesta del otro lado. Si te enredas o suena frío, reescribe.</p></div></div>
+    </div>
+  </section>
+
+  <section id="tratamiento" aria-labelledby="h-trat">
+    <p class="num-eyebrow">03 · Tratamiento</p>
+    <h2 id="h-trat">¿Tú o usted? Depende del canal</h2>
+    <p class="muted">Elige un solo tratamiento por mensaje y no lo mezcles. La regla de decisión es sencilla:</p>
+    <div class="split">
+      <div class="col tu">
+        <p class="lbl">Tutea (tú)</p>
+        <p class="chan">Cercanía horizontal</p>
+        <ul>
+          <li>Chat en vivo de reuniones y transmisiones</li>
+          <li>Redes sociales (comentarios, mensajes, historias)</li>
+          <li>Públicos jóvenes y de movilización social</li>
+          <li>Mensajes breves y conversacionales</li>
+        </ul>
+      </div>
+      <div class="col usted">
+        <p class="lbl">Trata de usted</p>
+        <p class="chan">Formalidad respetuosa</p>
+        <ul>
+          <li>Respuestas por el sistema PQRSD</li>
+          <li>Comunicados oficiales y oficios</li>
+          <li>Correos formales de la convocatoria</li>
+          <li>Público institucional o cuando la persona use «usted»</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">Regla de oro del tratamiento: <b>igualdad dentro del mensaje</b>. Si abres con «hola», sigues con «tú». Si abres con «buen día» y «usted», mantenlo hasta el cierre.</div>
+  </section>
+
+  <section id="formula" aria-labelledby="h-form">
+    <p class="num-eyebrow">04 · Estructura</p>
+    <h2 id="h-form">La fórmula: cinco pasos, siempre</h2>
+    <p class="muted">Toda respuesta cabe en esta secuencia. Es la que usa el ejemplo del equipo de Movilización.</p>
+    <div class="steps">
+      <div class="step"><b>Saluda con calidez</b><span><em>«Hola, gracias por escribirnos»</em> · <em>«Buen día y gracias por su mensaje»</em></span></div>
+      <div class="step"><b>Reconoce lo que sienten</b><span>Valida sin dar la razón ni pelear: <em>«entendemos tu inquietud»</em>, <em>«respetamos tu punto de vista»</em>.</span></div>
+      <div class="step"><b>Da el mensaje claro</b><span>Una o dos frases con lo esencial, en voz activa. Sin tecnicismos.</span></div>
+      <div class="step"><b>Llamado a la acción</b><span>El canal concreto y qué hacer: <em>«envíanos tu solicitud por PQRSD o al correo de la convocatoria»</em>.</span></div>
+      <div class="step"><b>Cierra firmando</b><span>Humaniza y despide: <em>«Quedamos atentos, equipo de Movilización»</em>.</span></div>
+    </div>
+  </section>
+
+  <section id="diccionario" aria-labelledby="h-dicc">
+    <p class="num-eyebrow">05 · Vocabulario</p>
+    <h2 id="h-dicc">Diccionario: de lo burocrático a lo claro</h2>
+    <p class="muted">Reemplazos rápidos para depurar cualquier respuesta antes de enviarla.</p>
+    <div class="tablewrap">
+      <table>
+        <caption class="vh">Reemplazos de expresiones burocráticas por expresiones en lenguaje claro</caption>
+        <thead><tr><th scope="col">Evita decir</th><th scope="col">Di mejor</th></tr></thead>
+        <tbody>
+          <tr><td class="no">radicar la solicitud</td><td class="yes">enviar tu solicitud</td></tr>
+          <tr><td class="no">canales institucionales establecidos</td><td class="yes">nuestros canales oficiales</td></tr>
+          <tr><td class="no">realizar la revisión correspondiente</td><td class="yes">revisarlo / darle trámite</td></tr>
+          <tr><td class="no">presentar formalmente</td><td class="yes">enviar</td></tr>
+          <tr><td class="no">de conformidad con los criterios establecidos</td><td class="yes">según los criterios de la convocatoria</td></tr>
+          <tr><td class="no">las situaciones particulares no serán analizadas</td><td class="yes">no revisamos casos particulares</td></tr>
+          <tr><td class="no">los micrófonos permanecerán desactivados</td><td class="yes">los micrófonos siguen en silencio</td></tr>
+          <tr><td class="no">brindar un tratamiento adecuado a cada caso</td><td class="yes">darle a cada caso el trámite que necesita</td></tr>
+          <tr><td class="no">con el fin de contar con toda la información</td><td class="yes">para revisarlo con toda la información</td></tr>
+          <tr><td class="no">serán atendidas individualmente</td><td class="yes">las atendemos uno a uno</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="antes" aria-labelledby="h-antes">
+    <p class="num-eyebrow">06 · Comparación</p>
+    <h2 id="h-antes">Antes y después</h2>
+    <p class="muted">La misma respuesta, transformada con la fórmula y el diccionario.</p>
+
+    <h3 class="sub-h">Mensaje de inconformidad</h3>
+    <div class="ba">
+      <div class="box before"><span class="tag">Antes · burocrático</span>Entendemos su inconformidad y agradecemos que nos la comunique. Con el fin de revisar su caso de manera formal y contar con toda la información necesaria, le invitamos a presentar su solicitud a través de los canales institucionales establecidos: PQRSD o el correo electrónico oficial de la convocatoria.</div>
+      <div class="box after"><span class="tag">Después · claro (tú)</span>Hola, gracias por contarnos. Entendemos tu inconformidad y queremos revisarla bien. Envíanos tu caso por el sistema PQRSD o al correo de la convocatoria y lo estudiamos con toda la información. Quedamos atentos, equipo de Movilización.</div>
+    </div>
+
+    <h3 class="sub-h">Cuestionamiento del puntaje</h3>
+    <div class="ba">
+      <div class="box before"><span class="tag">Antes · burocrático</span>Agradecemos su comentario. Los puntajes fueron asignados por los jurados evaluadores de acuerdo con los criterios establecidos en los lineamientos de la convocatoria. Si requiere información o tiene una inquietud relacionada específicamente con la evaluación de su propuesta, le invitamos a presentarla formalmente a través del sistema PQRSD.</div>
+      <div class="box after"><span class="tag">Después · claro (tú)</span>Hola, gracias por tu comentario. Los puntajes los asignaron los jurados según los criterios de la convocatoria. Si quieres revisar la evaluación de tu propuesta, envíanosla por el sistema PQRSD o al correo de la convocatoria y la atendemos formalmente. Quedamos atentos, equipo de Movilización.</div>
+    </div>
+  </section>
+
+  <section id="respuestas" aria-labelledby="h-resp">
+    <p class="num-eyebrow">07 · Banco</p>
+    <h2 id="h-resp">Las 9 respuestas reescritas</h2>
+    <p class="muted">Cada situación en sus dos versiones. Usa <b style="color:var(--tu)">tú</b> en chat y redes; <b style="color:var(--usted)">usted</b> en PQRSD y comunicados. Toca «copiar» para llevarte la que necesites.</p>
+
+    <div class="cat-band"><div class="b" style="background:var(--a-band)" aria-hidden="true">A</div><h3>Cuestionamiento de resultados y evaluación</h3></div>
+    <div data-cat="A"></div>
+
+    <div class="cat-band"><div class="b" style="background:var(--b-band)" aria-hidden="true">B</div><h3>Inconformidad y presión emocional</h3></div>
+    <div data-cat="B"></div>
+
+    <div class="cat-band"><div class="b" style="background:var(--c-band)" aria-hidden="true">C</div><h3>Orden y manejo del espacio</h3></div>
+    <div data-cat="C"></div>
+  </section>
+
+  <section id="checklist" aria-labelledby="h-check">
+    <p class="num-eyebrow">08 · Antes de enviar</p>
+    <h2 id="h-check">Checklist de 60 segundos</h2>
+    <div class="check">
+      <label><input type="checkbox"><span>¿Saluda con calidez y agradece?</span></label>
+      <label><input type="checkbox"><span>¿Se entiende en una sola lectura, sin tecnicismos?</span></label>
+      <label><input type="checkbox"><span>¿Dice con claridad qué hacer y dónde (PQRSD o correo)?</span></label>
+      <label><input type="checkbox"><span>¿Mantiene un solo tratamiento, tú o usted, de principio a fin?</span></label>
+      <label><input type="checkbox"><span>¿El tono es respetuoso y evita el enfrentamiento?</span></label>
+      <label><input type="checkbox"><span>¿Cierra firmando como equipo de Movilización?</span></label>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Canal oficial: <a href="mailto:atencion.ciudadana@medellin.gov.co">atencion.ciudadana@medellin.gov.co</a> · Sistema PQRSD</div>
+    <div class="src">
+      Fuentes: <a href="https://colaboracion.dnp.gov.co/CDT/Programa%20Nacional%20del%20Servicio%20al%20Ciudadano/GUIA%20DEL%20LENGUAJE%20CLARO.pdf" target="_blank" rel="noopener">Guía de Lenguaje Claro para Servidores Públicos (DNP)<span class="vh"> (se abre en una pestaña nueva)</span></a> ·
+      <a href="https://www1.funcionpublica.gov.co/web/murc/tecnica-no1-lenguaje-claro" target="_blank" rel="noopener">Función Pública — Técnica N.° 1 Lenguaje Claro<span class="vh"> (se abre en una pestaña nueva)</span></a> ·
+      <a href="https://congresovisible.uniandes.edu.co/proyectos-de-ley/ppor-medio-de-la-cual-se-establecen-medidas-para-promover-difundir-y-facilitar-el-uso-del-lenguaje-claro-y-se-dictan-otras-disposiciones-promueve-el-lenguaje-claro/13328/" target="_blank" rel="noopener">Congreso Visible — PL 193/2023C, archivado jun. 2025<span class="vh"> (se abre en una pestaña nueva)</span></a> ·
+      <a href="https://www.camara.gov.co/wp-content/uploads/2025/10/proyectos-ley/documentos/proyecto-34915/p_l_282_2025sc_ley_de_lenguaje_claro-080a8ebb.pdf" target="_blank" rel="noopener">Cámara de Representantes — PL 282/2025C, radicado oct. 2025<span class="vh"> (se abre en una pestaña nueva)</span></a> ·
+      Manual de Manejo de Redes Sociales, Alcaldía de Medellín.
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+document.documentElement.lang="es";
+
+const R=[
+  {cat:"A",n:1,situ:"Propuesta específica",
+   tu:"Hola, gracias por escribirnos. Como tu mensaje es sobre un caso puntual de tu propuesta, lo revisamos con el detalle que merece por nuestros canales oficiales. Envíanos tu solicitud por el sistema PQRSD o al correo de la convocatoria y le damos trámite. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por escribirnos. Como su mensaje se refiere a un caso puntual de su propuesta, lo revisaremos con el detalle que merece por nuestros canales oficiales. Le invitamos a enviar su solicitud por el sistema PQRSD o al correo de la convocatoria para darle trámite. Quedamos atentos, equipo de Movilización."},
+  {cat:"A",n:2,situ:"Cuestionamiento del puntaje",
+   tu:"Hola, gracias por tu comentario. Los puntajes los asignaron los jurados según los criterios de la convocatoria. Si quieres revisar la evaluación de tu propuesta, envíanosla por el sistema PQRSD o al correo de la convocatoria y la atendemos formalmente. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por su comentario. Los puntajes fueron asignados por los jurados según los criterios de la convocatoria. Si desea revisar la evaluación de su propuesta, le invitamos a enviarla por el sistema PQRSD o al correo de la convocatoria y la atenderemos formalmente. Quedamos atentos, equipo de Movilización."},
+  {cat:"A",n:6,situ:"¿Por qué no ganamos?",
+   tu:"Hola, gracias por preguntar. Las propuestas se eligieron por evaluación técnica y según los criterios de la convocatoria; cada una se valoró con la información que presentó. Si quieres revisar tu caso, escríbenos por el sistema PQRSD o al correo de la convocatoria. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por preguntar. Las propuestas se eligieron por evaluación técnica y según los criterios de la convocatoria; cada una se valoró con la información presentada. Si desea revisar su caso, le invitamos a escribirnos por el sistema PQRSD o al correo de la convocatoria. Quedamos atentos, equipo de Movilización."},
+  {cat:"A",n:7,situ:"Cuestionamiento sobre la justicia del proceso",
+   tu:"Hola, gracias por tu mensaje; respetamos tu punto de vista. El proceso lo evaluaron jurados externos siguiendo los criterios de la convocatoria. Si quieres presentar una solicitud sobre tu caso, la recibimos por el sistema PQRSD o al correo de la convocatoria. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por su mensaje; respetamos su punto de vista. El proceso fue evaluado por jurados externos siguiendo los criterios de la convocatoria. Si desea presentar una solicitud sobre su caso, la recibimos por el sistema PQRSD o al correo de la convocatoria. Quedamos atentos, equipo de Movilización."},
+
+  {cat:"B",n:4,situ:"Mensajes de inconformidad",
+   tu:"Hola, gracias por contarnos. Entendemos tu inconformidad y queremos revisarla bien. Envíanos tu caso por el sistema PQRSD o al correo de la convocatoria y lo estudiamos con toda la información. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por contarnos. Entendemos su inconformidad y queremos revisarla a fondo. Le invitamos a enviar su caso por el sistema PQRSD o al correo de la convocatoria para estudiarlo con toda la información. Quedamos atentos, equipo de Movilización."},
+  {cat:"B",n:8,situ:"Exigencia de respuesta inmediata",
+   tu:"Hola, gracias por escribirnos. Para darte una respuesta completa y revisar tu caso como corresponde, envíalo por el sistema PQRSD o al correo atencion.ciudadana@medellin.gov.co. Así te respondemos por el canal oficial. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día y gracias por escribirnos. Para brindarle una respuesta completa y revisar su caso como corresponde, le invitamos a enviarlo por el sistema PQRSD o al correo atencion.ciudadana@medellin.gov.co. Así le respondemos por el canal oficial. Quedamos atentos, equipo de Movilización."},
+
+  {cat:"C",n:3,situ:"Insistencia en discutir el caso en la reunión",
+   tu:"Hola, entendemos tu inquietud. En esta reunión no revisamos casos particulares, para darle a cada uno el trámite que necesita. Envíanos tu solicitud por el sistema PQRSD o al correo de la convocatoria y la revisamos una a una. Quedamos atentos, equipo de Movilización.",
+   usted:"Buen día; entendemos su inquietud. En esta reunión no revisamos casos particulares, para darle a cada uno el trámite que necesita. Le invitamos a enviar su solicitud por el sistema PQRSD o al correo de la convocatoria y la revisaremos una a una. Quedamos atentos, equipo de Movilización."},
+  {cat:"C",n:5,situ:"Solicitud para activar el micrófono",
+   tu:"Hola. Para mantener el orden de la reunión, los micrófonos siguen en silencio. Escribe tus preguntas por el chat: nuestro equipo las va leyendo y respondiendo. Gracias por acompañarnos, equipo de Movilización.",
+   usted:"Buen día. Para mantener el orden de la reunión, los micrófonos permanecen en silencio. Le invitamos a escribir sus preguntas por el chat: nuestro equipo las irá leyendo y respondiendo. Gracias por acompañarnos, equipo de Movilización."},
+  {cat:"C",n:9,situ:"Mensaje general si el chat se torna tenso",
+   tu:"Hola a todas y todos, gracias por sus preguntas y comentarios. Este espacio es para contarles de forma general cómo fue el proceso y sus resultados. Los casos particulares los atendemos uno a uno por nuestros canales oficiales. Sigamos con un diálogo respetuoso para avanzar con la agenda. Gracias, equipo de Movilización.",
+   usted:"Buen día a todas y todos, gracias por sus preguntas y comentarios. Este espacio tiene como propósito contarles de forma general cómo fue el proceso y sus resultados. Los casos particulares los atendemos uno a uno por nuestros canales oficiales. Continuemos con un diálogo respetuoso para avanzar con la agenda. Gracias, equipo de Movilización."}
+];
+const CI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+const DI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>';
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function verHTML(cls,label,text,situ){
+  return '<div class="ver '+cls+'"><div class="vtop"><span class="vlbl">'+label+'</span>'+
+    '<button class="copy" type="button" aria-label="Copiar versión '+cls+' de '+esc(situ)+'">'+CI+'Copiar</button></div>'+
+    '<p class="txt">'+esc(text)+'</p></div>';
+}
+document.querySelectorAll('[data-cat]').forEach(box=>{
+  const cat=box.getAttribute('data-cat');
+  R.filter(r=>r.cat===cat).forEach(r=>{
+    const el=document.createElement('article');
+    el.className='resp';
+    el.innerHTML='<div class="resp-head"><span class="situ">'+esc(r.situ)+'</span><span class="n">#'+r.n+'</span></div>'+
+      '<div class="resp-body">'+verHTML('tu','Chat y redes · tú',r.tu,r.situ)+verHTML('usted','PQRSD y formal · usted',r.usted,r.situ)+'</div>';
+    const btns=el.querySelectorAll('.copy');
+    btns[0].addEventListener('click',e=>copy(e.currentTarget,r.tu));
+    btns[1].addEventListener('click',e=>copy(e.currentTarget,r.usted));
+    box.appendChild(el);
+  });
+});
+let tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>{t.classList.remove('show');t.textContent='';},1500);}
+function copy(btn,text){
+  const done=()=>{btn.classList.add('done');btn.innerHTML=DI+'Copiado';toast('Respuesta copiada al portapapeles');
+    setTimeout(()=>{btn.classList.remove('done');btn.innerHTML=CI+'Copiar'},1500);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>fb(text,done));}
+  else{fb(text,done);}
+}
+function fb(text,done){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);done();}
+
+// Barra de tema: luz / noche
+(function(){
+  const root=document.documentElement, btn=document.getElementById('tema');
+  const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  const MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
+  function eff(){const s=root.getAttribute('data-theme');if(s)return s;return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  function upd(){const dark=eff()==='dark';btn.innerHTML=(dark?SUN:MOON)+'<span>'+(dark?'Día':'Noche')+'</span>';
+    btn.setAttribute('aria-pressed',dark?'true':'false');
+    btn.setAttribute('aria-label',dark?'Activar modo día':'Activar modo noche');}
+  btn.addEventListener('click',()=>{const n=eff()==='dark'?'light':'dark';root.setAttribute('data-theme',n);
+    try{localStorage.setItem('tema-mov',n)}catch(e){}upd();toast(n==='dark'?'Modo noche activado':'Modo día activado');});
+  upd();
+})();
+</script>
+
+</body></html>

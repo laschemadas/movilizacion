@@ -1,0 +1,155 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo · Diagnóstico de Accesibilidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@0,400;0,500;0,600;0,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>:root{
+  --bg:#FBFAF7; --surface:#FFFFFF; --surface-2:#F1EEE6; --border:#E3DDD0;
+  --ink:#18201C; --muted:#45514B;
+  --primary:#0E5E58; --primary-strong:#0A4742; --on-primary:#FFFFFF; --primary-tint:#DDEDEA;
+  --accent-btn:#9E300E; --on-accent:#FFFFFF;
+  --crit:#B3241B; --crit-tint:#F7DAD6; --crit-ink:#7A140D;
+  --warn:#8A5A00; --warn-tint:#F6E7C8; --warn-ink:#5E3D00;
+  --ok:#15602C; --ok-tint:#D8ECDD; --ok-ink:#124D24;
+  --info:#1E4FA8; --info-tint:#E1E9F8; --info-ink:#183F86;
+  --shadow:0 1px 2px rgba(24,32,28,.05),0 10px 26px -14px rgba(24,32,28,.22);
+  --shadow-lift:0 2px 4px rgba(24,32,28,.06),0 24px 46px -22px rgba(24,32,28,.34);
+  --radius:15px; --radius-sm:9px; --maxw:1000px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1614; --surface:#16211E; --surface-2:#1E2A27; --border:#2B3A35;
+  --ink:#ECF1EE; --muted:#AEC3B9;
+  --primary:#3CC3AD; --primary-strong:#5AD3BE; --on-primary:#0E1614; --primary-tint:#15302B;
+  --accent-btn:#FF7C57; --on-accent:#0E1614;
+  --crit:#FF8B7E; --crit-tint:#3A1B18; --crit-ink:#FFB0A6;
+  --warn:#F0C05A; --warn-tint:#33280F; --warn-ink:#F3CE7E;
+  --ok:#63D082; --ok-tint:#123020; --ok-ink:#7BDD97;
+  --info:#6FA1FF; --info-tint:#13233F; --info-ink:#A9C6FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+}}
+:root[data-theme="dark"]{
+  --bg:#0E1614; --surface:#16211E; --surface-2:#1E2A27; --border:#2B3A35;
+  --ink:#ECF1EE; --muted:#AEC3B9;
+  --primary:#3CC3AD; --primary-strong:#5AD3BE; --on-primary:#0E1614; --primary-tint:#15302B;
+  --accent-btn:#FF7C57; --on-accent:#0E1614;
+  --crit:#FF8B7E; --crit-tint:#3A1B18; --crit-ink:#FFB0A6;
+  --warn:#F0C05A; --warn-tint:#33280F; --warn-ink:#F3CE7E;
+  --ok:#63D082; --ok-tint:#123020; --ok-ink:#7BDD97;
+  --info:#6FA1FF; --info-tint:#13233F; --info-ink:#A9C6FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.5),0 26px 50px -22px rgba(0,0,0,.75);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;line-height:1.12;text-wrap:balance;margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--primary);font-family:"IBM Plex Mono",monospace}
+.skip{position:absolute;left:8px;top:-60px;z-index:100;background:var(--primary);color:var(--on-primary);padding:.7em 1.1em;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .18s}
+.skip:focus{top:0}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+.topbar{border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:800;font-size:15px;line-height:1.1}
+.brand small{display:block;font-family:"Public Sans";font-weight:500;font-size:11px;color:var(--muted)}
+.mark{width:34px;height:34px;border-radius:9px;flex:none;background:linear-gradient(135deg,#0E5E58,#093F3B);display:grid;place-items:center;color:#fff;font-size:17px}
+.theme-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--ink);width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:17px;display:grid;place-items:center}
+
+.hero{padding:56px 0 20px;text-align:center}
+.hero h1{font-size:clamp(30px,5vw,50px);letter-spacing:-.02em;margin:14px 0 0}
+.hero p.sub{font-size:clamp(16px,2vw,20px);color:var(--muted);margin:16px auto 0;max-width:60ch}
+
+.form{max-width:640px;margin:30px auto 0;display:flex;gap:10px;flex-wrap:wrap}
+.form .field{flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.form label{font-size:13px;font-weight:600}
+.form input{font-family:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.8em .9em;width:100%;min-height:52px}
+.form input:focus{border-color:var(--primary);outline:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;cursor:pointer;border:none;font-family:inherit;font-size:16px;font-weight:700;border-radius:var(--radius-sm);padding:0 1.4em;min-height:52px;background:var(--accent-btn);color:var(--on-accent);transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.btn[disabled]{opacity:.7;cursor:progress;transform:none}
+.form-hint{max-width:640px;margin:10px auto 0;font-size:13px;color:var(--muted);text-align:center}
+
+.status{max-width:640px;margin:22px auto 0}
+.loading{display:flex;gap:12px;align-items:center;justify-content:center;color:var(--muted);font-size:15px}
+.spinner{width:22px;height:22px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--primary);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.errorbox{background:var(--crit-tint);border:1px solid color-mix(in srgb,var(--crit) 40%,var(--border));border-radius:var(--radius);padding:16px 18px;color:var(--ink)}
+.errorbox b{color:var(--crit-ink)}
+
+main{padding:20px 0 60px}
+.report{margin-top:26px;display:flex;flex-direction:column;gap:24px}
+
+.scorecard{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+@media(max-width:560px){.scorecard{grid-template-columns:1fr;text-align:center}}
+.ring{--p:0;--rc:var(--primary);width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--rc) calc(var(--p)*1%),var(--surface-2) 0);position:relative;margin:0 auto}
+.ring::before{content:"";position:absolute;inset:12px;border-radius:50%;background:var(--surface)}
+.ring b{position:relative;font-family:"Bricolage Grotesque";font-weight:800;font-size:34px;font-variant-numeric:tabular-nums;line-height:1}
+.ring b small{display:block;font-family:"Public Sans";font-weight:600;font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.sc-info h2{font-size:clamp(20px,3vw,26px);letter-spacing:-.01em}
+.sc-info .url{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted);word-break:break-all;margin:4px 0 0}
+.sc-info .meta{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.tagm{font-size:12px;font-family:"IBM Plex Mono",monospace;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:.35em .7em}
+.tagm b{color:var(--muted);font-weight:500}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--kc,var(--primary))}
+.kpi .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:30px;line-height:1;color:var(--kc,var(--ink));font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.4}
+
+.principio{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.principio>h3{font-size:18px;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--surface-2);display:flex;align-items:center;gap:10px}
+.principio>h3 .cnt{margin-left:auto;font-size:13px;font-family:"IBM Plex Mono",monospace;color:var(--muted);font-weight:500}
+.principio.empty>h3{color:var(--ok-ink)}
+.plist{display:flex;flex-direction:column}
+.finding{padding:18px 20px;border-top:1px solid var(--border)}
+.finding:first-child{border-top:none}
+.finding h4{font-size:16.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sev{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;padding:.3em .6em;border-radius:6px}
+.sev.critical{background:var(--crit-tint);color:var(--crit-ink)}
+.sev.serious{background:var(--warn-tint);color:var(--warn-ink)}
+.sev.moderate{background:var(--info-tint);color:var(--info-ink)}
+.sev.minor{background:var(--surface-2);color:var(--muted)}
+.finding .wcag{font-size:12px;font-family:"IBM Plex Mono",monospace;color:var(--muted)}
+.finding .porque{font-size:14.5px;color:var(--ink);margin:8px 0 0}
+.finding .sol{font-size:14.5px;margin:10px 0 0;padding:12px 14px;border-radius:var(--radius-sm);background:var(--primary-tint);border:1px solid color-mix(in srgb,var(--primary) 30%,var(--border))}
+.finding .sol b{color:var(--primary-strong)}
+.finding details{margin-top:10px}
+.finding summary{cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
+.finding .ej{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.finding .ej code{display:block;font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.finding .ej .sel{color:var(--info-ink);font-weight:600}
+
+.disclaimer{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;font-size:13.5px;color:var(--muted);line-height:1.55}
+.disclaimer b{color:var(--ink)}
+footer{border-top:1px solid var(--border);margin-top:36px;padding:26px 0 44px;color:var(--muted);font-size:13px;text-align:center}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media (forced-colors: active){.kpi,.principio,.finding,.scorecard,.form input,.btn{border:1px solid CanvasText}}
+
+.demoban{background:var(--warn-tint);color:var(--warn-ink);border:1px solid color-mix(in srgb,var(--warn) 40%,var(--border));border-radius:var(--radius-sm);padding:12px 16px;font-size:14px;margin:20px auto 0;max-width:var(--maxw)}
+</style></head><body>
+<a href="#c" class="skip">Saltar al contenido principal</a>
+<header class="topbar"><div class="wrap topbar-in"><div class="brand"><span class="mark" aria-hidden="true">◇</span><span>Diagnóstico de Accesibilidad<small>WCAG 2.1 · sector público</small></span></div><button class="theme-btn" id="tb" aria-label="Cambiar tema" aria-pressed="false">◐</button></div></header>
+<main id="c" class="wrap">
+<section class="hero"><span class="eyebrow">Vista de ejemplo del informe</span><h1>Así se ve el diagnóstico</h1><p class="sub">Esta es la salida real del motor (axe-core + navegador) ejecutada sobre una página de prueba con fallos deliberados. En producción, la persona escribe una URL real y obtiene este mismo informe.</p></section>
+<div class="demoban" role="note"><b>Demostración:</b> informe generado a partir de una página de prueba. En el sitio publicado se analiza la URL que ingrese la persona.</div>
+<section class="report">
+<div class="scorecard"><div class="ring" style="--p:46;--rc:var(--warn)"><b>46<small>／100 · D</small></b></div>
+<div class="sc-info"><h2>Sitio analizado</h2><p class="url">http://127.0.0.1:39109/</p><div class="meta"><span class="tagm"><b>Estándar:</b> WCAG 2.1 (A/AA) + contraste AAA (1.4.6)</span><span class="tagm"><b>Motor:</b> axe-core 4.10.2 + Chromium</span><span class="tagm"><b>HTTP:</b> 200</span></div></div></div>
+<div class="kpis">
+<div class="kpi" style="--kc:var(--crit)"><div class="n">11</div><div class="l">reglas WCAG incumplidas</div></div>
+<div class="kpi" style="--kc:var(--crit)"><div class="n">8</div><div class="l">hallazgos críticos o graves</div></div>
+<div class="kpi" style="--kc:var(--warn)"><div class="n">2</div><div class="l">elementos con contraste insuficiente</div></div>
+<div class="kpi" style="--kc:var(--ok)"><div class="n">17</div><div class="l">reglas que sí cumple</div></div></div>
+<div class="principio "><h3>Perceptible<span class="cnt">6 hallazgo(s)</span></h3><div class="plist"><div class="finding"><h4><span class="sev critical">Crítico</span>Imágenes sin texto alternativo<span class="wcag">WCAG 1.1.1</span></h4><p class="porque">Sin atributo alt, los lectores de pantalla no pueden describir la imagen a personas ciegas. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Agrega alt descriptivo a las imágenes informativas (qué muestran o para qué sirven) y alt="" a las puramente decorativas para que se ignoren.</p></div><div class="finding"><h4><span class="sev critical">Crítico</span>Zoom bloqueado en móvil<span class="wcag">WCAG 1.4.4</span></h4><p class="porque">Impedir el zoom (user-scalable=no o maximum-scale bajo) bloquea a quien necesita ampliar el texto. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Quita user-scalable=no y no fijes maximum-scale por debajo de 5 en la etiqueta viewport.</p></div><div class="finding"><h4><span class="sev serious">Grave</span>Contraste de texto por debajo de AAA<span class="wcag">WCAG 1.4.6</span><span class="wcag">· nivel AAA</span></h4><p class="porque">El texto no alcanza 7:1 (o 4.5:1 en texto grande), el nivel AAA que se espera de un servicio de gobierno. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Ajusta el par color/fondo hasta 7:1 en texto normal. Suele bastar con oscurecer el tono del texto o del relleno; deja el color vibrante para elementos decorativos grandes.</p></div><div class="finding"><h4><span class="sev serious">Grave</span>Contraste de texto insuficiente (AA)<span class="wcag">WCAG 1.4.3</span></h4><p class="porque">El texto no alcanza la razón mínima de contraste 4.5:1 (o 3:1 en texto grande). Personas con baja visión no pueden leerlo. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Oscurece el texto o aclara el fondo hasta llegar al menos a 4.5:1. Mide con un verificador WCAG; no lo estimes a ojo. Conserva el color de marca en franjas grandes y usa una variante oscurecida para el texto.</p></div><div class="finding"><h4><span class="sev moderate">Moderado</span>Jerarquía de encabezados con saltos</h4><p class="porque">Saltar niveles (de h1 a h4) rompe el mapa mental que usan los lectores de pantalla para navegar. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Ordena los encabezados sin saltos: un solo h1, luego h2, h3… según la estructura real.</p></div><div class="finding"><h4><span class="sev moderate">Moderado</span>Falta la región principal &lt;main&gt;</h4><p class="porque">Sin un &lt;main&gt;, quien navega por regiones no puede saltar directo al contenido central. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Envuelve el contenido principal en &lt;main&gt; (uno por página) y usa header, nav y footer para el resto.</p></div></div></div><div class="principio "><h3>Operable<span class="cnt">3 hallazgo(s)</span></h3><div class="plist"><div class="finding"><h4><span class="sev serious">Grave</span>La página no tiene título<span class="wcag">WCAG 2.4.2</span></h4><p class="porque">El &lt;title&gt; es lo primero que anuncia el lector de pantalla y lo que identifica la pestaña. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Agrega un &lt;title&gt; descriptivo y único por página.</p></div><div class="finding"><h4><span class="sev serious">Grave</span>Enlaces sin texto identificable<span class="wcag">WCAG 2.4.4</span></h4><p class="porque">Un enlace sin texto (solo ícono o vacío) no dice a dónde lleva; el lector de pantalla anuncia "enlace" sin más. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Da a cada enlace un texto claro. Si es solo un ícono, añade texto accesible con aria-label o un texto oculto visualmente.</p></div><div class="finding"><h4><span class="sev moderate">Moderado</span>Contenido fuera de regiones (landmarks)</h4><p class="porque">El contenido que no está dentro de un landmark es difícil de ubicar con lector de pantalla. <strong>9</strong> elementos afectados.</p><p class="sol"><b>Solución:</b> Coloca todo el contenido dentro de landmarks: header, nav, main, footer, aside.</p></div></div></div><div class="principio "><h3>Comprensible<span class="cnt">1 hallazgo(s)</span></h3><div class="plist"><div class="finding"><h4><span class="sev serious">Grave</span>Falta el idioma de la página<span class="wcag">WCAG 3.1.1</span></h4><p class="porque">Sin lang, el lector de pantalla puede leer el contenido con la pronunciación equivocada. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Declara el idioma en la etiqueta raíz: &lt;html lang="es"&gt;.</p></div></div></div><div class="principio "><h3>Robusto<span class="cnt">1 hallazgo(s)</span></h3><div class="plist"><div class="finding"><h4><span class="sev critical">Crítico</span>Botones sin nombre accesible<span class="wcag">WCAG 4.1.2</span></h4><p class="porque">Un botón sin texto ni etiqueta no comunica su acción a las tecnologías asistivas. <strong>1</strong> elemento afectado.</p><p class="sol"><b>Solución:</b> Dale texto visible o un aria-label que describa la acción (por ejemplo, "Buscar", "Cerrar menú").</p></div></div></div>
+<div class="disclaimer"><b>Alcance.</b> Análisis automatizado de una página con axe-core. No reemplaza una auditoría completa: navegación por teclado, orden de lectura, calidad real de textos alternativos y pruebas con lectores de pantalla requieren revisión manual.</div>
+</section></main>
+<footer><div class="wrap">Diagnóstico de Accesibilidad Web · axe-core y WCAG 2.1 · Resolución 1519 de 2020 (MinTIC)</div></footer>
+<script>var root=document.documentElement,tb=document.getElementById("tb");if(!root.getAttribute("lang"))root.setAttribute("lang","es");function sync(){var c=root.getAttribute("data-theme");var d=c?c==="dark":matchMedia("(prefers-color-scheme:dark)").matches;tb.setAttribute("aria-pressed",d?"true":"false");tb.setAttribute("aria-label",d?"Activar modo claro":"Activar modo oscuro");return d;}tb.addEventListener("click",function(){var d=sync();root.setAttribute("data-theme",d?"light":"dark");sync();});sync();</script>
+</body></html>
+</body></html>

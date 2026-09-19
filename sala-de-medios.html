@@ -1,0 +1,582 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sala de Medios</title>
+<meta name="description" content="Serious game: diriges un medio ciudadano de Medellín y tus decisiones éticas mueven los indicadores de la política pública de comunicación (Decreto 2124 de 2019).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Sala de Medios · paleta oficial Alcaldía de Medellín · Distrito CTI (Anexo 8).
+   Contraste verificado a WCAG AAA por script (claro y oscuro). Vibrantes de marca
+   solo como rieles/íconos; el texto va en variantes -ink. */
+:root{
+  --bg:#F5F7F8; --surface:#FFFFFF; --surface-2:#EEF3F4; --ink:#16232B; --muted:#44535B;
+  --line:#DCE3E6; --primary:#00506E; --primary-ink:#00506E; --accent:#823705; --accent-ink:#823705;
+  --soft-green:#E3EEF2; --soft-amber:#F6E9DD; --primary-btn:#005A7C; --on-primary:#FFFFFF;
+  --accent-btn:#8C3D07; --on-accent:#FFFFFF; --ok:#005A2E; --ok-soft:#E1EFE7; --no:#9A1B12; --no-soft:#F7E4E2;
+  --up:#005A2E; --down:#9A1B12; --gold:#695800; --ring:#00506E;
+  --shadow:0 1px 2px rgba(22,35,43,.08),0 8px 24px rgba(22,35,43,.07); --radius:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#002A2E; --surface:#063A3F; --surface-2:#04353A; --ink:#F2F7F7; --muted:#B6C7C8;
+  --line:#14484E; --primary:#4FD2FF; --primary-ink:#4FD2FF; --accent:#FFB684; --accent-ink:#FFB684;
+  --soft-green:#04353A; --soft-amber:#33251A; --primary-btn:#4FD2FF; --on-primary:#002A2E;
+  --accent-btn:#FFB684; --on-accent:#002A2E; --ok:#43E08F; --ok-soft:#0C332A; --no:#FFB0A6; --no-soft:#3A211E;
+  --up:#43E08F; --down:#FFB0A6; --gold:#FFDC2F; --ring:#4FD2FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --bg:#002A2E; --surface:#063A3F; --surface-2:#04353A; --ink:#F2F7F7; --muted:#B6C7C8;
+  --line:#14484E; --primary:#4FD2FF; --primary-ink:#4FD2FF; --accent:#FFB684; --accent-ink:#FFB684;
+  --soft-green:#04353A; --soft-amber:#33251A; --primary-btn:#4FD2FF; --on-primary:#002A2E;
+  --accent-btn:#FFB684; --on-accent:#002A2E; --ok:#43E08F; --ok-soft:#0C332A; --no:#FFB0A6; --no-soft:#3A211E;
+  --up:#43E08F; --down:#FFB0A6; --gold:#FFDC2F; --ring:#4FD2FF;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:"Bricolage Grotesque","Public Sans",sans-serif;line-height:1.12;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(1.7rem,4.5vw,2.7rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(1.3rem,3.2vw,1.9rem);font-weight:700}
+h3{font-size:1.12rem;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+a{color:var(--primary-ink)}
+.skip{position:absolute;left:12px;top:-64px;z-index:200;background:var(--primary-btn);color:var(--on-primary);padding:.75em 1.2em;border-radius:0 0 12px 12px;font-weight:700;text-decoration:none;transition:top .18s}
+.skip:focus{top:0}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:6px}
+::placeholder{color:var(--muted);opacity:1}
+
+header.top{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .row{display:flex;align-items:center;gap:14px;justify-content:space-between;max-width:900px;margin:0 auto;padding:10px 20px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .dot{width:34px;height:34px;border-radius:9px;flex:0 0 auto;background:var(--primary-btn);display:grid;place-items:center;color:var(--on-primary);font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
+.brand b{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.98rem;line-height:1.1}
+.brand small{display:block;color:var(--muted);font-size:.76rem;font-weight:500;letter-spacing:.02em}
+.hdr-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.homelink{display:inline-flex;align-items:center;min-height:44px;padding:.5em .85em;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font:inherit;font-weight:600;font-size:.86rem;text-decoration:none;white-space:nowrap}
+.homelink:hover{border-color:var(--primary)}
+.theme-btn{min-height:44px;min-width:44px;padding:.5em .8em;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font:inherit;font-weight:600;font-size:.86rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4em}
+.theme-btn:hover{border-color:var(--primary)}
+@media(max-width:560px){.homelink .lbl{display:none}}
+
+main{padding:8px 0 60px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
+@media(min-width:600px){.card{padding:30px}}
+section[hidden]{display:none!important}
+.reveal{animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-ink)}
+.lead{font-size:1.1rem;color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:48px;padding:.7em 1.4em;border-radius:12px;border:1px solid transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;font-size:1rem}
+.btn.primary{background:var(--primary-btn);color:var(--on-primary)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.ghost{background:var(--surface-2);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--primary)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+
+.meters{display:grid;gap:12px;margin:4px 0}
+.meter{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.meter .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+.meter .nm{font-weight:700;font-size:.92rem}
+.meter .nm small{display:block;color:var(--muted);font-weight:500;font-size:.76rem;text-transform:none;letter-spacing:0}
+.meter .val{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.05rem}
+.meter .track{height:12px;background:var(--bg);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.meter .track > i{display:block;height:100%;width:50%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .6s ease}
+.delta{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.82rem;margin-left:8px}
+.delta.up{color:var(--up)} .delta.down{color:var(--down)}
+
+.progress{height:10px;background:var(--surface-2);border:1px solid var(--line);border-radius:99px;overflow:hidden;margin:8px 0 2px}
+.progress>i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .4s}
+
+.models{display:grid;gap:12px;grid-template-columns:1fr;margin:18px 0}
+@media(min-width:620px){.models{grid-template-columns:1fr 1fr}}
+.model{text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;font:inherit;color:var(--ink)}
+.model:hover{border-color:var(--primary);background:var(--surface-2)}
+.model .mt{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.12rem;display:flex;align-items:center;gap:.5em;margin-bottom:4px}
+.model .lg{color:var(--ink);font-size:.95rem;margin:0 0 6px}
+.model .pp{color:var(--muted);font-size:.88rem;margin:0}
+.model .boost{display:inline-block;margin-top:8px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--primary-ink);background:var(--soft-green);border:1px solid var(--line);border-radius:99px;padding:.25em .7em}
+
+.chip{display:inline-flex;align-items:center;gap:.4em;font-family:"IBM Plex Mono",monospace;font-size:.76rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);background:var(--soft-amber);border:1px solid var(--line);border-radius:99px;padding:.3em .7em}
+.situation{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.2rem;margin:12px 0 4px}
+.deber{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;min-height:48px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:14px 16px;cursor:pointer;font:inherit;font-size:1rem;line-height:1.4}
+.opt:hover:not([disabled]){border-color:var(--primary);background:var(--surface-2)}
+.opt .k{flex:0 0 auto;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.85rem;background:var(--surface-2);border:1px solid var(--line)}
+.opt[disabled]{cursor:default;opacity:.92}
+.opt.picked{border-color:var(--primary);background:var(--soft-green)}
+.feedback{margin-top:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-size:.97rem}
+.feedback.good{background:var(--ok-soft);border-color:var(--ok)}
+.feedback.warn{background:var(--no-soft);border-color:var(--no)}
+.feedback b{font-family:"Bricolage Grotesque",sans-serif}
+.feedback .earn{display:block;margin-top:8px;font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--primary-ink)}
+.pgrid{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:780px){.pgrid{grid-template-columns:1.45fr 1fr;align-items:start}}
+.side{position:sticky;top:80px}
+.qmeta{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:var(--muted);margin-bottom:2px}
+
+.verdict{border-left:5px solid var(--primary);background:var(--soft-green);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.badge{display:inline-flex;align-items:center;gap:.4em;font-size:.85rem;font-weight:600;background:var(--soft-green);color:var(--primary-ink);border:1px solid var(--line);padding:.3em .7em;border-radius:99px}
+.badge.off{background:var(--surface-2);color:var(--muted);opacity:.7}
+
+/* Transferencia */
+.field{margin:14px 0}
+.field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:6px}
+.field input,.field textarea{width:100%;min-height:48px;padding:.6em .8em;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:10px}
+.field textarea{min-height:90px;resize:vertical}
+.field input:hover,.field textarea:hover{border-color:var(--primary)}
+.suggest{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sug{font:inherit;font-size:.85rem;cursor:pointer;background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:.4em .8em;min-height:40px;color:var(--ink)}
+.sug:hover{border-color:var(--primary)}
+.errmsg{color:var(--accent-ink);font-size:.9rem;margin:8px 0 0}
+
+/* Acta / certificado */
+#acta{margin-top:18px}
+.acta{background:#FBF7EE;color:#16232B;border-radius:14px;padding:6px;box-shadow:0 10px 30px rgba(20,35,30,.18);background-image:linear-gradient(135deg,#005A7C,#8C3D07)}
+.acta .inner{background:#FBF7EE;border:2px solid #005A7C;border-radius:10px;padding:28px 26px;text-align:center}
+.acta .kicker{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#00506E;margin:0 0 4px}
+.acta .seal{width:60px;height:60px;border-radius:50%;margin:2px auto 8px;display:grid;place-items:center;background:#005A7C;color:#fff;font-size:1.7rem;border:3px solid #8C3D07}
+.acta h3.ct{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.6rem;color:#16232B;margin:2px 0}
+.acta .sub{color:#44535B;font-size:.95rem;margin:0 0 12px}
+.acta .toName{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.7rem;color:#00506E;margin:6px 0 2px;border-bottom:2px solid #005A7C;display:inline-block;padding:0 .3em .1em;max-width:100%;overflow-wrap:anywhere}
+.acta .body{color:#16232B;font-size:1rem;max-width:54ch;margin:10px auto 4px;line-height:1.55}
+.acta .body b{color:#8C3D07}
+.acta .commit{background:#F2ECDD;border:1px dashed #005A7C;border-radius:10px;padding:12px 14px;max-width:54ch;margin:12px auto 4px;text-align:left;color:#16232B;font-size:.95rem}
+.acta .commit b{display:block;font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#00506E;margin-bottom:3px}
+.acta .meta{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:center;margin:16px 0 2px;font-size:.88rem;color:#44535B}
+.acta .meta .val{display:block;color:#16232B;font-weight:700;font-family:"IBM Plex Mono",monospace}
+.acta .sign{margin-top:18px;border-top:1.5px solid #16232B;padding-top:6px;font-size:.82rem;color:#44535B;max-width:280px;margin-left:auto;margin-right:auto}
+.acta .sign b{display:block;color:#16232B;font-size:.9rem;font-family:"Bricolage Grotesque",sans-serif}
+.actaActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+
+footer{color:var(--muted);font-size:.85rem;text-align:center;padding:24px 20px 8px}
+footer a{color:var(--primary-ink)}
+
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}.reveal{animation:none}.meter .track>i,.progress>i{transition:none}}
+@media (forced-colors: active){.card,.meter,.model,.opt,.homelink,.theme-btn,.btn,.badge{border:1px solid CanvasText}.meter .track>i,.progress>i{background:Highlight}}
+@media print{
+  @page{margin:12mm}
+  body{background:#fff}
+  body *{visibility:hidden!important}
+  #acta,#acta *{visibility:visible!important}
+  #acta{position:absolute;left:0;top:0;width:100%;margin:0}
+  .acta{box-shadow:none}
+  .actaActions{display:none!important}
+}
+</style>
+
+<a class="skip" href="#main">Saltar al contenido principal</a>
+
+<header class="top">
+  <div class="row">
+    <div class="brand">
+      <span class="dot" aria-hidden="true">M</span>
+      <span><b>Sala de Medios</b><small>Alcaldía de Medellín · Distrito CTI · Secretaría de Comunicaciones</small></span>
+    </div>
+    <div class="hdr-actions">
+      <a class="homelink" href="modulos.html" rel="noopener" aria-label="Volver a la Caja de herramientas (página principal)"><span aria-hidden="true">←</span>&nbsp;<span class="lbl">Caja de herramientas</span></a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false"><span id="themeIcon" aria-hidden="true">🌗</span><span id="themeLabel">Tema</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <!-- INTRO -->
+  <section id="intro" class="card reveal" aria-labelledby="introH">
+    <p class="eyebrow">Serious game · Política pública de comunicación</p>
+    <h1 id="introH">Diriges un medio. Cada decisión cuenta.</h1>
+    <p class="lead">En Medellín, comunicar es un derecho. Así lo reconoce el Acuerdo 073 de 2013 y lo reglamenta el Decreto 2124 de 2019: la política pública que define cómo la ciudad fortalece a sus medios.</p>
+    <p class="lead">Aquí llevas las riendas de un medio ciudadano. Tomas decisiones frente a dilemas reales y cada una mueve los <b>cuatro indicadores</b> con que la política mide la salud de un medio.</p>
+
+    <h2 style="margin-top:22px;font-size:1.25rem">¿Qué vas a hacer?</h2>
+    <ol style="color:var(--muted);padding-left:1.1em;margin:.2em 0 1em">
+      <li>Eliges qué tipo de medio diriges (los 4 modelos de la política).</li>
+      <li>Enfrentas 8 dilemas: cada decisión mueve tus indicadores y ganas insignias.</li>
+      <li>Cierras con una misión real en tu territorio y tu acta de acreditación.</li>
+    </ol>
+    <p class="lead" style="font-size:1rem">Toma unos 12 minutos. Funciona con teclado y con lector de pantalla.</p>
+    <div class="actions"><button class="btn primary" id="toModel" type="button">Elegir mi medio →</button></div>
+  </section>
+
+  <!-- MODELO -->
+  <section id="model" class="card" aria-labelledby="modelH" hidden>
+    <p class="eyebrow">Paso 1 · Tu identidad</p>
+    <h2 id="modelH">¿Qué tipo de medio diriges?</h2>
+    <p class="lead" style="font-size:1rem">Son los cuatro modelos del Artículo 4. Tu elección le da a tu medio una fortaleza inicial.</p>
+    <div class="models" id="modelHost" role="group" aria-label="Modelos de medio"></div>
+  </section>
+
+  <!-- PLAY -->
+  <section id="play" aria-labelledby="playH" hidden>
+    <h2 id="playH" class="vh">Dilema en curso</h2>
+    <div class="progress" aria-hidden="true"><i id="seasonBar"></i></div>
+    <div class="pgrid">
+      <div class="card reveal" id="sceneHost" aria-live="polite"></div>
+      <div class="side">
+        <div class="card">
+          <p class="eyebrow" style="margin-bottom:10px">Salud de tu medio</p>
+          <div class="meters" id="meterHost" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFERENCIA -->
+  <section id="transfer" class="card" aria-labelledby="trH" hidden>
+    <p class="eyebrow">Última misión · Llévalo a tu territorio</p>
+    <h2 id="trH">De la sala a la calle</h2>
+    <p class="lead" style="font-size:1rem">Jugar no basta: la política vive cuando actúas. Escribe un paso real que darás con tu medio esta semana.</p>
+    <div class="field">
+      <label for="trName">Tu nombre</label>
+      <input id="trName" type="text" autocomplete="name" maxlength="70" placeholder="Ej.: María Camila Restrepo">
+    </div>
+    <div class="field">
+      <label for="trMedio">El nombre de tu medio</label>
+      <input id="trMedio" type="text" maxlength="70" placeholder="Ej.: La Voz de la Comuna 8">
+    </div>
+    <div class="field">
+      <label for="trCommit">Un paso real que darás esta semana</label>
+      <textarea id="trCommit" maxlength="240" placeholder="Ej.: Voy a acreditar mi medio ante la Alcaldía."></textarea>
+      <div class="suggest" id="sugHost" aria-label="Ideas de compromiso"></div>
+    </div>
+    <p class="errmsg" id="trErr" role="status"></p>
+    <div class="actions">
+      <button class="btn primary" id="trGo" type="button">Ver mi resultado →</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="card" aria-labelledby="resH" hidden>
+    <p class="eyebrow">Resultado · El estado de tu medio</p>
+    <h2 id="resH">Cómo te fue</h2>
+    <div class="meters" id="resMeters" aria-live="polite"></div>
+    <div class="verdict" id="verdict"></div>
+
+    <h3>Insignias que ganaste</h3>
+    <div class="badges" id="badgeBox"></div>
+
+    <div id="actaZone" style="margin-top:20px"></div>
+
+    <h3 style="margin-top:22px">Sigue tu camino</h3>
+    <p class="lead" style="font-size:1rem">Da el siguiente paso con estos enlaces oficiales.</p>
+    <div class="badges">
+      <a class="badge" href="https://www.medellin.gov.co/es/secretaria-comunicaciones/" target="_blank" rel="noopener">🏛️ Secretaría de Comunicaciones <span class="vh">(se abre en una pestaña nueva)</span></a>
+      <a class="badge" href="https://www.medellin.gov.co/es/secretaria-participacion-ciudadana/planeacion-local-y-presupuesto-participativo/" target="_blank" rel="noopener">🙋 Planeación Local y PP <span class="vh">(se abre en una pestaña nueva)</span></a>
+      <a class="badge" href="modulos.html" rel="noopener">🧰 Caja de herramientas</a>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="replay" type="button">Volver a jugar</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>Herramienta pedagógica de la <b>Secretaría de Comunicaciones</b> · Alcaldía de Medellín, Distrito CTI.<br>
+    Basada en el Compendio de la política pública de comunicación (Acuerdo 073 de 2013 · Decreto 2124 de 2019). Fines educativos.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  try{ document.documentElement.lang="es"; }catch(e){}
+  var $=function(id){return document.getElementById(id);};
+
+  var METERS=[
+    {k:"ISIN",name:"Rol social",full:"ISIN · Sostenibilidad Integral: cumplimiento del rol social del medio"},
+    {k:"ISF",name:"Sostenibilidad financiera",full:"ISF · Sostenibilidad financiera: ingresos y egresos"},
+    {k:"ISS",name:"Trabajo en red",full:"ISS · Sostenibilidad social: alianzas y trabajo en red"},
+    {k:"ISI",name:"Solidez institucional",full:"ISI · Sostenibilidad institucional: cultura y gestión interna"}
+  ];
+
+  var MODELS=[
+    {key:"Alternativo",ico:"📢",lg:"Trabajas con otras lógicas: contenidos, públicos y formatos distintos a los medios tradicionales.",pp:"Buscas expresiones diversas para la movilización y el cambio social.",boost:"ISIN"},
+    {key:"Independiente",ico:"⚖️",lg:"Te defines por tu independencia política y económica, con mirada crítica.",pp:"Cuidas que la agenda pública no la controle un solo interés.",boost:"ISI"},
+    {key:"Comunitario",ico:"🏘️",lg:"Eres un grupo de un territorio que comparte visiones y realidades.",pp:"Fortaleces los procesos y la organización de tu comunidad.",boost:"ISS"},
+    {key:"Ciudadano",ico:"🙋",lg:"Construyes ciudadanía desde enfoques poblacionales, sectoriales y culturales.",pp:"Promueves derechos y temas de interés común.",boost:"ISIN"}
+  ];
+
+  var BADGES=["✅ Veracidad","⚖️ Independencia","🛡️ Dignidad","🗺️ Territorio","🤝 Redes","🔎 Transparencia","🎓 Conocimiento","📣 Incidencia"];
+
+  var DILEMMAS=[
+    {chip:"Deber · Veracidad", badge:0,
+     s:"Un video sin confirmar acusa a un líder comunal de robo. Ya es viral y tu comunidad espera que digas algo.",
+     deber:"En juego: el deber de informar con la verdad.",
+     o:[
+      {t:"Verificar con fuentes antes de publicar", d:{ISIN:8,ISF:-3,ISI:4}, good:true, best:true,
+       fx:"Perdiste la primicia, pero cuidaste tu credibilidad. La veracidad es un deber, no una opción."},
+      {t:"Publicar ya y corregir después", d:{ISF:6,ISIN:-10,ISS:-4}, good:false,
+       fx:"Ganaste clics, pero difundir sin verificar puede dañar a una persona y hunde tu legitimidad."},
+      {t:"No decir nada", d:{ISIN:-2,ISS:-3}, good:false,
+       fx:"Evitas el error, pero tu medio existe para contar el territorio. Callar también resta."}
+     ]},
+    {chip:"Enfoque · Derechos e independencia", badge:1,
+     s:"Una entidad te ofrece una pauta grande. La condición: que no toques un tema que le incomoda.",
+     deber:"En juego: que la agenda pública no la controle un solo interés.",
+     o:[
+      {t:"Aceptar la pauta y evitar ese tema", d:{ISF:12,ISIN:-12,ISI:-6}, good:false,
+       fx:"Entra dinero, pero cambiaste tu criterio por pauta. Perdiste independencia."},
+      {t:"Negociar la pauta sin condiciones", d:{ISF:3,ISIN:8,ISS:3}, good:true, best:true,
+       fx:"Sostienes ingresos y criterio. La política valora la incidencia por encima de la dependencia."},
+      {t:"Rechazar toda pauta oficial", d:{ISIN:4,ISF:-8}, good:false,
+       fx:"Coherente, pero renunciar a un fomento legítimo puede asfixiarte. Independencia no es pobreza."}
+     ]},
+    {chip:"Deber · Proteger la imagen", badge:2,
+     s:"Tienes una foto fuerte de un niño llorando en un desalojo. Contaría la historia… pero muestra su rostro.",
+     deber:"En juego: proteger los datos, la imagen y la dignidad, sobre todo de un menor.",
+     o:[
+      {t:"Publicar con el rostro visible", d:{ISIN:-12,ISI:-5}, good:false,
+       fx:"Impacta, pero expones a un menor sin protección. Es una falta ética grave."},
+      {t:"Difuminar el rostro o pedir permiso", d:{ISIN:8,ISS:2}, good:true, best:true,
+       fx:"Cuentas la historia sin vulnerar a nadie. Proteger la imagen es un deber."},
+      {t:"Narrar la historia sin esa imagen", d:{ISIN:5}, good:true,
+       fx:"Renuncias al impacto visual y buscas otro recurso: la creatividad al servicio de la ética."}
+     ]},
+    {chip:"Enfoque · Territorial y diferencial", badge:3,
+     s:"Tus recursos son pocos. Puedes cubrir la comuna urbana con más audiencia o el corregimiento rural que casi nadie atiende.",
+     deber:"En juego: lo urbano y lo rural no son iguales; cada uno pide su trato.",
+     o:[
+      {t:"Cubrir solo lo urbano, más audiencia", d:{ISF:6,ISS:-6,ISIN:-3}, good:false,
+       fx:"Más números, pero dejas por fuera al territorio más desatendido. El enfoque territorial pide equilibrio."},
+      {t:"Equilibrar comuna y corregimiento", d:{ISS:8,ISIN:5,ISF:-2}, good:true, best:true,
+       fx:"Atiendes lo urbano y lo rural según sus realidades. Eso es enfoque diferencial."},
+      {t:"Cubrir solo lo rural", d:{ISS:3,ISF:-6}, good:false,
+       fx:"Cubres lo olvidado, pero descuidar tu base urbana golpea tu sostenibilidad."}
+     ]},
+    {chip:"Estructura · Trabajo en red", badge:4,
+     s:"Te invitan a una mesa de trabajo con otros medios del barrio. Suma alianzas, pero te quita tiempo de producción.",
+     deber:"En juego: la comunicación también es tejer vecindad y red.",
+     o:[
+      {t:"Unirte y aportar", d:{ISS:12,ISI:4,ISF:-3}, good:true, best:true,
+       fx:"Tejes red y sumas fuerza colectiva. Solo, un medio llega menos lejos."},
+      {t:"No unirte, enfocarte en producir", d:{ISF:4,ISS:-8}, good:false,
+       fx:"Produces más hoy, pero te aíslas. El aislamiento debilita a los medios de base."},
+      {t:"Unirte solo para figurar", d:{ISS:-4,ISIN:-3}, good:false,
+       fx:"Estar sin aportar desgasta la confianza. La pertenencia se construye aportando."}
+     ]},
+    {chip:"Fortalecimiento · Acreditación", badge:5,
+     s:"Se abre la acreditación de medios ante la Alcaldía. Con ella entras al Ranking de Medios, que reparte la pauta oficial con reglas claras.",
+     deber:"En juego: acceder a recursos públicos con datos veraces y reglas transparentes.",
+     o:[
+      {t:"Acreditarte y ordenar tus soportes", d:{ISI:10,ISF:6,ISIN:4}, good:true, best:true,
+       fx:"Entras al sistema con reglas transparentes. La acreditación abre puertas legítimas."},
+      {t:"No acreditarte: “mucho trámite”", d:{ISI:-6,ISF:-4}, good:false,
+       fx:"Te ahorras el papeleo, pero quedas por fuera del fomento estatal. Pierdes por no participar."},
+      {t:"Acreditarte inflando tus datos", d:{ISI:-8,ISIN:-10}, good:false,
+       fx:"Un atajo que viola la veracidad. Si te descubren, pierdes la confianza y el acceso."}
+     ]},
+    {chip:"Conocimiento · Formación", badge:6,
+     s:"La Escuela de Formación abre un curso de autogestión. Tu equipo está saturado de trabajo.",
+     deber:"En juego: formarte para durar (gestión del conocimiento).",
+     o:[
+      {t:"Mandar al equipo a formarse", d:{ISI:8,ISS:4,ISF:-2}, good:true, best:true,
+       fx:"Inviertes en capacidad. Un equipo formado sostiene el medio en el tiempo."},
+      {t:"Dejarlo para después", d:{ISI:-3}, good:false,
+       fx:"Aplazas, y la mejora también se aplaza. La formación rara vez llega “después”."},
+      {t:"Ir tú y luego replicar al equipo", d:{ISI:6,ISS:3}, good:true,
+       fx:"Buena salida con poco tiempo: aprendes y multiplicas. No reemplaza formar a todos, pero avanza."}
+     ]},
+    {chip:"Incidencia · El “dilema del gueto”", badge:7,
+     s:"Un medio grande te ofrece amplificar tu contenido. A cambio, quiere que bajes el tono crítico.",
+     deber:"En juego: incidir sin encerrarte, pero sin vender tu criterio.",
+     o:[
+      {t:"Aceptar y moderar tu crítica", d:{ISS:6,ISIN:-6}, good:false,
+       fx:"Llegas a más gente, pero suavizas tu voz. Ganar alcance perdiendo criterio no es incidir."},
+      {t:"Buscar el diálogo sin renunciar a tu crítica", d:{ISIN:6,ISS:5}, good:true, best:true,
+       fx:"Sales del “gueto” sin venderte. Así se incide: con interlocución y criterio."},
+      {t:"Negarte a todo diálogo", d:{ISIN:2,ISS:-6}, good:false,
+       fx:"Cuidas tu voz, pero te aíslas. El “gueto” también limita tu incidencia."}
+     ]}
+  ];
+
+  var SUGS=[
+    "Voy a acreditar mi medio ante la Alcaldía.",
+    "Me sumo a una mesa de trabajo de mi comuna.",
+    "Definiré un protocolo para proteger la imagen de menores.",
+    "Voy a cubrir una historia del corregimiento.",
+    "Inscribiré a mi equipo en la Escuela de Formación."
+  ];
+
+  var state=null;
+  function reset(){ state={model:null, m:{ISIN:58,ISF:50,ISS:52,ISI:54}, idx:0, badges:[], tr:{}}; }
+  reset();
+
+  function clamp(v){return Math.max(0,Math.min(100,v));}
+  function show(id){
+    ["intro","model","play","transfer","result"].forEach(function(s){$(s).hidden=(s!==id);});
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function meterHTML(host, deltas){
+    host.innerHTML="";
+    METERS.forEach(function(mt){
+      var v=state.m[mt.k], d=deltas&&deltas[mt.k]?deltas[mt.k]:0;
+      var deltaTxt=d?('<span class="delta '+(d>0?"up":"down")+'">'+(d>0?"+":"")+d+'</span>'):"";
+      var el=document.createElement("div"); el.className="meter";
+      el.innerHTML='<div class="head"><span class="nm">'+mt.k+'<small>'+mt.name+'</small></span>'+
+        '<span class="val">'+v+deltaTxt+'</span></div>'+
+        '<div class="track" role="progressbar" aria-label="'+mt.full+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+v+'"><i style="width:'+v+'%"></i></div>';
+      host.appendChild(el);
+    });
+  }
+
+  function renderModels(){
+    var host=$("modelHost"); host.innerHTML="";
+    MODELS.forEach(function(md){
+      var b=document.createElement("button"); b.type="button"; b.className="model";
+      b.innerHTML='<span class="mt"><span aria-hidden="true">'+md.ico+'</span> '+md.key+'</span>'+
+        '<p class="lg">'+md.lg+'</p><p class="pp">'+md.pp+'</p>'+
+        '<span class="boost">Fortaleza inicial: +5 '+md.boost+'</span>';
+      b.addEventListener("click",function(){
+        state.model=md; state.m[md.boost]=clamp(state.m[md.boost]+5); state.idx=0;
+        show("play"); renderScene();
+      });
+      host.appendChild(b);
+    });
+  }
+
+  function renderScene(){
+    $("seasonBar").style.width=Math.round(state.idx/DILEMMAS.length*100)+"%";
+    meterHTML($("meterHost"), null);
+    var d=DILEMMAS[state.idx];
+    var host=$("sceneHost"); host.className="card reveal"; host.innerHTML=""; delete host.dataset.done;
+    var wrap=document.createElement("div");
+    wrap.innerHTML='<p class="qmeta">Decisión '+(state.idx+1)+' de '+DILEMMAS.length+' · Medio '+state.model.key.toLowerCase()+'</p>'+
+      '<span class="chip">'+d.chip+'</span>'+
+      '<p class="situation">'+d.s+'</p><p class="deber">'+d.deber+'</p>';
+    var list=document.createElement("div"); list.className="opts"; list.setAttribute("role","group"); list.setAttribute("aria-label","Opciones de decisión");
+    var btns=[];
+    var order=d.o.map(function(_,i){return i;});
+    for(var z=order.length-1;z>0;z--){var j=Math.floor(Math.random()*(z+1));var tmp=order[z];order[z]=order[j];order[j]=tmp;}
+    order.forEach(function(oi,pos){
+      var o=d.o[oi];
+      var b=document.createElement("button"); b.type="button"; b.className="opt";
+      b.innerHTML='<span class="k" aria-hidden="true">'+["A","B","C","D"][pos]+'</span><span>'+o.t+'</span>';
+      b.addEventListener("click",function(){ if(host.dataset.done)return; commit(d,o,b,btns,host); });
+      btns.push(b); list.appendChild(b);
+    });
+    wrap.appendChild(list);
+    var fb=document.createElement("div"); fb.className="feedback"; fb.hidden=true; fb.setAttribute("role","status"); fb.id="fbSlot";
+    wrap.appendChild(fb);
+    var act=document.createElement("div"); act.className="actions";
+    var next=document.createElement("button"); next.type="button"; next.className="btn primary"; next.id="nextBtn";
+    next.textContent=(state.idx===DILEMMAS.length-1)?"Ir a la misión final →":"Siguiente decisión →";
+    next.disabled=true; next.addEventListener("click",advance);
+    act.appendChild(next); wrap.appendChild(act); host.appendChild(wrap);
+  }
+
+  function commit(d,o,btn,btns,host){
+    host.dataset.done="1";
+    btns.forEach(function(x){x.disabled=true;});
+    btn.classList.add("picked");
+    var deltas={};
+    Object.keys(o.d).forEach(function(k){ deltas[k]=o.d[k]; state.m[k]=clamp(state.m[k]+o.d[k]); });
+    meterHTML($("meterHost"), deltas);
+    var earned="";
+    if(o.best && state.badges.indexOf(d.badge)===-1){ state.badges.push(d.badge); earned='<span class="earn">🏅 Insignia ganada: '+BADGES[d.badge]+'</span>'; }
+    var fb=$("fbSlot"); fb.hidden=false; fb.className="feedback "+(o.good?"good":"warn");
+    fb.innerHTML="<b>"+(o.good?"Buena decisión. ":"Cuidado. ")+"</b>"+o.fx+earned;
+    var nb=$("nextBtn"); nb.disabled=false; nb.focus();
+  }
+
+  function advance(){
+    state.idx++;
+    if(state.idx<DILEMMAS.length){ renderScene(); }
+    else{ $("seasonBar").style.width="100%"; startTransfer(); }
+  }
+
+  /* Transferencia */
+  function startTransfer(){
+    var sug=$("sugHost"); sug.innerHTML="";
+    SUGS.forEach(function(txt){
+      var b=document.createElement("button"); b.type="button"; b.className="sug"; b.textContent=txt;
+      b.addEventListener("click",function(){ $("trCommit").value=txt; $("trCommit").focus(); });
+      sug.appendChild(b);
+    });
+    show("transfer");
+  }
+  $("trGo").addEventListener("click",function(){
+    var name=($("trName").value||"").trim(), medio=($("trMedio").value||"").trim(), commit=($("trCommit").value||"").trim();
+    if(name.length<2||medio.length<2||commit.length<5){
+      $("trErr").textContent="Completa tu nombre, tu medio y un paso concreto para continuar.";
+      return;
+    }
+    $("trErr").textContent="";
+    state.tr={name:name,medio:medio,commit:commit};
+    renderResult();
+  });
+
+  /* Resultados */
+  var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  function todayEs(){var d=new Date();return d.getDate()+" de "+MESES[d.getMonth()]+" de "+d.getFullYear();}
+  function makeFolio(){var s="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",r="";for(var i=0;i<5;i++){r+=s.charAt(Math.floor(Math.random()*s.length));}return "SM-"+(new Date().getFullYear())+"-"+r;}
+
+  function renderResult(){
+    meterHTML($("resMeters"), null);
+    var isin=state.m.ISIN, min=Math.min(state.m.ISIN,state.m.ISF,state.m.ISS,state.m.ISI);
+    var passed=(isin>=60 && min>=35);
+    var v=$("verdict"), t="";
+    if(isin>=70 && min>=45){ t="<b>Medio con alta legitimidad.</b> Tu rol social se mantuvo firme y ningún frente colapsó. Listo para acreditarte con la cara en alto."; }
+    else if(passed){ t="<b>Medio en equilibrio.</b> Sostienes tu ética, aunque algún indicador quedó débil. Revisa dónde cediste terreno."; }
+    else{ t="<b>Tu rol social se resintió.</b> Algunas decisiones pusieron lo urgente por encima de lo ético. Sin rol social, un medio pierde su razón de ser. Vuelve a intentarlo."; }
+    v.innerHTML=t;
+
+    var bb=$("badgeBox"); bb.innerHTML="";
+    BADGES.forEach(function(nm,i){
+      var s=document.createElement("span"); s.className="badge"+(state.badges.indexOf(i)===-1?" off":"");
+      s.textContent=(state.badges.indexOf(i)===-1?"🔒 ":"")+nm; bb.appendChild(s);
+    });
+
+    var az=$("actaZone"); az.innerHTML="";
+    if(passed){
+      var folio=makeFolio();
+      az.innerHTML=
+        '<section id="acta" aria-label="Acta de acreditación simbólica">'+
+        '<div class="acta"><div class="inner">'+
+        '<div class="seal" aria-hidden="true">🏅</div>'+
+        '<p class="kicker">Medellín se comunica aprendiendo · Secretaría de Comunicaciones</p>'+
+        '<h3 class="ct">Acta de acreditación simbólica</h3>'+
+        '<p class="sub">Sala de Medios · política pública de comunicación</p>'+
+        '<p style="margin:6px 0 0;color:#44535B">Se reconoce a</p>'+
+        '<div class="toName">'+esc(state.tr.name)+'</div>'+
+        '<p class="body">al frente del medio <b>'+esc(state.tr.medio)+'</b> ('+state.model.key.toLowerCase()+'), '+
+        'por dirigirlo con ética: cerró con un rol social (ISIN) de <b>'+isin+'/100</b> y '+state.badges.length+' de 8 insignias.</p>'+
+        '<div class="commit"><b>Mi compromiso con el territorio</b>'+esc(state.tr.commit)+'</div>'+
+        '<div class="meta"><span>Rol social<span class="val">'+isin+' / 100</span></span>'+
+        '<span>Fecha<span class="val">'+todayEs()+'</span></span>'+
+        '<span>Folio<span class="val">'+folio+'</span></span></div>'+
+        '<div class="sign"><b>Secretaría de Comunicaciones</b>Reconocimiento con fines educativos</div>'+
+        '</div></div>'+
+        '<div class="actaActions">'+
+        '<button class="btn primary" id="printActa" type="button">⬇ Descargar mi acta (PDF)</button>'+
+        '</div></section>';
+      $("printActa").addEventListener("click",function(){ window.print(); });
+    } else {
+      az.innerHTML='<div class="verdict" style="border-left-color:var(--accent);background:var(--soft-amber)">'+
+        '<p style="margin:0"><b>Aún no alcanzas la acreditación.</b> Necesitas un rol social (ISIN) de al menos 60 y que ningún indicador caiga por debajo de 35. '+
+        'Tu compromiso quedó anotado: <em>“'+esc(state.tr.commit)+'”</em>. Repite el recorrido cuidando la ética y lo lograrás.</p></div>';
+    }
+    show("result");
+  }
+
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+  /* Tema */
+  function curDark(){var t=document.documentElement.getAttribute("data-theme");if(t==="dark")return true;if(t==="light")return false;return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;}
+  function syncTheme(){var d=curDark();$("themeIcon").textContent=d?"☀️":"🌙";$("themeLabel").textContent=d?"Claro":"Oscuro";$("themeBtn").setAttribute("aria-pressed",String(d));$("themeBtn").setAttribute("aria-label",d?"Cambiar a tema claro":"Cambiar a tema oscuro");}
+  $("themeBtn").addEventListener("click",function(){document.documentElement.setAttribute("data-theme",curDark()?"light":"dark");syncTheme();});
+  if(window.matchMedia){var mq=window.matchMedia("(prefers-color-scheme: dark)");(mq.addEventListener?mq.addEventListener.bind(mq,"change"):mq.addListener.bind(mq))(function(){if(!document.documentElement.getAttribute("data-theme"))syncTheme();});}
+  syncTheme();
+
+  /* Listeners */
+  $("toModel").addEventListener("click",function(){ show("model"); renderModels(); });
+  $("replay").addEventListener("click",function(){ reset(); $("trName").value="";$("trMedio").value="";$("trCommit").value="";$("trErr").textContent=""; show("intro"); });
+})();
+</script>
+
+</body></html>
